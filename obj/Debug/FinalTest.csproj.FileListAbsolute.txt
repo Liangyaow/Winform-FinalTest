@@ -12,3 +12,5 @@ D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.UARTSetting.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.LoginForm.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.RegisterForm.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.NIBPForm.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.RespForm.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.SPO2Form.resources

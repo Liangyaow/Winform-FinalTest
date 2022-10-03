@@ -21,7 +21,6 @@ namespace FinalTest
 
         public string mNIBPMeasMode = "手动";      //血压测量模式
 
-
         public const int PACK_QUEUE_CNT = 2000;    //缓冲的长度
 
         public const int WAVE_X_SIZE = 1080;       //绘制波形区域的长，如果绘图区域长度更改，更改此值       
@@ -60,7 +59,6 @@ namespace FinalTest
         private SendData mSendData = null;         //声明串口，用于发送命令给从机（单片机）
 
 
-
         //呼吸
         private string mRespGainSet = "X1";                          //呼吸增益设置
         private List<ushort> mRespWaveList = new List<ushort>();     //线性链表，内容为Resp的波形数据
@@ -96,11 +94,15 @@ namespace FinalTest
 
             mNIBPForm = new NIBPForm(mSendData, mNIBPMeasMode);
             mNIBPForm.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
+            mNIBPForm.sendNIBPMeasModeEvent += new nibpSetHandler(procNIBPMeasMode);
 
             mRespForm = new RespForm(mSendData, mRespGainSet);
+            mRespForm.sendRespGainEvent += new respSetHandler(procRespSetGain);
 
             mSPO2Form = new SPO2Form(mSendData, mSPO2SensSet);
+            mSPO2Form.sendSPO2SensEvent += new spo2SetHandler(procSPO2Sens);
         }
+
         /***********************************************************************************************
         * 方法名称: sendCmdToMCU
         * 功能说明: 发送命令至单片机
@@ -110,6 +112,42 @@ namespace FinalTest
         void sendCmdToMCU(Byte[] arr, int len)
         {
             serialPort.Write(arr, 0, len);
+        }
+
+        /***********************************************************************************************
+        * 方法名称：procNIBPMeasMode
+        * 功能说明: 同步NIBP测量模式，将来自FormNIBPSet的血压测量模式measMode同步至MainFrom的血压
+        *           测量模式mNIBPMeasMode，并显示在MainForm
+        * 参数说明：输入参数measMode-测量模式         
+        * 注    意:
+        ***********************************************************************************************/
+        private void procNIBPMeasMode(string measMode)
+        {
+            mNIBPMeasMode = measMode;
+            mNIBPForm.LabelNIBPMeasModeText = "" + mNIBPMeasMode;
+        }
+
+        /***********************************************************************************************
+        * 方法名称：procRespSetGain
+        * 功能说明: 同步呼吸增益
+        * 参数说明：输入参数respGain-呼吸增益
+        * 注    意: 
+        ***********************************************************************************************/
+        private void procRespSetGain(string respGain)
+        {
+            mRespGainSet = respGain;
+        }
+
+        /***********************************************************************************************
+        * 方法名称：procSPO2Sens
+        * 功能说明: 同步血氧灵敏度值，将来自FormSPO2Set的spo2Sens与MainFrom的mSPO2SensSet同步，并显
+        *           示在MainForm         
+        * 参数说明：输入参数spo2Sens-血氧灵敏度值   
+        * 注    意:
+        ***********************************************************************************************/
+        private void procSPO2Sens(string spo2Sens)
+        {
+            mSPO2SensSet = spo2Sens;
         }
 
         /***********************************************************************************************
@@ -333,7 +371,6 @@ namespace FinalTest
                 {
                     analyzeSPO2Data(mPackAfterUnpackArr[index]);
                 }
-
             }
 
             lock (mLockObj)
@@ -344,12 +381,12 @@ namespace FinalTest
 
             if (mRespWaveList.Count > 2)     //呼吸波形数据超过两个才开始画波形
             {
-                //drawRespWave();
+                drawRespWave();
             }
 
             if (mSPO2WaveList.Count > 2)     //血氧波形数据超过两个才开始画波形
             {
-                //drawSPO2Wave();
+                drawSPO2Wave();
             }
         }
 
@@ -397,7 +434,7 @@ namespace FinalTest
                         cufPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPCufPre = cufPres.ToString();   //显示袖带压
+                    mNIBPForm.LabelNIBPCufPreText = cufPres.ToString();   //显示袖带压
                     break;
 
                 case 0x04:  //收缩压、舒张压、平均压
@@ -411,7 +448,7 @@ namespace FinalTest
                         sysPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPSys = sysPres.ToString();
+                    mNIBPForm.LabelNIBPSysText = sysPres.ToString();
 
                     diaPresHByte = packAfterUnpack[4];
                     diaPresLByte = packAfterUnpack[5];
@@ -423,7 +460,7 @@ namespace FinalTest
                         diaPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPDia = diaPres.ToString();
+                    mNIBPForm.LabelNIBPDiaText = diaPres.ToString();
 
                     mapPresHByte = packAfterUnpack[6];
                     mapPresLByte = packAfterUnpack[7];
@@ -435,7 +472,7 @@ namespace FinalTest
                         mapPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPMean = mapPres.ToString();
+                    mNIBPForm.LabelNIBPMeanText = mapPres.ToString();
                     break;
 
                 case 0x05:  //脉率
@@ -449,7 +486,7 @@ namespace FinalTest
                         pulseRate = 0;    //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPPR = pulseRate.ToString();
+                    mNIBPForm.LabelNIBPPRText = pulseRate.ToString();
                     break;
             }
         }
@@ -476,8 +513,6 @@ namespace FinalTest
                     {
                         respWave = packAfterUnpack[i];
                         mRespWaveList.Add(respWave);
-
-
                     }
 
                     break;
@@ -493,7 +528,7 @@ namespace FinalTest
                         respRate = 0;    //呼吸率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelRespRR.Text = respRate.ToString();
+                    mRespForm.LabelRespRRText = respRate.ToString();
                     break;
             }
         }
@@ -532,23 +567,23 @@ namespace FinalTest
 
                     if (fingerLead == 0x01)
                     {
-                        //labelSPO2FingerOff.ForeColor = Color.Red;
-                        //labelSPO2FingerOff.Text = "手指脱落";
+                        mSPO2Form.LabelSPO2FingerOffForeColor = Color.Red;
+                        mSPO2Form.LabelSPO2FingerOffText = "手指脱落";
                     }
                     else
                     {
-                        //labelSPO2FingerOff.ForeColor = Color.FromArgb(0, 255, 255);
-                        //labelSPO2FingerOff.Text = "手指连接";
+                        mSPO2Form.LabelSPO2FingerOffForeColor = Color.FromArgb(0, 255, 255);
+                        mSPO2Form.LabelSPO2FingerOffText = "手指连接";
                     }
                     if (sensorLead == 0x01)
                     {
-                        //labelSPO2PrbOff.ForeColor = Color.Red;
-                        //labelSPO2PrbOff.Text = "探头脱落";
+                        mSPO2Form.LabelSPO2PrbOffForeColor = Color.Red;
+                        mSPO2Form.LabelSPO2PrbOffText = "探头脱落";
                     }
                     else
                     {
-                        //labelSPO2PrbOff.ForeColor = Color.FromArgb(0, 255, 255);
-                        //labelSPO2PrbOff.Text = "探头连接";
+                        mSPO2Form.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
+                        mSPO2Form.LabelSPO2PrbOffText = "探头连接";
                     }
                     break;
 
@@ -563,21 +598,133 @@ namespace FinalTest
                         pulseRate = 0;      //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelSPO2PR.Text = pulseRate.ToString();
+                    mSPO2Form.LabelSPO2PRText = pulseRate.ToString();
 
                     spo2Value = packAfterUnpack[5];
 
                     if (0 < spo2Value && 100 > spo2Value)
                     {
-                        //labelSPO2Data.Text = spo2Value.ToString();
+                        mSPO2Form.LabelSPO2DataText = spo2Value.ToString();
                     }
                     else
                     {
-                        //labelSPO2Data.Text = "--";
+                        mSPO2Form.LabelSPO2DataText = "--";
                     }
 
                     break;
             }
+        }
+
+        /***********************************************************************************************
+        * 方法名称：drawRespWave
+        * 功能说明: 绘制Resp波形
+        * 注    意:
+        ***********************************************************************************************/
+        private void drawRespWave()
+        {
+            int iCnt = mRespWaveList.Count - 1;          //获取list列表中存储的所有呼吸数据
+            if (iCnt < 2)                                //如果数据少于两个就不绘制波形
+            {
+                return;
+            }
+            //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
+            Graphics graphics = Graphics.FromHwnd(mRespForm.DataGridViewResp.Handle);
+
+            Brush br = new SolidBrush(Color.Black);      //给绘制波形区域刷成黑色 
+
+            //当要画的点数大于画布剩余长度时，就要把画布的剩余长度画完，然后在起始处将剩余的数据画完
+            if (iCnt > WAVE_X_SIZE - mRespXStep)
+            {
+                //指定的位置(左上角x坐标和y坐标)和大小(width和height)
+                Rectangle rct = new Rectangle((int)mRespXStep, 0, (int)(WAVE_X_SIZE - mRespXStep), WAVE_Y_SIZE);
+
+                //用指定画笔填充指定区域
+                graphics.FillRectangle(br, rct);
+                rct = new Rectangle(0, 0, 10 + (int)(iCnt + mRespXStep - WAVE_X_SIZE), WAVE_Y_SIZE);
+                graphics.FillRectangle(br, rct);
+            }
+            else
+            {
+                int xEnd = (int)(iCnt + 10);
+                if (xEnd > WAVE_X_SIZE - mRespXStep)
+                {
+                    xEnd = (int)(WAVE_X_SIZE - mRespXStep);
+                }
+                Rectangle rct = new Rectangle((int)mRespXStep, 0, xEnd, WAVE_Y_SIZE);
+                graphics.FillRectangle(br, rct);
+            }
+
+            for (int i = 0; i < iCnt; i++)
+            {
+                //每一个点画一次波形，呼吸数据压缩1/2
+                graphics.DrawLine(mRespWavePen, mRespXStep - 1, mRespWaveList[i] / 2,
+                    mRespXStep, mRespWaveList[i + 1] / 2);
+
+                //F:float型，每次移动1
+                mRespXStep += 1F;
+
+                //绘制完整个长度后回到起始点接着画
+                if (mRespXStep >= WAVE_X_SIZE)
+                {
+                    mRespXStep = 0;
+                }
+            }
+            //绘制完之后把已经绘制过的数据移除
+            mRespWaveList.RemoveRange(0, iCnt);
+        }
+
+        /***********************************************************************************************
+        * 方法名称：drawSPO2Wave
+        * 功能说明: 绘制Spo2波形
+        * 注    意:
+        ***********************************************************************************************/
+        private void drawSPO2Wave()
+        {
+            int iCnt = mSPO2WaveList.Count - 1;      //获取list列表中存储的所有血氧波形数据
+            if (iCnt < 2)                            //如果数据少于两个就不绘制波形
+            {
+                return;
+            }
+
+            //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
+            Graphics graphics = Graphics.FromHwnd(mSPO2Form.DataGridViewSPO2.Handle);
+
+            Brush br = new SolidBrush(Color.Black);  //给绘制波形区域刷成黑色 
+
+            //当要画的点数大于画布剩余长度时，就要把画布的剩余长度画完，然后在起始处将剩余的数据画完
+            if (iCnt > WAVE_X_SIZE - mSPO2XStep)
+            {
+                Rectangle rct = new Rectangle((int)mSPO2XStep, 0, (int)(WAVE_X_SIZE - mSPO2XStep), WAVE_Y_SIZE);
+                graphics.FillRectangle(br, rct);
+                rct = new Rectangle(0, 0, 10 + (int)(iCnt + mSPO2XStep - WAVE_X_SIZE), WAVE_Y_SIZE);
+                graphics.FillRectangle(br, rct);
+            }
+            else
+            {
+                int xEnd = (int)(iCnt + 10);
+                if (xEnd > WAVE_X_SIZE - mSPO2XStep)
+                {
+                    xEnd = (int)(WAVE_X_SIZE - mSPO2XStep);
+                }
+
+                Rectangle rct = new Rectangle((int)mSPO2XStep, 0, xEnd, WAVE_Y_SIZE);
+                graphics.FillRectangle(br, rct);
+            }
+
+            for (int i = 0; i < iCnt; i++)
+            {
+                graphics.DrawLine(mSPO2WavePen, mSPO2XStep - 1, WAVE_Y_SIZE / 2 + 70 - mSPO2WaveList[i] / 3 * 2,
+                    mSPO2XStep, WAVE_Y_SIZE / 2 + 70 - mSPO2WaveList[i + 1] / 3 * 2);
+
+                mSPO2XStep += 1F;
+
+                if (mSPO2XStep >= WAVE_X_SIZE)
+                {
+                    mSPO2XStep = 0;
+                }
+            }
+
+            mSPO2WaveList.RemoveRange(0, iCnt);
         }
 
         /***********************************************************************************************

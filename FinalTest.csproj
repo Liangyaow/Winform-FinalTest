@@ -130,6 +130,12 @@
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RespForm.resx">
+      <DependentUpon>RespForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SPO2Form.resx">
+      <DependentUpon>SPO2Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UARTSetting.resx">
       <DependentUpon>UARTSetting.cs</DependentUpon>
     </EmbeddedResource>

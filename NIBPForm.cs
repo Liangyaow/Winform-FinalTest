@@ -12,6 +12,8 @@ namespace FinalTest
 {
     //定义nibpSetDelegate委托
     public delegate void nibpSetDelegate(Byte[] arr, int len);
+    //定义nibpSetHandler委托
+    public delegate void nibpSetHandler(string measMode);
 
     public partial class NIBPForm : Form
     {
@@ -22,6 +24,8 @@ namespace FinalTest
 
         //声明委托nibpSetDelegate的事件sendNIBPSetCmdToMCU，用于发送命令至单片机
         public event nibpSetDelegate sendNIBPSetCmdToMCU;
+        //声明委托nibpSetHandler的事件sendNIBPMeasModeEvent，用于将子界面的NIBP测量模式同步至主界面
+        public event nibpSetHandler sendNIBPMeasModeEvent;
 
         public NIBPForm(SendData sendData, string measMode)
         {
@@ -31,40 +35,47 @@ namespace FinalTest
             mSendData = sendData;
             mMeasMode = measMode;
         }
-        //实现MainForm对NIBFForm的修改
-        public string LabelNIBPCufPre
-        {
-            get { return labelNIBPCufPre.Text; }
-            set { labelNIBPCufPre.Text = value; }
-        }
-
-        public string LabelNIBPSys
-        {
-            get { return labelNIBPSys.Text; }
-            set { labelNIBPSys.Text = value; }
-        }
-
-        public string LabelNIBPDia
-        {
-            get { return labelNIBPDia.Text; }
-            set { labelNIBPDia.Text = value; }
-        }
-
-        public string LabelNIBPMean
-        {
-            get { return labelNIBPMean.Text; }
-            set { labelNIBPMean.Text = value; }
-        }
-        public string LabelNIBPPR
-        {
-            get { return labelNIBPPR.Text; }
-            set { labelNIBPPR.Text = value; }
-        }
 
         private void NIBPForm_Load(object sender, EventArgs e)
         {
             comboBoxNIBPMeasMode.Text = mMeasMode;
         }
+
+        //实现MainForm对NIBPForm的修改
+        public string LabelNIBPCufPreText
+        {
+            get { return labelNIBPCufPre.Text; }
+            set { labelNIBPCufPre.Text = value; }
+        }
+
+        public string LabelNIBPSysText
+        {
+            get { return labelNIBPSys.Text; }
+            set { labelNIBPSys.Text = value; }
+        }
+
+        public string LabelNIBPDiaText
+        {
+            get { return labelNIBPDia.Text; }
+            set { labelNIBPDia.Text = value; }
+        }
+
+        public string LabelNIBPMeanText
+        {
+            get { return labelNIBPMean.Text; }
+            set { labelNIBPMean.Text = value; }
+        }
+        public string LabelNIBPPRText
+        {
+            get { return labelNIBPPR.Text; }
+            set { labelNIBPPR.Text = value; }
+        }
+        public string LabelNIBPMeasModeText
+        {
+            get { return labelNIBPMeasMode.Text; }
+            set { labelNIBPMeasMode.Text = value; }
+        }
+
 
         /***********************************************************************************************
         * 方法名称: comboBoxNIBPMeasMode_SelectedIndexChanged 

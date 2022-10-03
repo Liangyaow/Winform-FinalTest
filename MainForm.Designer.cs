@@ -89,7 +89,7 @@ namespace FinalTest
             this.ToolStripMenuItemExit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(562, 39);
+            this.menuStrip1.Size = new System.Drawing.Size(596, 39);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -168,7 +168,7 @@ namespace FinalTest
             this.toolStripStatusLabelUART});
             this.statusStrip1.Location = new System.Drawing.Point(0, 981);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(562, 41);
+            this.statusStrip1.Size = new System.Drawing.Size(596, 41);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -196,7 +196,6 @@ namespace FinalTest
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "功能选择";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
