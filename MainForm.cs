@@ -15,7 +15,11 @@ namespace FinalTest
 {
     public partial class MainForm : Form
     {
+        NIBPForm mNIBPForm;
+        RespForm mRespForm;
+        SPO2Form mSPO2Form;
 
+        public string mNIBPMeasMode = "手动";      //血压测量模式
 
 
         public const int PACK_QUEUE_CNT = 2000;    //缓冲的长度
@@ -90,7 +94,24 @@ namespace FinalTest
 
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
+            mNIBPForm = new NIBPForm(mSendData, mNIBPMeasMode);
+            mNIBPForm.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
+
+            mRespForm = new RespForm(mSendData, mRespGainSet);
+
+            mSPO2Form = new SPO2Form(mSendData, mSPO2SensSet);
         }
+        /***********************************************************************************************
+        * 方法名称: sendCmdToMCU
+        * 功能说明: 发送命令至单片机
+        * 参数说明：输入参数（1）arr-待发送数据，输入参数（2）len-待发送数据长度
+        * 注    意:
+        ***********************************************************************************************/
+        void sendCmdToMCU(Byte[] arr, int len)
+        {
+            serialPort.Write(arr, 0, len);
+        }
+
         /***********************************************************************************************
         * 方法名称: MainForm_Load
         * 功能说明: 界面刚加载时将文件Config.ini内的值赋值给有关串口配置的结构体
@@ -331,6 +352,7 @@ namespace FinalTest
                 //drawSPO2Wave();
             }
         }
+
         /***********************************************************************************************
         * 方法名称: analyzeNIBPData
         * 功能说明: 分析血压数据包，并显示到界面上
@@ -375,7 +397,7 @@ namespace FinalTest
                         cufPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelNIBPCufPre.Text = cufPres.ToString();   //显示袖带压
+                    mNIBPForm.LabelNIBPCufPre = cufPres.ToString();   //显示袖带压
                     break;
 
                 case 0x04:  //收缩压、舒张压、平均压
@@ -389,7 +411,7 @@ namespace FinalTest
                         sysPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelNIBPSys.Text = sysPres.ToString();
+                    mNIBPForm.LabelNIBPSys = sysPres.ToString();
 
                     diaPresHByte = packAfterUnpack[4];
                     diaPresLByte = packAfterUnpack[5];
@@ -401,7 +423,7 @@ namespace FinalTest
                         diaPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelNIBPDia.Text = diaPres.ToString();
+                    mNIBPForm.LabelNIBPDia = diaPres.ToString();
 
                     mapPresHByte = packAfterUnpack[6];
                     mapPresLByte = packAfterUnpack[7];
@@ -413,7 +435,7 @@ namespace FinalTest
                         mapPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelNIBPMean.Text = mapPres.ToString();
+                    mNIBPForm.LabelNIBPMean = mapPres.ToString();
                     break;
 
                 case 0x05:  //脉率
@@ -427,8 +449,7 @@ namespace FinalTest
                         pulseRate = 0;    //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    //labelNIBPPR.Text = pulseRate.ToString();
-
+                    mNIBPForm.LabelNIBPPR = pulseRate.ToString();
                     break;
             }
         }
@@ -646,15 +667,20 @@ namespace FinalTest
 
         private void buttonToNIBP_Click(object sender, EventArgs e)
         {
+            mNIBPForm.StartPosition = FormStartPosition.CenterParent;
+            mNIBPForm.ShowDialog();
         }
 
         private void buttonToResp_Click(object sender, EventArgs e)
         {
+            mRespForm.StartPosition = FormStartPosition.CenterParent;
+            mRespForm.ShowDialog();
         }
 
         private void buttonToSPO2_Click(object sender, EventArgs e)
         {
-
+            mSPO2Form.StartPosition = FormStartPosition.CenterParent;
+            mSPO2Form.ShowDialog();
         }
 
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
