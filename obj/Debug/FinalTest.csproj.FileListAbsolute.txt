@@ -1,0 +1,13 @@
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.csproj.AssemblyReference.cache
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.Properties.Resources.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.csproj.GenerateResource.cache
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.csproj.CoreCompileInputs.cache
+D:\Onedrive\桌面\FinalTest\FinalTest\bin\Debug\FinalTest.exe.config
+D:\Onedrive\桌面\FinalTest\FinalTest\bin\Debug\FinalTest.exe
+D:\Onedrive\桌面\FinalTest\FinalTest\bin\Debug\FinalTest.pdb
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.exe
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.pdb
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.MainForm.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.UARTSetting.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.LoginForm.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.RegisterForm.resources
