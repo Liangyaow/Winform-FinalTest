@@ -745,8 +745,8 @@ namespace FinalTest
 
                     for (int i = 0; i < len; i++)
                     {
-                        if (unpackRcvData(data[i]))     //处理接收到的数据
-                        {
+                        if (unpackRcvData(data[i]))//处理接收到的数据
+                        { 
                         }
                     }
                 }
@@ -830,14 +830,16 @@ namespace FinalTest
             mSPO2Form.ShowDialog();
         }
 
-        private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void timeToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.StartPosition = FormStartPosition.CenterParent;
+            aboutForm.ShowDialog();
+        }
 
+        private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 

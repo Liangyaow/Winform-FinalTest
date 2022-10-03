@@ -51,9 +51,9 @@ namespace FinalTest
             // 
             // buttonToNIBP
             // 
-            this.buttonToNIBP.Location = new System.Drawing.Point(83, 155);
+            this.buttonToNIBP.Location = new System.Drawing.Point(143, 161);
             this.buttonToNIBP.Name = "buttonToNIBP";
-            this.buttonToNIBP.Size = new System.Drawing.Size(433, 232);
+            this.buttonToNIBP.Size = new System.Drawing.Size(364, 145);
             this.buttonToNIBP.TabIndex = 0;
             this.buttonToNIBP.Text = "血压";
             this.buttonToNIBP.UseVisualStyleBackColor = true;
@@ -61,9 +61,9 @@ namespace FinalTest
             // 
             // buttonToResp
             // 
-            this.buttonToResp.Location = new System.Drawing.Point(83, 444);
+            this.buttonToResp.Location = new System.Drawing.Point(143, 458);
             this.buttonToResp.Name = "buttonToResp";
-            this.buttonToResp.Size = new System.Drawing.Size(433, 232);
+            this.buttonToResp.Size = new System.Drawing.Size(364, 145);
             this.buttonToResp.TabIndex = 1;
             this.buttonToResp.Text = "呼吸";
             this.buttonToResp.UseVisualStyleBackColor = true;
@@ -71,9 +71,9 @@ namespace FinalTest
             // 
             // buttonToSPO2
             // 
-            this.buttonToSPO2.Location = new System.Drawing.Point(83, 749);
+            this.buttonToSPO2.Location = new System.Drawing.Point(143, 755);
             this.buttonToSPO2.Name = "buttonToSPO2";
-            this.buttonToSPO2.Size = new System.Drawing.Size(433, 232);
+            this.buttonToSPO2.Size = new System.Drawing.Size(364, 145);
             this.buttonToSPO2.TabIndex = 2;
             this.buttonToSPO2.Text = "血氧";
             this.buttonToSPO2.UseVisualStyleBackColor = true;
@@ -81,7 +81,6 @@ namespace FinalTest
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemUART,
@@ -89,28 +88,28 @@ namespace FinalTest
             this.ToolStripMenuItemExit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(596, 39);
+            this.menuStrip1.Size = new System.Drawing.Size(630, 39);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemUART
             // 
             this.ToolStripMenuItemUART.Name = "ToolStripMenuItemUART";
-            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 35);
+            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 44);
             this.ToolStripMenuItemUART.Text = "串口设置";
             this.ToolStripMenuItemUART.Click += new System.EventHandler(this.ToolStripMenuItemUART_Click);
             // 
             // timeToolStripMenuItemAbout
             // 
             this.timeToolStripMenuItemAbout.Name = "timeToolStripMenuItemAbout";
-            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 35);
+            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 44);
             this.timeToolStripMenuItemAbout.Text = "关于";
             this.timeToolStripMenuItemAbout.Click += new System.EventHandler(this.timeToolStripMenuItemAbout_Click);
             // 
             // ToolStripMenuItemExit
             // 
             this.ToolStripMenuItemExit.Name = "ToolStripMenuItemExit";
-            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 35);
+            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 44);
             this.ToolStripMenuItemExit.Text = "退出";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
@@ -166,9 +165,9 @@ namespace FinalTest
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelUART});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 981);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 912);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(596, 41);
+            this.statusStrip1.Size = new System.Drawing.Size(630, 41);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -180,8 +179,7 @@ namespace FinalTest
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(630, 953);

@@ -14,3 +14,4 @@ D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.RegisterForm.resource
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.NIBPForm.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.RespForm.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.SPO2Form.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.AboutForm.resources
