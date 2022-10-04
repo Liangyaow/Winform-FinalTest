@@ -61,7 +61,7 @@ namespace FinalTest
             // 
             // buttonToResp
             // 
-            this.buttonToResp.Location = new System.Drawing.Point(143, 458);
+            this.buttonToResp.Location = new System.Drawing.Point(143, 344);
             this.buttonToResp.Name = "buttonToResp";
             this.buttonToResp.Size = new System.Drawing.Size(364, 145);
             this.buttonToResp.TabIndex = 1;
@@ -71,7 +71,7 @@ namespace FinalTest
             // 
             // buttonToSPO2
             // 
-            this.buttonToSPO2.Location = new System.Drawing.Point(143, 755);
+            this.buttonToSPO2.Location = new System.Drawing.Point(143, 527);
             this.buttonToSPO2.Name = "buttonToSPO2";
             this.buttonToSPO2.Size = new System.Drawing.Size(364, 145);
             this.buttonToSPO2.TabIndex = 2;
@@ -88,7 +88,7 @@ namespace FinalTest
             this.ToolStripMenuItemExit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(630, 39);
+            this.menuStrip1.Size = new System.Drawing.Size(657, 39);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,9 +165,9 @@ namespace FinalTest
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelUART});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 912);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 742);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(630, 41);
+            this.statusStrip1.Size = new System.Drawing.Size(657, 41);
             this.statusStrip1.TabIndex = 8;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -179,10 +179,10 @@ namespace FinalTest
             // 
             // MainForm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(630, 953);
+            this.ClientSize = new System.Drawing.Size(657, 783);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.labelAccount);

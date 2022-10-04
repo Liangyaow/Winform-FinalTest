@@ -90,7 +90,8 @@ namespace FinalTest
                 return;
             }
 
-            labelNIBPMeasMode.Text = comboBoxNIBPMeasMode.Text;   //将NIBP测量模式更改后的值传递到主界面
+            labelNIBPMeasMode.Text = comboBoxNIBPMeasMode.Text; 
+            sendNIBPMeasModeEvent(comboBoxNIBPMeasMode.Text); //将NIBP测量模式更改后的值传递到主界面
 
             List<byte> dataLst = new List<byte>();
             byte data = (byte)(measMode);

@@ -347,7 +347,7 @@ namespace FinalTest
             this.Controls.Add(this.labelNIBPCN);
             this.Controls.Add(this.buttonNIBPSet);
             this.Name = "NIBPForm";
-            this.Text = "NIBPForm";
+            this.Text = "血压";
             this.Load += new System.EventHandler(this.NIBPForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
