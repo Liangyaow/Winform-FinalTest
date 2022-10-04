@@ -38,12 +38,13 @@ namespace FinalTest
             this.checkBoxShowPsw = new System.Windows.Forms.CheckBox();
             this.labelAcountWarn = new System.Windows.Forms.Label();
             this.labelPswWarn = new System.Windows.Forms.Label();
+            this.labelChangePsw = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonLogin
             // 
             this.buttonLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonLogin.Location = new System.Drawing.Point(252, 328);
+            this.buttonLogin.Location = new System.Drawing.Point(248, 380);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(221, 76);
             this.buttonLogin.TabIndex = 11;
@@ -56,7 +57,7 @@ namespace FinalTest
             this.labelRegister.AutoSize = true;
             this.labelRegister.BackColor = System.Drawing.SystemColors.Control;
             this.labelRegister.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labelRegister.Location = new System.Drawing.Point(602, 354);
+            this.labelRegister.Location = new System.Drawing.Point(679, 359);
             this.labelRegister.Name = "labelRegister";
             this.labelRegister.Size = new System.Drawing.Size(106, 24);
             this.labelRegister.TabIndex = 10;
@@ -101,7 +102,7 @@ namespace FinalTest
             // checkBoxShowPsw
             // 
             this.checkBoxShowPsw.AutoSize = true;
-            this.checkBoxShowPsw.Location = new System.Drawing.Point(606, 214);
+            this.checkBoxShowPsw.Location = new System.Drawing.Point(602, 214);
             this.checkBoxShowPsw.Name = "checkBoxShowPsw";
             this.checkBoxShowPsw.Size = new System.Drawing.Size(138, 28);
             this.checkBoxShowPsw.TabIndex = 12;
@@ -132,11 +133,24 @@ namespace FinalTest
             this.labelPswWarn.Text = "请输入6-20位字母数字组合";
             this.labelPswWarn.Visible = false;
             // 
+            // labelChangePsw
+            // 
+            this.labelChangePsw.AutoSize = true;
+            this.labelChangePsw.BackColor = System.Drawing.SystemColors.Control;
+            this.labelChangePsw.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelChangePsw.Location = new System.Drawing.Point(679, 432);
+            this.labelChangePsw.Name = "labelChangePsw";
+            this.labelChangePsw.Size = new System.Drawing.Size(106, 24);
+            this.labelChangePsw.TabIndex = 15;
+            this.labelChangePsw.Text = "修改密码";
+            this.labelChangePsw.Click += new System.EventHandler(this.labelChangePsw_Click);
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(863, 508);
+            this.Controls.Add(this.labelChangePsw);
             this.Controls.Add(this.labelPswWarn);
             this.Controls.Add(this.labelAcountWarn);
             this.Controls.Add(this.checkBoxShowPsw);
@@ -164,6 +178,7 @@ namespace FinalTest
         private System.Windows.Forms.CheckBox checkBoxShowPsw;
         private System.Windows.Forms.Label labelAcountWarn;
         private System.Windows.Forms.Label labelPswWarn;
+        private System.Windows.Forms.Label labelChangePsw;
     }
 }
 

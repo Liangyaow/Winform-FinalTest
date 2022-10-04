@@ -58,8 +58,9 @@ namespace FinalTest
             }
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void buttonRegister_Click(object sender, EventArgs e)
         {
+
             if (mAccountFlag && mPswFlag)
             {
                 string userAccount;
@@ -95,7 +96,7 @@ namespace FinalTest
 
                     MessageBox.Show("恭喜你 注册成功", "成功");
 
-                    
+
                     this.Close();
                 }
             }
@@ -104,11 +105,11 @@ namespace FinalTest
                 MessageBox.Show("请输入正确格式的账号和密码", "警告");
             }
         }
-        private void labelRegister_Click(object sender, EventArgs e)
+
+        private void labelBackToLogin_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void checkBoxShowPsw_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxShowPsw.Checked)
@@ -120,5 +121,7 @@ namespace FinalTest
                 textBoxPassword.PasswordChar = Convert.ToChar('*');
             }
         }
+
+
     }
 }

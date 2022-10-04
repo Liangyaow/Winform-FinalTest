@@ -68,6 +68,12 @@
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="Encode.cs" />
+    <Compile Include="FormChangePsw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChangePsw.Designer.cs">
+      <DependentUpon>FormChangePsw.cs</DependentUpon>
+    </Compile>
     <Compile Include="IniHelper.cs" />
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNIBP.resx">
       <DependentUpon>FormNIBP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChangePsw.resx">
+      <DependentUpon>FormChangePsw.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

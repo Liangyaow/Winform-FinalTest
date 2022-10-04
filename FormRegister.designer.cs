@@ -29,8 +29,8 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.labelRegister = new System.Windows.Forms.Label();
+            this.buttonRegister = new System.Windows.Forms.Button();
+            this.labelBackToLogin = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.textBoxAccount = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,26 +40,26 @@ namespace FinalTest
             this.checkBoxShowPsw = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // buttonLogin
+            // buttonRegister
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(266, 341);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(221, 76);
-            this.buttonLogin.TabIndex = 11;
-            this.buttonLogin.Text = "立即注册";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.buttonRegister.Location = new System.Drawing.Point(266, 341);
+            this.buttonRegister.Name = "buttonRegister";
+            this.buttonRegister.Size = new System.Drawing.Size(221, 76);
+            this.buttonRegister.TabIndex = 11;
+            this.buttonRegister.Text = "立即注册";
+            this.buttonRegister.UseVisualStyleBackColor = true;
+            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 
-            // labelRegister
+            // labelBackToLogin
             // 
-            this.labelRegister.AutoSize = true;
-            this.labelRegister.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labelRegister.Location = new System.Drawing.Point(640, 367);
-            this.labelRegister.Name = "labelRegister";
-            this.labelRegister.Size = new System.Drawing.Size(106, 24);
-            this.labelRegister.TabIndex = 10;
-            this.labelRegister.Text = "返回登陆";
-            this.labelRegister.Click += new System.EventHandler(this.labelRegister_Click);
+            this.labelBackToLogin.AutoSize = true;
+            this.labelBackToLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelBackToLogin.Location = new System.Drawing.Point(640, 367);
+            this.labelBackToLogin.Name = "labelBackToLogin";
+            this.labelBackToLogin.Size = new System.Drawing.Size(106, 24);
+            this.labelBackToLogin.TabIndex = 10;
+            this.labelBackToLogin.Text = "返回登陆";
+            this.labelBackToLogin.Click += new System.EventHandler(this.labelBackToLogin_Click);
             // 
             // textBoxPassword
             // 
@@ -138,8 +138,8 @@ namespace FinalTest
             this.Controls.Add(this.checkBoxShowPsw);
             this.Controls.Add(this.labelPswWarn);
             this.Controls.Add(this.labelAcountWarn);
-            this.Controls.Add(this.buttonLogin);
-            this.Controls.Add(this.labelRegister);
+            this.Controls.Add(this.buttonRegister);
+            this.Controls.Add(this.labelBackToLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxAccount);
             this.Controls.Add(this.label2);
@@ -153,8 +153,8 @@ namespace FinalTest
 
         #endregion
 
-        private System.Windows.Forms.Button buttonLogin;
-        private System.Windows.Forms.Label labelRegister;
+        private System.Windows.Forms.Button buttonRegister;
+        private System.Windows.Forms.Label labelBackToLogin;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.TextBox textBoxAccount;
         private System.Windows.Forms.Label label2;

@@ -17,3 +17,4 @@ D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.FormSPO2.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.FormStoreSetting.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.FormUARTSetting.resources
 D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.FormModeSwitch.resources
+D:\Onedrive\桌面\FinalTest\FinalTest\obj\Debug\FinalTest.FormChangePsw.resources
