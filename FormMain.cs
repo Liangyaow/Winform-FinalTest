@@ -9,16 +9,17 @@ using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalTest
 {
-    public partial class MainForm : Form
+    public partial class FormMain : Form
     {
-        NIBPForm mNIBPForm;
-        RespForm mRespForm;
-        SPO2Form mSPO2Form;
+        FormNIBP mFormNIBP;
+        FormResp mFormResp;
+        FormSPO2 mFormSPO2;
 
         public string mNIBPMeasMode = "手动";      //血压测量模式
 
@@ -90,13 +91,25 @@ namespace FinalTest
         ushort mMaxNIBPData;
         ushort mMinNIBPData;
 
+
+        public bool mIsRealMode = true;                                 //模式选择的监护模式变量
+        public bool mIsLoadMode = false;                                //回放模式
+        public bool mIsDisplayMode = false;                             //演示模式
+        private string mUARTFile = "";                                  //回放或演示的数据文件 
+
+        //procLoadDataThread线程启动标志，串口打开时为true，串口关闭时为false
+        Boolean mThreadStartFlag = false;
+        Task mProcLoadDataTask = null;                                  //使用时需要添加命名空间
+        Boolean mDisplayModeFlag = false;                               //演示模式的标志位，true为演示模式
+        private List<string> mUARTLoadDataList = new List<string>();    //加载的串口数据
+
         /***********************************************************************************************
         * 方法名称: MainForm
         * 功能说明: 构造函数
         * 参数说明：输入参数 userAccount 用户的账号
         * 注    意:
         ***********************************************************************************************/
-        public MainForm(string userAccount)
+        public FormMain(string userAccount)
         {
             InitializeComponent();
 
@@ -123,15 +136,15 @@ namespace FinalTest
 
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
-            mNIBPForm = new NIBPForm(mSendData, mNIBPMeasMode);
-            mNIBPForm.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
-            mNIBPForm.sendNIBPMeasModeEvent += new nibpSetHandler(procNIBPMeasMode);
+            mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode);
+            mFormNIBP.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
+            mFormNIBP.sendNIBPModeEvent += new nibpSetHandler(sendModeFlag);
 
-            mRespForm = new RespForm(mSendData, mRespGainSet);
-            mRespForm.sendRespGainEvent += new respSetHandler(procRespSetGain);
+            mFormResp = new FormResp(mSendData, mRespGainSet);
+            mFormResp.sendRespGainEvent += new respSetHandler(procRespSetGain);
 
-            mSPO2Form = new SPO2Form(mSendData, mSPO2SensSet);
-            mSPO2Form.sendSPO2SensEvent += new spo2SetHandler(procSPO2Sens);
+            mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet);
+            mFormSPO2.sendSPO2SensEvent += new spo2SetHandler(procSPO2Sens);
 
             mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
         }
@@ -148,16 +161,19 @@ namespace FinalTest
         }
 
         /***********************************************************************************************
-        * 方法名称：procNIBPMeasMode
-        * 功能说明: 同步NIBP测量模式，将来自FormNIBPSet的血压测量模式measMode同步至MainFrom的血压
-        *           测量模式mNIBPMeasMode，并显示在MainForm
-        * 参数说明：输入参数measMode-测量模式         
+        * 方法名称: sendModeFlag
+        * 功能说明: 将模式设置的情况 传给主界面
+        * 参数说明：输入参数（1）isRealMode-监护模式标志位，
+                    输入参数（2）isLoadMode-回放模式标志位，
+                    输入参数（3）isDisplayMode-演示模式标志位
+
         * 注    意:
         ***********************************************************************************************/
-        private void procNIBPMeasMode(string measMode)
+        void sendModeFlag(bool isRealMode, bool isLoadMode, bool isDisplayMode)
         {
-            mNIBPMeasMode = measMode;
-            mNIBPForm.LabelNIBPMeasModeText = "" + mNIBPMeasMode;
+            mIsRealMode = isRealMode;
+            mIsLoadMode = isLoadMode;
+            mIsDisplayMode = isDisplayMode;
         }
 
         /***********************************************************************************************
@@ -225,6 +241,9 @@ namespace FinalTest
         ***********************************************************************************************/
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            mThreadStartFlag = false;         //演示线程开始标志位
+            mDisplayModeFlag = false;         //演示模式标志位
+
             WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);
             WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);
         }
@@ -242,7 +261,7 @@ namespace FinalTest
                 searchAndAddSerialToComboBox(serialPort, mUARTInfo.portNumItem);  //扫描串口
             }
 
-            UARTSettingForm mUARTSetForm = new UARTSettingForm(mUARTInfo);
+            FormUARTSetting mUARTSetForm = new FormUARTSetting(mUARTInfo);
             mUARTSetForm.StartPosition = FormStartPosition.CenterParent;   //界面生成位置在主界面的正中间
 
             //向openUARTHandler委托的事件openUARTEvent中添加procUARTInfo方法，添加额外的方法使用+=
@@ -296,8 +315,22 @@ namespace FinalTest
 
             if (!serialPort.IsOpen)
             {
-                //打开串口读取
                 setUARTState(true);
+
+                if (!mIsRealMode)
+                {
+                    //menuItemMonitorMode.Text = "模式：监护";
+
+                    //关闭演示线程
+                    mThreadStartFlag = false;
+                    if (null != mProcLoadDataTask)
+                    {
+                        mProcLoadDataTask.Wait();
+                        mProcLoadDataTask = null;
+                    }
+                }
+
+                //打开串口读取
             }
             else
             {
@@ -346,7 +379,14 @@ namespace FinalTest
                 {
                     serialPort.Close();      //关闭串口
 
+                    mThreadStartFlag = false;
+
+                    mRespWaveList.Clear();
+                    mSPO2WaveList.Clear();
+
                     strUARTInfo = "串口已关闭";     //显示串口状态
+
+
                 }
                 catch       //一般情况下关闭串口不会出错，所以不需要加处理程序
                 {
@@ -434,6 +474,15 @@ namespace FinalTest
             {
                 drawSPO2Wave();
             }
+
+            if (mDisplayModeFlag)            //演示模式，就让血压的各项值显示标准值
+            {
+                mFormNIBP.LabelNIBPCufPreText = "0";
+                mFormNIBP.LabelNIBPMeanText = "93";
+                mFormNIBP.LabelNIBPSysText = "128";
+                mFormNIBP.LabelNIBPDiaText = "85";
+                mFormNIBP.LabelNIBPPRText = "59";
+            }
         }
 
         /***********************************************************************************************
@@ -480,7 +529,7 @@ namespace FinalTest
                         cufPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPCufPreText = cufPres.ToString();   //显示袖带压
+                    mFormNIBP.LabelNIBPCufPreText = cufPres.ToString();   //显示袖带压
                     break;
 
                 case 0x04:  //收缩压、舒张压、平均压
@@ -494,7 +543,7 @@ namespace FinalTest
                         sysPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPSysText = sysPres.ToString();
+                    mFormNIBP.LabelNIBPSysText = sysPres.ToString();
 
                     diaPresHByte = packAfterUnpack[4];
                     diaPresLByte = packAfterUnpack[5];
@@ -506,7 +555,7 @@ namespace FinalTest
                         diaPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPDiaText = diaPres.ToString();
+                    mFormNIBP.LabelNIBPDiaText = diaPres.ToString();
 
                     mapPresHByte = packAfterUnpack[6];
                     mapPresLByte = packAfterUnpack[7];
@@ -518,7 +567,7 @@ namespace FinalTest
                         mapPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPMeanText = mapPres.ToString();
+                    mFormNIBP.LabelNIBPMeanText = mapPres.ToString();
                     break;
 
                 case 0x05:  //脉率
@@ -532,7 +581,7 @@ namespace FinalTest
                         pulseRate = 0;    //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mNIBPForm.LabelNIBPPRText = pulseRate.ToString();
+                    mFormNIBP.LabelNIBPPRText = pulseRate.ToString();
                     break;
             }
         }
@@ -576,6 +625,11 @@ namespace FinalTest
                         }
                     }
 
+                    if (mDisplayModeFlag)         //演示模式，将呼吸的各项值显示标准值
+                    {
+                        mFormResp.LabelRespRRText = "20";
+                    }
+
                     break;
 
                 case 0x03:               //呼吸率
@@ -589,7 +643,7 @@ namespace FinalTest
                         respRate = 0;    //呼吸率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mRespForm.LabelRespRRText = respRate.ToString();
+                    mFormResp.LabelRespRRText = respRate.ToString();
                     break;
             }
         }
@@ -642,24 +696,33 @@ namespace FinalTest
 
                     if (fingerLead == 0x01)
                     {
-                        mSPO2Form.LabelSPO2FingerOffForeColor = Color.Red;
-                        mSPO2Form.LabelSPO2FingerOffText = "手指脱落";
+                        mFormSPO2.LabelSPO2FingerOffForeColor = Color.Red;
+                        mFormSPO2.LabelSPO2FingerOffText = "手指脱落";
                     }
                     else
                     {
-                        mSPO2Form.LabelSPO2FingerOffForeColor = Color.FromArgb(0, 255, 255);
-                        mSPO2Form.LabelSPO2FingerOffText = "手指连接";
+                        mFormSPO2.LabelSPO2FingerOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2FingerOffText = "手指连接";
                     }
                     if (sensorLead == 0x01)
                     {
-                        mSPO2Form.LabelSPO2PrbOffForeColor = Color.Red;
-                        mSPO2Form.LabelSPO2PrbOffText = "探头脱落";
+                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.Red;
+                        mFormSPO2.LabelSPO2PrbOffText = "探头脱落";
                     }
                     else
                     {
-                        mSPO2Form.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
-                        mSPO2Form.LabelSPO2PrbOffText = "探头连接";
+                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2PrbOffText = "探头连接";
                     }
+
+                    if (mDisplayModeFlag)                //演示模式，将血氧的各项值显示标准值
+                    {
+                        mFormSPO2.LabelSPO2PRText = "75";
+                        mFormSPO2.LabelSPO2DataText = "96";
+                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2PrbOffText = "手指连接";
+                    }
+
                     break;
 
                 case 0x03:                  //脉率、血氧饱和度
@@ -673,17 +736,17 @@ namespace FinalTest
                         pulseRate = 0;      //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mSPO2Form.LabelSPO2PRText = pulseRate.ToString();
+                    mFormSPO2.LabelSPO2PRText = pulseRate.ToString();
 
                     spo2Value = packAfterUnpack[5];
 
                     if (0 < spo2Value && 100 > spo2Value)
                     {
-                        mSPO2Form.LabelSPO2DataText = spo2Value.ToString();
+                        mFormSPO2.LabelSPO2DataText = spo2Value.ToString();
                     }
                     else
                     {
-                        mSPO2Form.LabelSPO2DataText = "--";
+                        mFormSPO2.LabelSPO2DataText = "--";
                     }
 
                     break;
@@ -703,7 +766,7 @@ namespace FinalTest
                 return;
             }
             //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
-            Graphics graphics = Graphics.FromHwnd(mRespForm.DataGridViewResp.Handle);
+            Graphics graphics = Graphics.FromHwnd(mFormResp.DataGridViewResp.Handle);
 
             Brush br = new SolidBrush(Color.Black);      //给绘制波形区域刷成黑色 
 
@@ -762,7 +825,7 @@ namespace FinalTest
             }
 
             //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
-            Graphics graphics = Graphics.FromHwnd(mSPO2Form.DataGridViewSPO2.Handle);
+            Graphics graphics = Graphics.FromHwnd(mFormSPO2.DataGridViewSPO2.Handle);
 
             Brush br = new SolidBrush(Color.Black);  //给绘制波形区域刷成黑色 
 
@@ -870,9 +933,16 @@ namespace FinalTest
                 }
 
                 //包长减去2，即解包后已经没有了数据头和校验和，但是ID还在
-                for (int i = 0; i < packLen - 2; i++)
+                if (packLen > 2)
                 {
-                    mPackAfterUnpackArr[iHead][i] = mPackAfterUnpackList[i];
+                    for (int i = 0; i < packLen - 2; i++)
+                    {
+                        mPackAfterUnpackArr[iHead][i] = mPackAfterUnpackList[i];
+                    }
+                }
+                else if (packLen == 2)
+                {
+                    mPackAfterUnpackArr[iHead][0] = mPackAfterUnpackList[0];
                 }
 
                 lock (mLockObj)
@@ -889,9 +959,16 @@ namespace FinalTest
                 {
                     string packStr = "";
 
-                    for (int j = 0; j < packLen - 2; j++)
+                    if (packLen > 2)
                     {
-                        packStr = packStr + mPackAfterUnpackList[j].ToString() + " ";
+                        for (int j = 0; j < packLen - 2; j++)
+                        {
+                            packStr = packStr + mPackAfterUnpackList[j].ToString() + ",";
+                        }
+                    }
+                    else if (packLen == 2)
+                    {
+                        packStr = mPackAfterUnpackList[0].ToString();
                     }
 
                     packStr.TrimEnd(' ');
@@ -904,25 +981,25 @@ namespace FinalTest
 
         private void buttonToNIBP_Click(object sender, EventArgs e)
         {
-            mNIBPForm.StartPosition = FormStartPosition.CenterParent;
-            mNIBPForm.ShowDialog();
+            mFormNIBP.StartPosition = FormStartPosition.CenterParent;
+            mFormNIBP.ShowDialog();
         }
 
         private void buttonToResp_Click(object sender, EventArgs e)
         {
-            mRespForm.StartPosition = FormStartPosition.CenterParent;
-            mRespForm.ShowDialog();
+            mFormResp.StartPosition = FormStartPosition.CenterParent;
+            mFormResp.ShowDialog();
         }
 
         private void buttonToSPO2_Click(object sender, EventArgs e)
         {
-            mSPO2Form.StartPosition = FormStartPosition.CenterParent;
-            mSPO2Form.ShowDialog();
+            mFormSPO2.StartPosition = FormStartPosition.CenterParent;
+            mFormSPO2.ShowDialog();
         }
 
         private void timeToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
-            AboutForm aboutForm = new AboutForm();
+            FormAbout aboutForm = new FormAbout();
             aboutForm.StartPosition = FormStartPosition.CenterParent;
             aboutForm.ShowDialog();
         }
@@ -934,7 +1011,7 @@ namespace FinalTest
 
         private void ToolStripMenuItemStoreSetting_Click(object sender, EventArgs e)
         {
-            StoreSettingForm storeSettingForm = new StoreSettingForm();       //实例化数据存储类界面变量 
+            FormStoreSetting storeSettingForm = new FormStoreSetting();       //实例化数据存储类界面变量 
             storeSettingForm.StartPosition = FormStartPosition.CenterParent;
 
             //数据存储界面4个复选框设置为与数据存储配置文件的设置一致
@@ -1054,6 +1131,107 @@ namespace FinalTest
                     mSWUART.Dispose();
                     mSWUART = null;
                 }
+            }
+        }
+
+        /***********************************************************************************************
+        * 方法名称: loadUartFile
+        * 功能说明: 读取保存的串口数据
+        * 参数说明：输入参数fileName-回放或演示的数据文件名
+        * 注    意: 
+        ***********************************************************************************************/
+        private void loadUARTFile(string fileName)
+        {
+            if ((fileName.Equals("")) || (!File.Exists(fileName)))
+            {
+                return;
+            }
+
+            StreamReader fileReader = new StreamReader(fileName);
+            mUARTLoadDataList.Clear();
+            string strLine = fileReader.ReadLine();               //读取一行数据
+            while (strLine != null)
+            {
+                if (strLine.Length > 0)
+                {
+                    strLine = strLine.Replace(',', ' ');          //将csv文件的逗号替换为空格
+                    mUARTLoadDataList.Add(strLine);               //mUARTLoadDataList：存储的是一行行的数据
+                }
+                strLine = fileReader.ReadLine();
+            }
+            fileReader.Close();
+        }
+        /***********************************************************************************************
+        * 方法名称: procLoadDataThread
+        * 功能说明: 处理加载数据线程，每一类数据定义各自的演示速度
+        * 注    意: 
+        ***********************************************************************************************/
+        private void procLoadDataThread()
+        {
+            int iDataIndex = 0;
+
+            while (mThreadStartFlag)
+            {
+                if (mUARTLoadDataList.Count > iDataIndex)
+                {
+                    //该字符串为一帧原始指令，以空格分开，将一行行的数据赋给strData
+                    string strData = mUARTLoadDataList[iDataIndex];
+
+                    string[] dataArr = strData.Split(' ');      //将上面一行行的数据一个个分开来，以空格分开
+
+                    int iHead = (mPackHead + 1) % PACK_QUEUE_CNT;
+                    int iTail;
+
+                    lock (mLockObj)
+                    {
+                        iTail = mPackTail;
+                    }
+
+                    if (iHead == iTail)
+                    {
+                        MessageBox.Show("缓冲溢出。");
+                    }
+
+                    for (int i = 0; i < dataArr.Length; i++)
+                    {
+                        if (!dataArr[i].Equals(""))
+                        {
+                            try
+                            {
+                                //int.Parse：转换为整型
+                                mPackAfterUnpackArr[iHead][i] = (byte)int.Parse(dataArr[i]);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                    }
+
+                    lock (mLockObj)
+                    {
+                        mPackHead = (mPackHead + 1) % PACK_QUEUE_CNT;
+                        if (mPackTail == -1)
+                        {
+                            mPackTail = 0;
+                        }
+                    }
+
+                    iDataIndex++;
+                }
+                else
+                {
+                    if (mDisplayModeFlag)      //演示模式，当演示数据读完时再从头开始读取数据
+                    {
+                        iDataIndex = 0;
+                    }
+                    else                       //不是演示模式，读完数据就停止画波形和显示数值
+                    {
+                        break;
+                    }
+                }
+
+                Thread.Sleep(2);               //间隔2ms发一帧需要添加命名空间
             }
         }
     }

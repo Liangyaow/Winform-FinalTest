@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class NIBPForm
+    partial class FormNIBP
     {
         /// <summary>
         /// Required designer variable.
@@ -50,6 +50,9 @@ namespace FinalTest
             this.buttonNIBPSetCancel = new System.Windows.Forms.Button();
             this.buttonNIBPSetOK = new System.Windows.Forms.Button();
             this.labelNIBPMean = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabelNIBPModeSwitch = new System.Windows.Forms.ToolStripLabel();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelNIBPCufPre
@@ -320,11 +323,30 @@ namespace FinalTest
             this.labelNIBPMean.TabIndex = 254;
             this.labelNIBPMean.Text = "---";
             // 
-            // NIBPForm
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelNIBPModeSwitch});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1142, 38);
+            this.toolStrip1.TabIndex = 255;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabelNIBPModeSwitch
+            // 
+            this.toolStripLabelNIBPModeSwitch.Name = "toolStripLabelNIBPModeSwitch";
+            this.toolStripLabelNIBPModeSwitch.Size = new System.Drawing.Size(110, 32);
+            this.toolStripLabelNIBPModeSwitch.Text = "模式切换";
+            this.toolStripLabelNIBPModeSwitch.Click += new System.EventHandler(this.toolStripLabelNIBPModeSwitch_Click);
+            // 
+            // FormNIBP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1142, 648);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.labelNIBPMean);
             this.Controls.Add(this.comboBoxNIBPMeasMode);
             this.Controls.Add(this.label1);
@@ -346,9 +368,11 @@ namespace FinalTest
             this.Controls.Add(this.labelNIBPmmHg);
             this.Controls.Add(this.labelNIBPCN);
             this.Controls.Add(this.buttonNIBPSet);
-            this.Name = "NIBPForm";
+            this.Name = "FormNIBP";
             this.Text = "血压";
             this.Load += new System.EventHandler(this.NIBPForm_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,5 +401,7 @@ namespace FinalTest
         private System.Windows.Forms.Button buttonNIBPSetCancel;
         private System.Windows.Forms.Button buttonNIBPSetOK;
         private System.Windows.Forms.Label labelNIBPMean;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelNIBPModeSwitch;
     }
 }

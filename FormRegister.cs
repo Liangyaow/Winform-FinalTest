@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace FinalTest
 {
-    public partial class RegisterForm : Form
+    public partial class FormRegister : Form
     {
         private bool mAccountFlag;
         private bool mPswFlag;
@@ -21,7 +21,7 @@ namespace FinalTest
         private const string STORE_DATA_FILE = @".\Data\UserInfo.ini";  //设置保存数据文件路径及名字
         private IniHelper mIniFile;
 
-        public RegisterForm()
+        public FormRegister()
         {
             InitializeComponent();
             mIniFile = new IniHelper(STORE_DATA_FILE, "#用户信息表");          //传递INI文件名至配置文件

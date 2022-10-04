@@ -12,7 +12,7 @@ namespace FinalTest
 {
     //定义RespSetHandler委托
     public delegate void respSetHandler(string gain);
-    public partial class RespForm : Form
+    public partial class FormResp : Form
     {
         private SendData mSendData;                  //声明串口,用于发送命令给从机（单片机）
         private string mRespGain;                  //呼吸增益
@@ -20,7 +20,7 @@ namespace FinalTest
         //声明respSetHandler委托的事件sendRespGainEvent，用于将呼吸增益同步至主界面
         public event respSetHandler sendRespGainEvent;
 
-        public RespForm(SendData sendData, string gain)
+        public FormResp(SendData sendData, string gain)
         {
             InitializeComponent();
             //将主界面的的参数传到设置界面

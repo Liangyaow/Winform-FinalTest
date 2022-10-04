@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace FinalTest
 {
-    public partial class LoginForm : Form
+    public partial class FormLogin : Form
     {
         private bool mAccountFlag;
         private bool mPswFlag;
@@ -21,7 +21,7 @@ namespace FinalTest
         private IniHelper mIniFile;
 
 
-        public LoginForm()
+        public FormLogin()
         {
             InitializeComponent();
             mIniFile = new IniHelper(STORE_DATA_FILE, "#用户信息表");          //传递INI文件名至配置文件
@@ -29,7 +29,7 @@ namespace FinalTest
 
         private void labelRegister_Click(object sender, EventArgs e)
         {
-            RegisterForm register = new RegisterForm();
+            FormRegister register = new FormRegister();
             register.StartPosition = FormStartPosition.CenterParent;
             register.ShowDialog();
         }
@@ -109,7 +109,7 @@ namespace FinalTest
                     {
                         MessageBox.Show("恭喜你 登录成功", "成功");
                         this.Hide();
-                        MainForm mainform = new MainForm(userAccount);
+                        FormMain mainform = new FormMain(userAccount);
                         mainform.StartPosition = FormStartPosition.CenterParent;
                         mainform.ShowDialog();
                         this.Close();

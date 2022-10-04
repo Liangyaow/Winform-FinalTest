@@ -53,7 +53,7 @@ namespace FinalTest
     * 功能说明: 串口设置界面类
     * 注    意: 
     ***************************************************************************************************/
-    public partial class UARTSettingForm : Form
+    public partial class FormUARTSetting : Form
     {
         //实例化结构体
         private StructUARTInfo mUARTInfo = new StructUARTInfo();
@@ -67,7 +67,7 @@ namespace FinalTest
         * 参数说明：输入参数info-串口信息结构体
         * 注    意: 
         ***********************************************************************************************/
-        public UARTSettingForm(StructUARTInfo info)
+        public FormUARTSetting(StructUARTInfo info)
         {
             InitializeComponent();
 

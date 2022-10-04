@@ -31,7 +31,7 @@ namespace FinalTest
     * 功能说明: 数据存储类
     * 注    意: 
     ***************************************************************************************************/
-    public partial class StoreSettingForm : Form
+    public partial class FormStoreSetting : Form
     {
         public bool saveUARTdata
         {
@@ -68,7 +68,7 @@ namespace FinalTest
         * 功能说明: 构造方法
         * 注    意:
         *********************************************************************************************/
-        public StoreSettingForm()
+        public FormStoreSetting()
         {
             InitializeComponent();
         }

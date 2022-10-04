@@ -24,7 +24,6 @@ namespace FinalTest
                 result = result + Convert.ToString(hashedBytes[i]);
             }
 
-
             return result;
         }
     }

@@ -13,7 +13,7 @@ namespace FinalTest
     //定义spo2SetHandler委托
     public delegate void spo2SetHandler(string sensor);
 
-    public partial class SPO2Form : Form
+    public partial class FormSPO2 : Form
     {
         private SendData mSendData;         //声明串口,用于发送命令给从机（单片机）
         private string mSPO2Sens;         //血氧灵敏度
@@ -21,7 +21,7 @@ namespace FinalTest
         //声明spo2SetHandler委托的事件sendSPO2SensEvent，用于将血氧灵敏度同步至主界面
         public event spo2SetHandler sendSPO2SensEvent;
 
-        public SPO2Form(SendData sendData, string sensor)
+        public FormSPO2(SendData sendData, string sensor)
         {
             InitializeComponent();
             mSendData = sendData;

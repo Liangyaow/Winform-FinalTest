@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class StoreSettingForm
+    partial class FormStoreSetting
     {
         /// <summary>
         /// Required designer variable.

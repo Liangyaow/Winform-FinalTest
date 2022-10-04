@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class RegisterForm
+    partial class FormRegister
     {
         /// <summary>
         /// Required designer variable.

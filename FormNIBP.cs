@@ -12,10 +12,10 @@ namespace FinalTest
 {
     //定义nibpSetDelegate委托
     public delegate void nibpSetDelegate(Byte[] arr, int len);
-    //定义nibpSetHandler委托
-    public delegate void nibpSetHandler(string measMode);
+    //定义nibpSetDelegate委托
+    public delegate void nibpSetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
 
-    public partial class NIBPForm : Form
+    public partial class FormNIBP : Form
     {
         private SendData mSendData;                    //声明串口,用于发送命令给从机（单片机）
         private string mMeasMode;                    //NIBP测量模式
@@ -24,10 +24,10 @@ namespace FinalTest
 
         //声明委托nibpSetDelegate的事件sendNIBPSetCmdToMCU，用于发送命令至单片机
         public event nibpSetDelegate sendNIBPSetCmdToMCU;
-        //声明委托nibpSetHandler的事件sendNIBPMeasModeEvent，用于将子界面的NIBP测量模式同步至主界面
-        public event nibpSetHandler sendNIBPMeasModeEvent;
+        //声明委托nibpSetHandler的事件sendNIBPModeEvent
+        public event nibpSetHandler sendNIBPModeEvent;
 
-        public NIBPForm(SendData sendData, string measMode)
+        public FormNIBP(SendData sendData, string measMode)
         {
             InitializeComponent();
 
@@ -90,8 +90,7 @@ namespace FinalTest
                 return;
             }
 
-            labelNIBPMeasMode.Text = comboBoxNIBPMeasMode.Text; 
-            sendNIBPMeasModeEvent(comboBoxNIBPMeasMode.Text); //将NIBP测量模式更改后的值传递到主界面
+            labelNIBPMeasMode.Text = comboBoxNIBPMeasMode.Text;
 
             List<byte> dataLst = new List<byte>();
             byte data = (byte)(measMode);
@@ -205,6 +204,16 @@ namespace FinalTest
         private void buttonNIBPSetCancel_Click(object sender, EventArgs e)
         {
             this.Close();   //关闭界面
+        }
+
+        private void toolStripLabelNIBPModeSwitch_Click(object sender, EventArgs e)
+        {
+            FormModeSwitch formModeSwitch = new FormModeSwitch("NIBP");
+            formModeSwitch.StartPosition = FormStartPosition.CenterParent;
+            if (formModeSwitch.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class LoginForm
+    partial class FormLogin
     {
         /// <summary>
         /// 必需的设计器变量。

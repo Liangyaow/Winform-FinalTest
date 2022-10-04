@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class MainForm
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@ namespace FinalTest
             this.buttonToSPO2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ToolStripMenuItemUART = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemStoreSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.timeToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@ namespace FinalTest
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelUART = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ToolStripMenuItemStoreSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -91,28 +91,35 @@ namespace FinalTest
             this.ToolStripMenuItemExit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(657, 42);
+            this.menuStrip1.Size = new System.Drawing.Size(657, 39);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemUART
             // 
             this.ToolStripMenuItemUART.Name = "ToolStripMenuItemUART";
-            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 38);
+            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 35);
             this.ToolStripMenuItemUART.Text = "串口设置";
             this.ToolStripMenuItemUART.Click += new System.EventHandler(this.ToolStripMenuItemUART_Click);
+            // 
+            // ToolStripMenuItemStoreSetting
+            // 
+            this.ToolStripMenuItemStoreSetting.Name = "ToolStripMenuItemStoreSetting";
+            this.ToolStripMenuItemStoreSetting.Size = new System.Drawing.Size(130, 35);
+            this.ToolStripMenuItemStoreSetting.Text = "数据存储";
+            this.ToolStripMenuItemStoreSetting.Click += new System.EventHandler(this.ToolStripMenuItemStoreSetting_Click);
             // 
             // timeToolStripMenuItemAbout
             // 
             this.timeToolStripMenuItemAbout.Name = "timeToolStripMenuItemAbout";
-            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 38);
+            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 35);
             this.timeToolStripMenuItemAbout.Text = "关于";
             this.timeToolStripMenuItemAbout.Click += new System.EventHandler(this.timeToolStripMenuItemAbout_Click);
             // 
             // ToolStripMenuItemExit
             // 
             this.ToolStripMenuItemExit.Name = "ToolStripMenuItemExit";
-            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 38);
+            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 35);
             this.ToolStripMenuItemExit.Text = "退出";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
@@ -180,14 +187,7 @@ namespace FinalTest
             this.toolStripStatusLabelUART.Size = new System.Drawing.Size(110, 31);
             this.toolStripStatusLabelUART.Text = "串口关闭";
             // 
-            // ToolStripMenuItemStoreSetting
-            // 
-            this.ToolStripMenuItemStoreSetting.Name = "ToolStripMenuItemStoreSetting";
-            this.ToolStripMenuItemStoreSetting.Size = new System.Drawing.Size(130, 38);
-            this.ToolStripMenuItemStoreSetting.Text = "数据存储";
-            this.ToolStripMenuItemStoreSetting.Click += new System.EventHandler(this.ToolStripMenuItemStoreSetting_Click);
-            // 
-            // MainForm
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -203,7 +203,7 @@ namespace FinalTest
             this.Controls.Add(this.buttonToNIBP);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "MainForm";
+            this.Name = "FormMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
