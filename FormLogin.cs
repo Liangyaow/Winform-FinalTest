@@ -11,8 +11,10 @@ namespace FinalTest
         private bool mAccountFlag = false;
         private bool mPswFlag = false;
 
-        private const string STORE_DATA_FILE = @".\Data\UserInfo.ini";  //设置保存用户信息文件路径及名字
-        private IniHelper mIniFile;
+        private const string USER_INFO_FILE = @".\Data\UserInfo.ini";  //设置保存用户信息文件路径及名字
+        private const string HISTORY_DATA_FILE = @".\Data\History.ini";  //设置上次登录用户信息文件路径及名字
+        private IniHelper mIniFileForUserInfo;
+        private IniHelper mIniFileForHistory;
 
         /***********************************************************************************************
         * 方法名称: FormRegister
@@ -24,7 +26,10 @@ namespace FinalTest
         {
             InitializeComponent();
 
-            mIniFile = new IniHelper(STORE_DATA_FILE, "#用户信息表");          //传递INI文件名至配置文件
+            mIniFileForUserInfo = new IniHelper(USER_INFO_FILE, "#用户信息表");          //传递INI文件名至配置文件
+            mIniFileForHistory = new IniHelper(HISTORY_DATA_FILE, "#登陆记录");          //传递INI文件名至配置文件
+
+            textBoxAccount.Text = mIniFileForHistory.readString("History", "HistoryAcount", ""); 
         }
 
         /***********************************************************************************************
@@ -137,10 +142,10 @@ namespace FinalTest
                     keyAccount = "User" + Convert.ToString(i) + "Account";
                     keyPassword = "User" + Convert.ToString(i) + "Password";
 
-                    listAcount.Add(mIniFile.readString("UserInfo", keyAccount, "nothing"));
+                    listAcount.Add(mIniFileForUserInfo.readString("UserInfo", keyAccount, "nothing"));
 
                     if ((listAcount[i] == "nothing")
-                        && (mIniFile.readString("UserInfo", keyPassword, "nothing") == "nothing"))
+                        && (mIniFileForUserInfo.readString("UserInfo", keyPassword, "nothing") == "nothing"))
                     {
                         break;
                     }
@@ -152,10 +157,20 @@ namespace FinalTest
                     keyPassword = keyPassword = "User" + Convert.ToString(keyIndex) + "Password";
 
                     //将输入的密码经MD5密文加密后跟数据库中存储的密码相比较
-                    if (mIniFile.readString("UserInfo", keyPassword, "nothing") == Encode.getEncodedPsw(userPassword))  //结果两者相同
+                    if (mIniFileForUserInfo.readString("UserInfo", keyPassword, "nothing") == Encode.getEncodedPsw(userPassword))  //结果两者相同
                     {
+                        if (checkBoxRemeber.Checked)                                                //选项选了记住账号
+                        {
+                            mIniFileForHistory.writeString("History", "HistoryAcount", userAccount); //将当前登录的账号写入History.ini文件中
+                        }
+                        else                                                                        //选项选了记住账号
+                        {
+                            mIniFileForHistory.writeString("History", "HistoryAcount", "");         //清空History.ini文件
+                        }
+
                         MessageBox.Show("恭喜你 登录成功", "成功");
                         this.Hide();
+
                         FormMain mainform = new FormMain(userAccount);
                         mainform.StartPosition = FormStartPosition.CenterParent;
                         mainform.ShowDialog();                                                                            //显示MainForm主界面

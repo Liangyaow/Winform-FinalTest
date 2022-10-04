@@ -39,6 +39,7 @@ namespace FinalTest
             this.labelAcountWarn = new System.Windows.Forms.Label();
             this.labelPswWarn = new System.Windows.Forms.Label();
             this.labelChangePsw = new System.Windows.Forms.Label();
+            this.checkBoxRemeber = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -145,11 +146,22 @@ namespace FinalTest
             this.labelChangePsw.Text = "修改密码";
             this.labelChangePsw.Click += new System.EventHandler(this.labelChangePsw_Click);
             // 
+            // checkBoxRemeber
+            // 
+            this.checkBoxRemeber.AutoSize = true;
+            this.checkBoxRemeber.Location = new System.Drawing.Point(602, 93);
+            this.checkBoxRemeber.Name = "checkBoxRemeber";
+            this.checkBoxRemeber.Size = new System.Drawing.Size(138, 28);
+            this.checkBoxRemeber.TabIndex = 16;
+            this.checkBoxRemeber.Text = "记住账号";
+            this.checkBoxRemeber.UseVisualStyleBackColor = true;
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 508);
+            this.Controls.Add(this.checkBoxRemeber);
             this.Controls.Add(this.labelChangePsw);
             this.Controls.Add(this.labelPswWarn);
             this.Controls.Add(this.labelAcountWarn);
@@ -179,6 +191,7 @@ namespace FinalTest
         private System.Windows.Forms.Label labelAcountWarn;
         private System.Windows.Forms.Label labelPswWarn;
         private System.Windows.Forms.Label labelChangePsw;
+        private System.Windows.Forms.CheckBox checkBoxRemeber;
     }
 }
 
