@@ -10,9 +10,6 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
-    //定义nibpSetDelegate委托
-    public delegate void nibpSetDelegate(Byte[] arr, int len);
-
     public partial class FormNIBP : Form
     {
         private SendData mSendData;                    //声明串口,用于发送命令给从机（单片机）
@@ -20,10 +17,6 @@ namespace FinalTest
         private FormModeSwitch mFormModeSwitch;
 
         PackUnpack mPackUnpack = new PackUnpack();     //实例化打包解包类
-
-        //声明委托nibpSetDelegate的事件sendNIBPSetCmdToMCU，用于发送命令至单片机
-        public event nibpSetDelegate sendNIBPSetCmdToMCU;
-
         public FormNIBP(SendData sendData, string measMode, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
@@ -32,6 +25,8 @@ namespace FinalTest
             mSendData = sendData;
             mMeasMode = measMode;
             mFormModeSwitch = formModeSwitch;
+
+            toolStripLabelNIBPModeSwitch.Text = "模式：监护";
         }
 
         private void NIBPForm_Load(object sender, EventArgs e)
@@ -105,22 +100,21 @@ namespace FinalTest
             }
             else
             {
-                //将更改后的NIBP测量模式打包发送给MCU，0x14-血压命令的模块ID
+                //将 更改后的NIBP测量模式 打包发送给MCU，0x14-血压命令的模块ID
                 mSendData.sendCmdToMcu(dataLst, 0x14);
             }
         }
 
         /***********************************************************************************************
-       * 方法名称: buttonNIBPStartMeas_Click 
-       * 功能说明: 开始测量按钮按下
-       * 注    意: 
-       ***********************************************************************************************/
+        * 方法名称: buttonNIBPStartMeas_Click 
+        * 功能说明: 开始测量按钮按下
+        * 注    意: 
+        ***********************************************************************************************/
         private void buttonNIBPStartMeas_Click(object sender, EventArgs e)
         {
-            Byte[] arrCmd = new Byte[] { 0x14, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //去掉数据头和校验和
-            List<byte> mPackData = new List<byte>(arrCmd);                                 //数组转list
-            mPackUnpack.packData(ref mPackData);                                           //打包
-            arrCmd = mPackData.ToArray();                                                  //list转数组
+            //Byte[] arrCmd = new Byte[] { 0x14, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //去掉数据头和校验和
+            List<byte> dataLst = new List<byte>();
+            dataLst.Add(0x80);                                                                //二级ID
 
             if (!mSendData.mComPort.IsOpen)                                                //串口没有打开
             {
@@ -128,22 +122,29 @@ namespace FinalTest
             }
             else
             {
-                sendNIBPSetCmdToMCU(arrCmd, 10);
+                //将 开始测量 相关的命令包打包发送给MCU，0x14-血压命令的模块ID
+                mSendData.sendCmdToMcu(dataLst, 0x14);
             }
         }
 
         /***********************************************************************************************
-       * 类 名 称: buttonNIBPStopMeas_Click 
-       * 功能说明: 停止测量按钮按下
-       * 注    意: 
-       ***********************************************************************************************/
+        * 类 名 称: buttonNIBPStopMeas_Click 
+        * 功能说明: 停止测量按钮按下
+        * 注    意: 
+        ***********************************************************************************************/
         private void buttonNIBPStopMeas_Click(object sender, EventArgs e)
         {
-            Byte[] arrCmd = new Byte[] { 0x14, 0x81, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };    //去掉数据头和校验和
-            List<byte> mPackData = new List<byte>(arrCmd);                                    //数组转list
-            mPackUnpack.packData(ref mPackData);                                              //打包
-            arrCmd = mPackData.ToArray();                                                     //list转数组
-            sendNIBPSetCmdToMCU(arrCmd, 10);     //通过委托发送数据给单片机，同方法sendCmdToMCU()
+            List<byte> dataLst = new List<byte>();
+            dataLst.Add(0x81);                                                                //二级ID
+            if (!mSendData.mComPort.IsOpen)                                                //串口没有打开
+            {
+                MessageBox.Show("串口没有打开", "提示");
+            }
+            else
+            {
+                //将 停止测量 相关的命令包 打包发送给MCU，0x14-血压命令的模块ID
+                mSendData.sendCmdToMcu(dataLst, 0x14);
+            }
         }
 
         /***********************************************************************************************
@@ -153,11 +154,17 @@ namespace FinalTest
         ***********************************************************************************************/
         private void buttonNIBPRst_Click(object sender, EventArgs e)
         {
-            Byte[] arrCmd = new Byte[] { 0x14, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };    //去掉数据头和校验和
-            List<byte> mPackData = new List<byte>(arrCmd);                                    //数组转list
-            mPackUnpack.packData(ref mPackData);                                              //打包
-            arrCmd = mPackData.ToArray();                                                     //list转数组
-            sendNIBPSetCmdToMCU(arrCmd, 10);     //通过委托发送数据给单片机，同方法sendCmdToMCU()
+            List<byte> dataLst = new List<byte>();
+            dataLst.Add(0x84);                                                                //二级ID
+            if (!mSendData.mComPort.IsOpen)                                                //串口没有打开
+            {
+                MessageBox.Show("串口没有打开", "提示");
+            }
+            else
+            {
+                //将 模复位功能 相关的命令包 打包发送给MCU，0x14-血压命令的模块ID
+                mSendData.sendCmdToMcu(dataLst, 0x14);
+            }
         }
 
         /***********************************************************************************************
@@ -167,11 +174,17 @@ namespace FinalTest
         ***********************************************************************************************/
         private void buttonNIBPCheckLeak_Click(object sender, EventArgs e)
         {
-            Byte[] arrCmd = new Byte[] { 0x14, 0x85, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };    //去掉数据头和校验和
-            List<byte> mPackData = new List<byte>(arrCmd);                                    //数组转list
-            mPackUnpack.packData(ref mPackData);                                              //打包
-            arrCmd = mPackData.ToArray();                                                     //list转数组
-            sendNIBPSetCmdToMCU(arrCmd, 10);     //通过委托发送数据给单片机，同方法sendCmdToMCU()
+            List<byte> dataLst = new List<byte>();
+            dataLst.Add(0x85);                                                                //二级ID
+            if (!mSendData.mComPort.IsOpen)                                                //串口没有打开
+            {
+                MessageBox.Show("串口没有打开", "提示");
+            }
+            else
+            {
+                //将漏气检测 相关的命令包 打包发送给MCU，0x14-血压命令的模块ID
+                mSendData.sendCmdToMcu(dataLst, 0x14);
+            }
         }
 
         /***********************************************************************************************
@@ -181,11 +194,28 @@ namespace FinalTest
         ***********************************************************************************************/
         private void buttonNIBPCalibPressure_Click(object sender, EventArgs e)
         {
-            Byte[] arrCmd = new Byte[] { 0x14, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };    //去掉数据头和校验和
-            List<byte> mPackData = new List<byte>(arrCmd);                                    //数组转list
-            mPackUnpack.packData(ref mPackData);                                              //打包
-            arrCmd = mPackData.ToArray();                                                     //list转数组
-            sendNIBPSetCmdToMCU(arrCmd, 10);     //通过委托发送数据给单片机，同方法sendCmdToMCU()
+            List<byte> dataLst = new List<byte>();
+            dataLst.Add(0x83);                                                                //二级ID
+            if (!mSendData.mComPort.IsOpen)                                                //串口没有打开
+            {
+                MessageBox.Show("串口没有打开", "提示");
+            }
+            else
+            {
+                //将 压力校准的命令包 打包发送给MCU，0x14-血压命令的模块ID
+                mSendData.sendCmdToMcu(dataLst, 0x14);
+            }
+        }
+
+        /***********************************************************************************************
+        * 方法名称: toolStripLabelNIBPModeSwitch_Click 
+        * 功能说明: 
+        * 注    意: 
+        ***********************************************************************************************/
+        private void toolStripLabelNIBPModeSwitch_Click(object sender, EventArgs e)
+        {
+            mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
+            mFormModeSwitch.ShowDialog();
         }
 
         /***********************************************************************************************
@@ -208,10 +238,6 @@ namespace FinalTest
             this.Close();   //关闭界面
         }
 
-        private void toolStripLabelNIBPModeSwitch_Click(object sender, EventArgs e)
-        {
-            mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
-            mFormModeSwitch.ShowDialog();
-        }
+      
     }
 }

@@ -65,9 +65,9 @@ namespace FinalTest
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(224, 207);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(298, 35);
             this.textBoxPassword.TabIndex = 9;
-            this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.Leave += new System.EventHandler(this.textBoxPassword_Leave);
             // 
             // textBoxAccount
@@ -130,7 +130,7 @@ namespace FinalTest
             this.checkBoxShowPsw.UseVisualStyleBackColor = true;
             this.checkBoxShowPsw.CheckedChanged += new System.EventHandler(this.checkBoxShowPsw_CheckedChanged);
             // 
-            // RegisterForm
+            // FormRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -144,7 +144,7 @@ namespace FinalTest
             this.Controls.Add(this.textBoxAccount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "RegisterForm";
+            this.Name = "FormRegister";
             this.Text = "注册";
             this.ResumeLayout(false);
             this.PerformLayout();

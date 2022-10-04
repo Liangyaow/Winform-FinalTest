@@ -67,9 +67,9 @@ namespace FinalTest
             // 
             this.textBoxPassword.Location = new System.Drawing.Point(224, 207);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(298, 35);
             this.textBoxPassword.TabIndex = 9;
-            this.textBoxPassword.UseSystemPasswordChar = true;
             this.textBoxPassword.Leave += new System.EventHandler(this.textBoxPassword_Leave);
             // 
             // textBoxAccount
@@ -132,7 +132,7 @@ namespace FinalTest
             this.labelPswWarn.Text = "请输入6-20位字母数字组合";
             this.labelPswWarn.Visible = false;
             // 
-            // LoginForm
+            // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -146,7 +146,7 @@ namespace FinalTest
             this.Controls.Add(this.textBoxAccount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "LoginForm";
+            this.Name = "FormLogin";
             this.Text = "登录";
             this.ResumeLayout(false);
             this.PerformLayout();

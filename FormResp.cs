@@ -36,6 +36,11 @@ namespace FinalTest
             get { return labelRespRR.Text; }
             set { labelRespRR.Text = value; }
         }
+        public string ToolStripLabelRespModeSwitchText
+        {
+            get { return toolStripLabelRespModeSwitch.Text; }
+            set { toolStripLabelRespModeSwitch.Text = value; }
+        }
 
         public DataGridView DataGridViewResp
         {

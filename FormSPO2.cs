@@ -70,6 +70,11 @@ namespace FinalTest
             get { return labelSPO2Data.Text; }
             set { labelSPO2Data.Text = value; }
         }
+        public string ToolStripLabelSPO2ModeSwitchText
+        {
+            get { return toolStripLabelSPO2ModeSwitch.Text; }
+            set { toolStripLabelSPO2ModeSwitch.Text = value; }
+        }
         public DataGridView DataGridViewSPO2
         {
             get { return dataGridViewSPO2; }

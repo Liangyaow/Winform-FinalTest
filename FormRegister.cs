@@ -111,7 +111,14 @@ namespace FinalTest
 
         private void checkBoxShowPsw_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxPassword.UseSystemPasswordChar = !checkBoxShowPsw.Checked;
+            if (checkBoxShowPsw.Checked)
+            {
+                textBoxPassword.PasswordChar = '\0';
+            }
+            else
+            {
+                textBoxPassword.PasswordChar = Convert.ToChar('*');
+            }
         }
     }
 }

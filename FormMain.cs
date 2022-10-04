@@ -23,7 +23,6 @@ namespace FinalTest
         FormSPO2 mFormSPO2;
 
 
-        public string mNIBPMeasMode = "手动";      //血压测量模式
 
         public const int PACK_QUEUE_CNT = 2000;    //缓冲的长度
 
@@ -62,6 +61,9 @@ namespace FinalTest
 
         private SendData mSendData = null;         //声明串口，用于发送命令给从机（单片机）
 
+
+        //血压
+        public string mNIBPMeasMode = "手动";      //血压测量模式
 
         //呼吸
         private string mRespGainSet = "X1";                          //呼吸增益设置
@@ -138,26 +140,13 @@ namespace FinalTest
 
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
-
             mFormModeSwitch.SwitchModeEvent += new SwitchModeDelegate(switchMode);
 
             mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode, mFormModeSwitch);
-            mFormNIBP.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
             mFormResp = new FormResp(mSendData, mRespGainSet, mFormModeSwitch);
             mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet, mFormModeSwitch);
 
             mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
-        }
-
-        /***********************************************************************************************
-        * 方法名称: sendCmdToMCU
-        * 功能说明: 发送命令至单片机
-        * 参数说明：输入参数（1）arr-待发送数据，输入参数（2）len-待发送数据长度
-        * 注    意:
-        ***********************************************************************************************/
-        void sendCmdToMCU(Byte[] arr, int len)
-        {
-            serialPort.Write(arr, 0, len);
         }
 
         /***********************************************************************************************
@@ -281,7 +270,8 @@ namespace FinalTest
                 if (!mIsRealMode)
                 {
                     mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：监护";
-
+                    mFormResp.ToolStripLabelRespModeSwitchText = "模式：监护";
+                    mFormSPO2.ToolStripLabelSPO2ModeSwitchText = "模式：监护";
 
                     //关闭演示线程
                     mThreadStartFlag = false;
@@ -325,7 +315,6 @@ namespace FinalTest
                     //显示串口状态
                     strUARTInfo = mUARTInfo.portNum + "已打开," + mUARTInfo.baudRate + ","
                       + mUARTInfo.dataBits + "," + mUARTInfo.stopBits + "," + mUARTInfo.parity;
-
                 }
                 catch
                 {
@@ -1206,6 +1195,8 @@ namespace FinalTest
             if (mIsRealMode)                         //监护模式
             {
                 mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：监护";
+                mFormResp.ToolStripLabelRespModeSwitchText = "模式：监护";
+                mFormSPO2.ToolStripLabelSPO2ModeSwitchText = "模式：监护";
 
                 //关闭演示线程
                 mThreadStartFlag = false;
@@ -1225,6 +1216,9 @@ namespace FinalTest
                 string currentTime = DateTime.Now.ToString("yyyyMMddhhmmss");
 
                 mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：回放";
+                mFormResp.ToolStripLabelRespModeSwitchText = "模式：回放";
+                mFormSPO2.ToolStripLabelSPO2ModeSwitchText = "模式：回放";
+
 
                 mThreadStartFlag = false;            //停止演示线程，加载完数据再打开
                 mDisplayModeFlag = false;
@@ -1238,6 +1232,7 @@ namespace FinalTest
                 }
 
                 mUARTFile = mFormModeSwitch.UARTFileName;
+
                 loadUARTFile(mUARTFile);             //加载文件数据
 
                 //打开演示线程
@@ -1248,6 +1243,8 @@ namespace FinalTest
             else                                     //演示模式                   
             {
                 mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：演示";
+                mFormResp.ToolStripLabelRespModeSwitchText = "模式：演示";
+                mFormSPO2.ToolStripLabelSPO2ModeSwitchText = "模式：演示";
 
                 mThreadStartFlag = false;            //停止演示线程，加载完数据在打开
                 mDisplayModeFlag = true;
