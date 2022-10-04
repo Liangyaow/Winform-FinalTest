@@ -206,17 +206,18 @@ namespace FinalTest
             this.toolStripLabelRespModeSwitch});
             this.toolStripModeSwitch.Location = new System.Drawing.Point(0, 0);
             this.toolStripModeSwitch.Name = "toolStripModeSwitch";
-            this.toolStripModeSwitch.Size = new System.Drawing.Size(2207, 50);
+            this.toolStripModeSwitch.Size = new System.Drawing.Size(2207, 38);
             this.toolStripModeSwitch.TabIndex = 255;
             this.toolStripModeSwitch.Text = "模式切换";
             // 
             // toolStripLabelRespModeSwitch
             // 
             this.toolStripLabelRespModeSwitch.Name = "toolStripLabelRespModeSwitch";
-            this.toolStripLabelRespModeSwitch.Size = new System.Drawing.Size(110, 44);
+            this.toolStripLabelRespModeSwitch.Size = new System.Drawing.Size(110, 32);
             this.toolStripLabelRespModeSwitch.Text = "模式切换";
+            this.toolStripLabelRespModeSwitch.Click += new System.EventHandler(this.toolStripLabelRespModeSwitch_Click);
             // 
-            // RespForm
+            // FormResp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -233,7 +234,7 @@ namespace FinalTest
             this.Controls.Add(this.labelRespBPM);
             this.Controls.Add(this.labelRespCN);
             this.Controls.Add(this.buttonRespSet);
-            this.Name = "RespForm";
+            this.Name = "FormResp";
             this.Text = "呼吸";
             this.Load += new System.EventHandler(this.RespForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResp)).EndInit();

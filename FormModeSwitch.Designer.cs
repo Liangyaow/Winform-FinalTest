@@ -99,6 +99,7 @@ namespace FinalTest
             this.btnOk.TabIndex = 32;
             this.btnOk.Text = "确定";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // groupBox1
             // 

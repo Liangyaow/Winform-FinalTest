@@ -12,28 +12,26 @@ namespace FinalTest
 {
     //定义nibpSetDelegate委托
     public delegate void nibpSetDelegate(Byte[] arr, int len);
-    //定义nibpSetDelegate委托
-    public delegate void nibpSetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
 
     public partial class FormNIBP : Form
     {
         private SendData mSendData;                    //声明串口,用于发送命令给从机（单片机）
         private string mMeasMode;                    //NIBP测量模式
+        private FormModeSwitch mFormModeSwitch;
 
         PackUnpack mPackUnpack = new PackUnpack();     //实例化打包解包类
 
         //声明委托nibpSetDelegate的事件sendNIBPSetCmdToMCU，用于发送命令至单片机
         public event nibpSetDelegate sendNIBPSetCmdToMCU;
-        //声明委托nibpSetHandler的事件sendNIBPModeEvent
-        public event nibpSetHandler sendNIBPModeEvent;
 
-        public FormNIBP(SendData sendData, string measMode)
+        public FormNIBP(SendData sendData, string measMode, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
 
             //将主界面的的参数传到设置界面
             mSendData = sendData;
             mMeasMode = measMode;
+            mFormModeSwitch = formModeSwitch;
         }
 
         private void NIBPForm_Load(object sender, EventArgs e)
@@ -75,7 +73,11 @@ namespace FinalTest
             get { return labelNIBPMeasMode.Text; }
             set { labelNIBPMeasMode.Text = value; }
         }
-
+        public string ToolStripLabelNIBPModeSwitchText
+        {
+            get { return toolStripLabelNIBPModeSwitch.Text; }
+            set { toolStripLabelNIBPModeSwitch.Text = value; }
+        }
 
         /***********************************************************************************************
         * 方法名称: comboBoxNIBPMeasMode_SelectedIndexChanged 
@@ -208,12 +210,8 @@ namespace FinalTest
 
         private void toolStripLabelNIBPModeSwitch_Click(object sender, EventArgs e)
         {
-            FormModeSwitch formModeSwitch = new FormModeSwitch("NIBP");
-            formModeSwitch.StartPosition = FormStartPosition.CenterParent;
-            if (formModeSwitch.ShowDialog() == DialogResult.OK)
-            {
-                sendNIBPModeEvent(formModeSwitch.isRealMode, formModeSwitch.isLoadMode, formModeSwitch.isDisplayMode);
-            }
+            mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
+            mFormModeSwitch.ShowDialog();
         }
     }
 }

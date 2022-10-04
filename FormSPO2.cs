@@ -10,22 +10,18 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
-    //定义nibpSetDelegate委托
-    public delegate void spo2SetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
-
     public partial class FormSPO2 : Form
     {
         private SendData mSendData;         //声明串口,用于发送命令给从机（单片机）
         private string mSPO2Sens;         //血氧灵敏度
+        private FormModeSwitch mFormModeSwitch;
 
-        //声明委托spo2SetHandler的事件sendSPO2ModeEvent
-        public event spo2SetHandler sendSPO2ModeEvent;
-
-        public FormSPO2(SendData sendData, string sensor)
+        public FormSPO2(SendData sendData, string sensor, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
             mSendData = sendData;
             mSPO2Sens = sensor;
+            mFormModeSwitch = formModeSwitch;
         }
 
         /***********************************************************************************************
@@ -112,6 +108,13 @@ namespace FinalTest
             this.Close();
 
         }
+        
+        private void toolStripLabelSPO2ModeSwitch_Click(object sender, EventArgs e)
+        {
+            mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
+            mFormModeSwitch.ShowDialog();
+        }
+
         /***********************************************************************************************
         * 方法名称: buttonSPO2SetCancel_Click 
         * 功能说明: 取消按钮按下
@@ -121,5 +124,7 @@ namespace FinalTest
         {
             this.Close();
         }
+
+
     }
 }

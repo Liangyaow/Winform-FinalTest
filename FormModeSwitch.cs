@@ -25,6 +25,10 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
+
+    //定义nibpSetDelegate委托
+    public delegate void SwitchModeDelegate(bool isRealMode, bool isLoadMode, bool isDisplayMode);
+
     /***************************************************************************************************
     * 类 名 称: FormModeSet 
     * 功能说明: 模式选择类
@@ -32,7 +36,8 @@ namespace FinalTest
     ***************************************************************************************************/
     public partial class FormModeSwitch : Form
     {
-        private string mType;
+        //声明委托nibpSetDelegate的事件sendNIBPSetCmdToMCU，用于发送命令至单片机
+        public event SwitchModeDelegate SwitchModeEvent;
 
         //类属性：获取演示文件的路径
         public string UARTFileName
@@ -67,10 +72,9 @@ namespace FinalTest
         * 功能说明: 构造方法
         * 注    意: 
         ***********************************************************************************************/
-        public FormModeSwitch(string type)
+        public FormModeSwitch()
         {
             InitializeComponent();
-            mType = type;
         }
 
         /***********************************************************************************************
@@ -90,13 +94,18 @@ namespace FinalTest
         ***********************************************************************************************/
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Title = "打开"+mType+"数据文件";                    //打开的界面的标题
+            openFileDialog1.Title = "选择数据文件";                    //打开的界面的标题
             openFileDialog1.InitialDirectory = Application.StartupPath;    //对话框的初始目录  
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbxUARTFileName.Text = openFileDialog1.FileName;           //显示选中的文件路径
             }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            SwitchModeEvent(rbRealData.Checked, rbLoadData.Checked, rbDisplayData.Checked);
         }
     }
 }

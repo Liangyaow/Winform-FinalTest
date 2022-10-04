@@ -17,9 +17,11 @@ namespace FinalTest
 {
     public partial class FormMain : Form
     {
+        FormModeSwitch mFormModeSwitch = new FormModeSwitch();
         FormNIBP mFormNIBP;
         FormResp mFormResp;
         FormSPO2 mFormSPO2;
+
 
         public string mNIBPMeasMode = "手动";      //血压测量模式
 
@@ -137,14 +139,12 @@ namespace FinalTest
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
 
-            mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode);
-            mFormNIBP.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
-            mFormNIBP.sendNIBPModeEvent += new nibpSetHandler(sendModeFlag);
+            mFormModeSwitch.SwitchModeEvent += new SwitchModeDelegate(switchMode);
 
-            mFormResp = new FormResp(mSendData, mRespGainSet);
-            mFormResp.sendRespModeEvent += new respSetHandler(sendModeFlag);
-            mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet);
-            mFormSPO2.sendSPO2ModeEvent += new spo2SetHandler(sendModeFlag);
+            mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode, mFormModeSwitch);
+            mFormNIBP.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
+            mFormResp = new FormResp(mSendData, mRespGainSet, mFormModeSwitch);
+            mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet, mFormModeSwitch);
 
             mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
         }
@@ -158,26 +158,6 @@ namespace FinalTest
         void sendCmdToMCU(Byte[] arr, int len)
         {
             serialPort.Write(arr, 0, len);
-        }
-
-        /***********************************************************************************************
-        * 方法名称: sendModeFlag
-        * 功能说明: 将模式设置的情况 传给主界面
-        * 参数说明：输入参数（1）isRealMode-监护模式标志位，
-                    输入参数（2）isLoadMode-回放模式标志位，
-                    输入参数（3）isDisplayMode-演示模式标志位
-
-        * 注    意:
-        ***********************************************************************************************/
-        void sendModeFlag(bool isRealMode, bool isLoadMode, bool isDisplayMode)
-        {
-            mIsRealMode = isRealMode;
-            mIsLoadMode = isLoadMode;
-            mIsDisplayMode = isDisplayMode;
-
-            Console.WriteLine(mIsRealMode);
-            Console.WriteLine(mIsLoadMode);
-            Console.WriteLine(mIsDisplayMode);
         }
 
         /***********************************************************************************************
@@ -300,7 +280,8 @@ namespace FinalTest
 
                 if (!mIsRealMode)
                 {
-                    //menuItemMonitorMode.Text = "模式：监护";
+                    mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：监护";
+
 
                     //关闭演示线程
                     mThreadStartFlag = false;
@@ -1213,6 +1194,79 @@ namespace FinalTest
                 }
 
                 Thread.Sleep(2);               //间隔2ms发一帧需要添加命名空间
+            }
+        }
+
+        private void switchMode(bool isRealMode, bool isLoadMode, bool isDisplayMode)
+        {
+            mIsRealMode = isRealMode;
+            mIsLoadMode = isLoadMode;
+            mIsDisplayMode = isDisplayMode;
+
+            if (mIsRealMode)                         //监护模式
+            {
+                mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：监护";
+
+                //关闭演示线程
+                mThreadStartFlag = false;
+                mDisplayModeFlag = false;
+
+                if (null != mProcLoadDataTask)
+                {
+                    mProcLoadDataTask.Wait();
+                    mProcLoadDataTask = null;
+                }
+
+                //打开串口读取
+                setUARTState(true);
+            }
+            else if (mIsLoadMode)                    //回放模式
+            {
+                string currentTime = DateTime.Now.ToString("yyyyMMddhhmmss");
+
+                mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：回放";
+
+                mThreadStartFlag = false;            //停止演示线程，加载完数据再打开
+                mDisplayModeFlag = false;
+
+                setUARTState(false);                 //关闭串口读取
+
+                if (null != mProcLoadDataTask)
+                {
+                    mProcLoadDataTask.Wait();
+                    mProcLoadDataTask = null;
+                }
+
+                mUARTFile = mFormModeSwitch.UARTFileName;
+                loadUARTFile(mUARTFile);             //加载文件数据
+
+                //打开演示线程
+                mThreadStartFlag = true;
+                mProcLoadDataTask = new Task(procLoadDataThread);
+                mProcLoadDataTask.Start();
+            }
+            else                                     //演示模式                   
+            {
+                mFormNIBP.ToolStripLabelNIBPModeSwitchText = "模式：演示";
+
+                mThreadStartFlag = false;            //停止演示线程，加载完数据在打开
+                mDisplayModeFlag = true;
+
+                setUARTState(false);                 //关闭串口读取
+
+                if (null != mProcLoadDataTask)
+                {
+                    mProcLoadDataTask.Wait();
+                    mProcLoadDataTask = null;
+                }
+
+                mUARTFile = mFormModeSwitch.UARTFileName;
+                loadUARTFile(mUARTFile);
+
+                //打开演示线程
+                mThreadStartFlag = true;
+                mProcLoadDataTask = new Task(procLoadDataThread);
+                mProcLoadDataTask.Start();
             }
         }
     }

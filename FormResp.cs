@@ -10,23 +10,19 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
-    //定义nibpSetDelegate委托
-    public delegate void respSetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
-
     public partial class FormResp : Form
     {
         private SendData mSendData;                  //声明串口,用于发送命令给从机（单片机）
         private string mRespGain;                  //呼吸增益
+        private FormModeSwitch mFormModeSwitch;
 
-        //声明委托respSetHandler的事件sendRespModeEvent
-        public event respSetHandler sendRespModeEvent;
-
-        public FormResp(SendData sendData, string gain)
+        public FormResp(SendData sendData, string gain, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
             //将主界面的的参数传到设置界面
             mSendData = sendData;
             mRespGain = gain;
+            mFormModeSwitch = formModeSwitch;
         }
 
         private void RespForm_Load(object sender, EventArgs e)
@@ -79,6 +75,12 @@ namespace FinalTest
             this.Close();
         }
 
+        private void toolStripLabelRespModeSwitch_Click(object sender, EventArgs e)
+        {
+            mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
+            mFormModeSwitch.ShowDialog();
+        }
+
         /***********************************************************************************************
         * 方法名称: buttonRespSetCancel_Click 
         * 功能说明: 取消按钮按下时
@@ -88,5 +90,6 @@ namespace FinalTest
         {
             this.Close();
         }
+
     }
 }

@@ -274,17 +274,18 @@ namespace FinalTest
             this.toolStripLabelSPO2ModeSwitch});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(2246, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(2246, 38);
             this.toolStrip1.TabIndex = 257;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabelSPO2ModeSwitch
             // 
             this.toolStripLabelSPO2ModeSwitch.Name = "toolStripLabelSPO2ModeSwitch";
-            this.toolStripLabelSPO2ModeSwitch.Size = new System.Drawing.Size(110, 44);
+            this.toolStripLabelSPO2ModeSwitch.Size = new System.Drawing.Size(110, 32);
             this.toolStripLabelSPO2ModeSwitch.Text = "模式切换";
+            this.toolStripLabelSPO2ModeSwitch.Click += new System.EventHandler(this.toolStripLabelSPO2ModeSwitch_Click);
             // 
-            // SPO2Form
+            // FormSPO2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -306,7 +307,7 @@ namespace FinalTest
             this.Controls.Add(this.labelSPO2Data);
             this.Controls.Add(this.labelSPO2CN);
             this.Controls.Add(this.buttonSPO2Set);
-            this.Name = "SPO2Form";
+            this.Name = "FormSPO2";
             this.Text = "血氧";
             this.Load += new System.EventHandler(this.SPO2Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSPO2)).EndInit();
