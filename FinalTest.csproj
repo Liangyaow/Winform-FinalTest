@@ -109,11 +109,18 @@
     <Compile Include="SPO2Form.Designer.cs">
       <DependentUpon>SPO2Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UARTSetting.cs">
+    <Compile Include="StoreSetting.cs" />
+    <Compile Include="StoreSettingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UARTSetting.Designer.cs">
-      <DependentUpon>UARTSetting.cs</DependentUpon>
+    <Compile Include="StoreSettingForm.Designer.cs">
+      <DependentUpon>StoreSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UARTSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UARTSettingForm.Designer.cs">
+      <DependentUpon>UARTSettingForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
@@ -146,8 +153,11 @@
     <EmbeddedResource Include="SPO2Form.resx">
       <DependentUpon>SPO2Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UARTSetting.resx">
-      <DependentUpon>UARTSetting.cs</DependentUpon>
+    <EmbeddedResource Include="StoreSettingForm.resx">
+      <DependentUpon>StoreSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UARTSettingForm.resx">
+      <DependentUpon>UARTSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

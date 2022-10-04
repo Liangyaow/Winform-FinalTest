@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -71,6 +72,24 @@ namespace FinalTest
         private Pen mSPO2WavePen = new Pen(Color.Cyan, 1);           //SPO2波形画笔
         private float mSPO2XStep = 0.0F;                             //SPO2横坐标
 
+        StoreSetting mStoreSetting;                                  //文件存储类
+
+        //以下变量用于数据存储，用于设置保存数据的文件名及存储路径  
+        StreamWriter mNIBPDirectory;
+        StreamWriter mRespDirectory;
+        StreamWriter mSPO2Directory;
+        StreamWriter mSWUART = null;
+
+        //用于存储的参数
+        ushort mMaxRespWave;
+        ushort mMinRespWave;
+
+        ushort mMaxSPO2Wave;
+        ushort mMinSPO2Wave;
+
+        ushort mMaxNIBPData;
+        ushort mMinNIBPData;
+
         /***********************************************************************************************
         * 方法名称: MainForm
         * 功能说明: 构造函数
@@ -80,9 +99,21 @@ namespace FinalTest
         public MainForm(string userAccount)
         {
             InitializeComponent();
+
+            string storeSettingFileDirectory = @".\Data\" + userAccount;
+            if (!Directory.Exists(storeSettingFileDirectory))
+            {
+                Directory.CreateDirectory(storeSettingFileDirectory);
+            }
+
+            string saveFolderDirectory = @".\RcvData\" + userAccount;
+            if (!Directory.Exists(saveFolderDirectory))
+            {
+                Directory.CreateDirectory(saveFolderDirectory);
+            }
+
             labelAccount.Text = userAccount;
             labelTime.Text = DateTime.Now.ToString();
-
 
             mPackAfterUnpackArr = new byte[PACK_QUEUE_CNT][];   //二维数组，作为接收数据缓冲
             for (int i = 0; i < PACK_QUEUE_CNT; i++)            //将数组初始化为0
@@ -101,6 +132,8 @@ namespace FinalTest
 
             mSPO2Form = new SPO2Form(mSendData, mSPO2SensSet);
             mSPO2Form.sendSPO2SensEvent += new spo2SetHandler(procSPO2Sens);
+
+            mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
         }
 
         /***********************************************************************************************
@@ -174,6 +207,15 @@ namespace FinalTest
             mUARTInfo.stopBits = "1";         //停止位
             mUARTInfo.parity = "NONE";        //校验位
             mUARTInfo.isOpened = false;       //刚打开界面默认串口是关闭的
+
+            mMaxNIBPData = 0;                 //血压数据的范围为0到300
+            mMinNIBPData = 300;
+
+            mMaxRespWave = 0;                 //呼吸波形数据范围为0到255
+            mMinRespWave = 255;
+
+            mMaxSPO2Wave = 0;                 //血氧波形数据范围为0到127
+            mMinSPO2Wave = 127;
         }
         /***********************************************************************************************
         * 方法名称: MainForm_FormClosing
@@ -200,7 +242,7 @@ namespace FinalTest
                 searchAndAddSerialToComboBox(serialPort, mUARTInfo.portNumItem);  //扫描串口
             }
 
-            UARTSetting mUARTSetForm = new UARTSetting(mUARTInfo);
+            UARTSettingForm mUARTSetForm = new UARTSettingForm(mUARTInfo);
             mUARTSetForm.StartPosition = FormStartPosition.CenterParent;   //界面生成位置在主界面的正中间
 
             //向openUARTHandler委托的事件openUARTEvent中添加procUARTInfo方法，添加额外的方法使用+=
@@ -278,6 +320,8 @@ namespace FinalTest
             {
                 try
                 {
+                    setDataSaveWriter(true);      //使能存储方法
+
                     serialPort.PortName = mUARTInfo.portNum;                   //串口号
                     serialPort.BaudRate = Convert.ToInt32(mUARTInfo.baudRate); //波特率
                     serialPort.Open();             //打开串口
@@ -308,6 +352,8 @@ namespace FinalTest
                 {
                     strUARTInfo = "串口关闭异常";
                 }
+
+                setDataSaveWriter(false);     //关闭存储方法的功能
             }
 
             toolStripStatusLabelUART.Text = strUARTInfo;  //在主界面窗口的状态栏显示串口配置信息
@@ -337,7 +383,7 @@ namespace FinalTest
         private void dealRcvPackData()
         {
             uint start = GetTickCount();
-            Debug.WriteLine(start, "GetTickCount");
+            //Debug.WriteLine(start, "GetTickCount");
 
             int iHeadIndex = -1;
             int iTailIndex = -1;
@@ -513,6 +559,21 @@ namespace FinalTest
                     {
                         respWave = packAfterUnpack[i];
                         mRespWaveList.Add(respWave);
+
+                        //当存储数据界面勾选呼吸数据且成功创建存储呼吸数据文件，就开始存储呼吸数据
+                        if (mStoreSetting.bSaveResp && (mRespDirectory != null))
+                        {
+                            if (respWave > mMaxRespWave)
+                            {
+                                mMaxRespWave = respWave;
+                            }
+                            if (respWave < mMinRespWave)
+                            {
+                                mMinRespWave = respWave;
+                            }
+
+                            mRespDirectory.Write(respWave + " ");
+                        }
                     }
 
                     break;
@@ -559,7 +620,21 @@ namespace FinalTest
                         spo2Wave = (ushort)packAfterUnpack[i];
                         mSPO2WaveList.Add(spo2Wave);
 
+                        //当存储数据界面勾选血氧数据且成功创建存储血氧数据文件，就开始存储血氧数据
+                        if (mStoreSetting.bSaveSPO2 && (mSPO2Directory != null))
+                        {
+                            if (spo2Wave > mMaxSPO2Wave)
+                            {
+                                mMaxSPO2Wave = spo2Wave;
+                            }
 
+                            if (spo2Wave < mMinSPO2Wave)
+                            {
+                                mMinSPO2Wave = spo2Wave;
+                            }
+
+                            mSPO2Directory.Write(spo2Wave + " ");
+                        }
                     }
 
                     fingerLead = (byte)((packAfterUnpack[7] & 0x80) >> 7);      //手指脱落信息
@@ -746,7 +821,7 @@ namespace FinalTest
                     for (int i = 0; i < len; i++)
                     {
                         if (unpackRcvData(data[i]))//处理接收到的数据
-                        { 
+                        {
                         }
                     }
                 }
@@ -808,6 +883,21 @@ namespace FinalTest
                         mPackTail = 0;
                     }
                 }
+
+                //保存解包数据
+                if (mStoreSetting.bSaveUART)
+                {
+                    string packStr = "";
+
+                    for (int j = 0; j < packLen - 2; j++)
+                    {
+                        packStr = packStr + mPackAfterUnpackList[j].ToString() + " ";
+                    }
+
+                    packStr.TrimEnd(' ');
+                    mSWUART.WriteLine(packStr);
+                }
+
             }
             return findPack;
         }
@@ -841,6 +931,131 @@ namespace FinalTest
         {
             this.Close();
         }
-    }
 
+        private void ToolStripMenuItemStoreSetting_Click(object sender, EventArgs e)
+        {
+            StoreSettingForm storeSettingForm = new StoreSettingForm();       //实例化数据存储类界面变量 
+            storeSettingForm.StartPosition = FormStartPosition.CenterParent;
+
+            //数据存储界面4个复选框设置为与数据存储配置文件的设置一致
+            storeSettingForm.saveNIBPdata = mStoreSetting.bSaveNIBP;
+            storeSettingForm.saveRespdata = mStoreSetting.bSaveResp;
+            storeSettingForm.saveSPO2data = mStoreSetting.bSaveSPO2;
+            storeSettingForm.saveUARTdata = mStoreSetting.bSaveUART;
+            //文件存储路径的内容设置为与数据存储配置文件的设置一致
+            storeSettingForm.saveFolder = mStoreSetting.saveFolder;
+
+            //如果FormStoreData窗口单击了“确定”，执行如下代码
+            if (storeSettingForm.ShowDialog() == DialogResult.OK)
+            {
+                //将数据存储界面中4个复选框的选中情况赋值给数据存储配置文件类变量
+                mStoreSetting.bSaveNIBP = storeSettingForm.saveNIBPdata;
+                mStoreSetting.bSaveResp = storeSettingForm.saveRespdata;
+                mStoreSetting.bSaveSPO2 = storeSettingForm.saveSPO2data;
+                mStoreSetting.bSaveUART = storeSettingForm.saveUARTdata;
+                //将文件存储路径的内容赋值给数据存储配置文件类变量
+                mStoreSetting.saveFolder = storeSettingForm.saveFolder;
+
+                //将更新的4个复选框的选中情况和文件存储路径保存到配置文件
+                mStoreSetting.saveToFile();
+            }
+        }
+
+        /***********************************************************************************************
+        * 方法名称: setDataSaveWriter
+        * 功能说明: 设置文件读取的streamWriter，打开/关闭串口时调用此方法
+        * 参数说明：输入参数startSave-串口状态
+        * 注    意:
+        ***********************************************************************************************/
+        private void setDataSaveWriter(bool startSave)
+        {
+            if (startSave)            //串口打开才能进行存储，串口关闭则不会进行数据存储
+            {
+                //系统的当前时间，在存储数据文件名加上时间可以方便分清楚不同的文件
+                string currentTime = DateTime.Now.ToString("yyyyMMddhhmmss");
+
+                //血压
+                if (mStoreSetting.bSaveNIBP && (mNIBPDirectory == null))
+                {
+                    //设置文件名及保存位置
+                    mNIBPDirectory = new StreamWriter(mStoreSetting.saveFolder + @"\" + currentTime + "-NIBP" + ".csv");
+                }
+                //呼吸
+                if (mStoreSetting.bSaveResp && (mRespDirectory == null))
+                {
+                    //设置文件名及保存位置
+                    mRespDirectory = new StreamWriter(mStoreSetting.saveFolder + @"\" + currentTime + "-RESP" + ".csv");
+                }
+
+                //血氧
+                if (mStoreSetting.bSaveSPO2 && (mSPO2Directory == null))
+                {
+                    //设置文件保存位置
+                    mSPO2Directory = new StreamWriter(mStoreSetting.saveFolder + @"\" + currentTime + "-SPO2" + ".csv");
+                }
+
+                //解包后的数据，包括心电、血氧、呼吸、体温、血压
+                if (mStoreSetting.bSaveUART && (null == mSWUART))
+                {
+                    //设置文件名及保存位置
+                    mSWUART = new StreamWriter(mStoreSetting.saveFolder + @"\" + currentTime + "Uart.csv");
+                }
+            }
+            else
+            {
+                if (mNIBPDirectory != null)
+                {
+                    mNIBPDirectory.WriteLine("Max:" + mMaxNIBPData + "," + "Min:" + mMinNIBPData);
+                    try
+                    {
+                        mNIBPDirectory.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    mNIBPDirectory.Dispose();
+                    mNIBPDirectory = null;
+                }
+
+                if (mRespDirectory != null)
+                {
+                    mRespDirectory.WriteLine("Max:" + mMaxRespWave + "," + "Min:" + mMinRespWave);
+                    try
+                    {
+                        mRespDirectory.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    mRespDirectory.Dispose();
+                    mRespDirectory = null;
+                }
+
+                if (mSPO2Directory != null)
+                {
+                    mSPO2Directory.WriteLine("Max:" + mMaxSPO2Wave + "," + "Min:" + mMinSPO2Wave);
+                    try
+                    {
+                        mSPO2Directory.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    mSPO2Directory.Dispose();
+                    mSPO2Directory = null;
+                }
+
+                if (mSWUART != null)
+                {
+                    mSWUART.Close();
+                    mSWUART.Dispose();
+                    mSWUART = null;
+                }
+            }
+        }
+    }
 }
+

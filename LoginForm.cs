@@ -99,8 +99,12 @@ namespace FinalTest
                         break;
                     }
                 }
-                if (listAcount.Contains(userAccount))
+
+                int keyIndex = listAcount.FindIndex(item => item.Equals(userAccount));
+                if (keyIndex != -1)
                 {
+                    keyPassword = keyPassword = "User" + Convert.ToString(keyIndex) + "Password";
+
                     if (mIniFile.readString("UserInfo", keyPassword, "nothing") == Encode.getEncodedPsw(userPassword))
                     {
                         MessageBox.Show("恭喜你 登录成功", "成功");

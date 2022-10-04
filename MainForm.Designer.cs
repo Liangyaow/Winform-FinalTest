@@ -45,6 +45,7 @@ namespace FinalTest
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelUART = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripMenuItemStoreSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -81,35 +82,37 @@ namespace FinalTest
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemUART,
+            this.ToolStripMenuItemStoreSetting,
             this.timeToolStripMenuItemAbout,
             this.ToolStripMenuItemExit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(657, 39);
+            this.menuStrip1.Size = new System.Drawing.Size(657, 42);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItemUART
             // 
             this.ToolStripMenuItemUART.Name = "ToolStripMenuItemUART";
-            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 44);
+            this.ToolStripMenuItemUART.Size = new System.Drawing.Size(130, 38);
             this.ToolStripMenuItemUART.Text = "串口设置";
             this.ToolStripMenuItemUART.Click += new System.EventHandler(this.ToolStripMenuItemUART_Click);
             // 
             // timeToolStripMenuItemAbout
             // 
             this.timeToolStripMenuItemAbout.Name = "timeToolStripMenuItemAbout";
-            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 44);
+            this.timeToolStripMenuItemAbout.Size = new System.Drawing.Size(82, 38);
             this.timeToolStripMenuItemAbout.Text = "关于";
             this.timeToolStripMenuItemAbout.Click += new System.EventHandler(this.timeToolStripMenuItemAbout_Click);
             // 
             // ToolStripMenuItemExit
             // 
             this.ToolStripMenuItemExit.Name = "ToolStripMenuItemExit";
-            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 44);
+            this.ToolStripMenuItemExit.Size = new System.Drawing.Size(82, 38);
             this.ToolStripMenuItemExit.Text = "退出";
             this.ToolStripMenuItemExit.Click += new System.EventHandler(this.ToolStripMenuItemExit_Click);
             // 
@@ -177,6 +180,13 @@ namespace FinalTest
             this.toolStripStatusLabelUART.Size = new System.Drawing.Size(110, 31);
             this.toolStripStatusLabelUART.Text = "串口关闭";
             // 
+            // ToolStripMenuItemStoreSetting
+            // 
+            this.ToolStripMenuItemStoreSetting.Name = "ToolStripMenuItemStoreSetting";
+            this.ToolStripMenuItemStoreSetting.Size = new System.Drawing.Size(130, 38);
+            this.ToolStripMenuItemStoreSetting.Text = "数据存储";
+            this.ToolStripMenuItemStoreSetting.Click += new System.EventHandler(this.ToolStripMenuItemStoreSetting_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
@@ -222,5 +232,6 @@ namespace FinalTest
         private System.IO.Ports.SerialPort serialPort;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelUART;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemStoreSetting;
     }
 }

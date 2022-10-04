@@ -1,7 +1,7 @@
 ﻿
 namespace FinalTest
 {
-    partial class UARTSetting
+    partial class UARTSettingForm
     {
         /// <summary>
         /// Required designer variable.

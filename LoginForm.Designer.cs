@@ -132,7 +132,7 @@ namespace FinalTest
             this.labelPswWarn.Text = "请输入6-20位字母数字组合";
             this.labelPswWarn.Visible = false;
             // 
-            // Login
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -146,7 +146,7 @@ namespace FinalTest
             this.Controls.Add(this.textBoxAccount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.Text = "登录";
             this.ResumeLayout(false);
             this.PerformLayout();
