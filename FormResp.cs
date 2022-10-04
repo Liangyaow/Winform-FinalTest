@@ -10,15 +10,16 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
-    //定义RespSetHandler委托
-    public delegate void respSetHandler(string gain);
+    //定义nibpSetDelegate委托
+    public delegate void respSetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
+
     public partial class FormResp : Form
     {
         private SendData mSendData;                  //声明串口,用于发送命令给从机（单片机）
         private string mRespGain;                  //呼吸增益
 
-        //声明respSetHandler委托的事件sendRespGainEvent，用于将呼吸增益同步至主界面
-        public event respSetHandler sendRespGainEvent;
+        //声明委托respSetHandler的事件sendRespModeEvent
+        public event respSetHandler sendRespModeEvent;
 
         public FormResp(SendData sendData, string gain)
         {
@@ -72,9 +73,7 @@ namespace FinalTest
                 }
                 else
                 {
-                    sendRespGainEvent(comboBoxRespGainSet.Text);        //将更改后的呼吸增益值传到主界面
-                                                                        //将更改后的呼吸增益打包发送给MCU，0x11-呼吸命令的模块ID
-                    mSendData.sendCmdToMcu(dataLst, 0x11);
+                    mSendData.sendCmdToMcu(dataLst, 0x11); //将更改后的呼吸增益打包发送给MCU，0x11-呼吸命令的模块ID
                 }
             }
             this.Close();

@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace FinalTest
 {
-    //定义spo2SetHandler委托
-    public delegate void spo2SetHandler(string sensor);
+    //定义nibpSetDelegate委托
+    public delegate void spo2SetHandler(bool isRealMode, bool isLoadMode, bool isDisplayMode);
 
     public partial class FormSPO2 : Form
     {
         private SendData mSendData;         //声明串口,用于发送命令给从机（单片机）
         private string mSPO2Sens;         //血氧灵敏度
 
-        //声明spo2SetHandler委托的事件sendSPO2SensEvent，用于将血氧灵敏度同步至主界面
-        public event spo2SetHandler sendSPO2SensEvent;
+        //声明委托spo2SetHandler的事件sendSPO2ModeEvent
+        public event spo2SetHandler sendSPO2ModeEvent;
 
         public FormSPO2(SendData sendData, string sensor)
         {
@@ -106,9 +106,7 @@ namespace FinalTest
                 }
                 else
                 {
-                    sendSPO2SensEvent(comboBoxSPO2Sens.Text);      //将更改后的血氧灵敏度值传到主界面
-                                                                   //将更改后的血氧灵敏度值打包发送给MCU，0x13-血氧命令的模块ID 
-                    mSendData.sendCmdToMcu(dataLst, 0x13);
+                    mSendData.sendCmdToMcu(dataLst, 0x13);  //将更改后的血氧灵敏度值打包发送给MCU，0x13-血氧命令的模块ID 
                 }
             }
             this.Close();

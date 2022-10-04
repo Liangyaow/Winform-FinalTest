@@ -212,7 +212,7 @@ namespace FinalTest
             formModeSwitch.StartPosition = FormStartPosition.CenterParent;
             if (formModeSwitch.ShowDialog() == DialogResult.OK)
             {
-                
+                sendNIBPModeEvent(formModeSwitch.isRealMode, formModeSwitch.isLoadMode, formModeSwitch.isDisplayMode);
             }
         }
     }

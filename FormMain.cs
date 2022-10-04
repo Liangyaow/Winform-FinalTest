@@ -136,15 +136,15 @@ namespace FinalTest
 
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
+
             mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode);
             mFormNIBP.sendNIBPSetCmdToMCU += new nibpSetDelegate(sendCmdToMCU);
             mFormNIBP.sendNIBPModeEvent += new nibpSetHandler(sendModeFlag);
 
             mFormResp = new FormResp(mSendData, mRespGainSet);
-            mFormResp.sendRespGainEvent += new respSetHandler(procRespSetGain);
-
+            mFormResp.sendRespModeEvent += new respSetHandler(sendModeFlag);
             mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet);
-            mFormSPO2.sendSPO2SensEvent += new spo2SetHandler(procSPO2Sens);
+            mFormSPO2.sendSPO2ModeEvent += new spo2SetHandler(sendModeFlag);
 
             mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
         }
@@ -174,29 +174,10 @@ namespace FinalTest
             mIsRealMode = isRealMode;
             mIsLoadMode = isLoadMode;
             mIsDisplayMode = isDisplayMode;
-        }
 
-        /***********************************************************************************************
-        * 方法名称：procRespSetGain
-        * 功能说明: 同步呼吸增益
-        * 参数说明：输入参数respGain-呼吸增益
-        * 注    意: 
-        ***********************************************************************************************/
-        private void procRespSetGain(string respGain)
-        {
-            mRespGainSet = respGain;
-        }
-
-        /***********************************************************************************************
-        * 方法名称：procSPO2Sens
-        * 功能说明: 同步血氧灵敏度值，将来自FormSPO2Set的spo2Sens与MainFrom的mSPO2SensSet同步，并显
-        *           示在MainForm         
-        * 参数说明：输入参数spo2Sens-血氧灵敏度值   
-        * 注    意:
-        ***********************************************************************************************/
-        private void procSPO2Sens(string spo2Sens)
-        {
-            mSPO2SensSet = spo2Sens;
+            Console.WriteLine(mIsRealMode);
+            Console.WriteLine(mIsLoadMode);
+            Console.WriteLine(mIsDisplayMode);
         }
 
         /***********************************************************************************************
