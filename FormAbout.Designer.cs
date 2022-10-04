@@ -35,8 +35,9 @@ namespace FinalTest
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +45,7 @@ namespace FinalTest
             // buttonOK
             // 
             this.buttonOK.AutoSize = true;
-            this.buttonOK.Location = new System.Drawing.Point(717, 429);
+            this.buttonOK.Location = new System.Drawing.Point(734, 493);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(8);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(168, 58);
@@ -87,6 +88,7 @@ namespace FinalTest
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.richTextBox2);
             this.groupBox1.Controls.Add(this.richTextBox1);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.label3);
@@ -100,28 +102,37 @@ namespace FinalTest
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.richTextBox1.Location = new System.Drawing.Point(579, 271);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(503, 79);
+            this.richTextBox1.TabIndex = 27;
+            this.richTextBox1.Text = "https://gitee.com/yiuimanLenong/win-form-final-test.git";
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // richTextBox1
+            // richTextBox2
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.richTextBox1.Location = new System.Drawing.Point(579, 271);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(503, 84);
-            this.richTextBox1.TabIndex = 27;
-            this.richTextBox1.Text = "https://gitee.com/yiuimanLenong/win-form-final-test.git";
+            this.richTextBox2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.richTextBox2.Location = new System.Drawing.Point(579, 383);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(503, 79);
+            this.richTextBox2.TabIndex = 28;
+            this.richTextBox2.Text = "https://github.com/Liangyaow/Winform-FinalTest.git";
             // 
-            // AboutForm
+            // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 692);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AboutForm";
+            this.Name = "FormAbout";
             this.Text = "AboutForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -139,5 +150,6 @@ namespace FinalTest
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -17,12 +13,10 @@ namespace FinalTest
 {
     public partial class FormMain : Form
     {
-        FormModeSwitch mFormModeSwitch = new FormModeSwitch();
-        FormNIBP mFormNIBP;
-        FormResp mFormResp;
-        FormSPO2 mFormSPO2;
-
-
+        FormModeSwitch mFormModeSwitch = new FormModeSwitch();      //模式设置页面
+        FormNIBP mFormNIBP;                                         //血压界面类
+        FormResp mFormResp;                                         //呼吸界面类
+        FormSPO2 mFormSPO2;                                         //血氧界面类
 
         public const int PACK_QUEUE_CNT = 2000;    //缓冲的长度
 
@@ -62,6 +56,7 @@ namespace FinalTest
         private SendData mSendData = null;         //声明串口，用于发送命令给从机（单片机）
 
 
+        //界面显示需要的一些变量
         //血压
         public string mNIBPMeasMode = "手动";      //血压测量模式
 
@@ -77,6 +72,8 @@ namespace FinalTest
         private Pen mSPO2WavePen = new Pen(Color.Cyan, 1);           //SPO2波形画笔
         private float mSPO2XStep = 0.0F;                             //SPO2横坐标
 
+
+        //数据存储
         StoreSetting mStoreSetting;                                  //文件存储类
 
         //以下变量用于数据存储，用于设置保存数据的文件名及存储路径  
@@ -86,37 +83,39 @@ namespace FinalTest
         StreamWriter mSWUART = null;
 
         //用于存储的参数
+        //血压
+        ushort mMaxNIBPData;
+        ushort mMinNIBPData;
+        //呼吸
         ushort mMaxRespWave;
         ushort mMinRespWave;
-
+        //血氧
         ushort mMaxSPO2Wave;
         ushort mMinSPO2Wave;
 
-        ushort mMaxNIBPData;
-        ushort mMinNIBPData;
 
-
+        //模式设置
         public bool mIsRealMode = true;                                 //模式选择的监护模式变量
         public bool mIsLoadMode = false;                                //回放模式
         public bool mIsDisplayMode = false;                             //演示模式
         private string mUARTFile = "";                                  //回放或演示的数据文件 
 
-        //procLoadDataThread线程启动标志，串口打开时为true，串口关闭时为false
-        Boolean mThreadStartFlag = false;
-        Task mProcLoadDataTask = null;                                  //使用时需要添加命名空间
+        Boolean mThreadStartFlag = false;                               //procLoadDataThread线程启动标志 默认串口关闭=>false
+        Task mProcLoadDataTask = null;                                  //线程
         Boolean mDisplayModeFlag = false;                               //演示模式的标志位，true为演示模式
         private List<string> mUARTLoadDataList = new List<string>();    //加载的串口数据
 
         /***********************************************************************************************
         * 方法名称: MainForm
         * 功能说明: 构造函数
-        * 参数说明：输入参数 userAccount 用户的账号
+        * 参数说明：输入参数 (1)userAccount 当前登录用户的账号
         * 注    意:
         ***********************************************************************************************/
         public FormMain(string userAccount)
         {
             InitializeComponent();
 
+            //创建存储当前用户爱好设置 和 数据的文件夹
             string storeSettingFileDirectory = @".\Data\" + userAccount;
             if (!Directory.Exists(storeSettingFileDirectory))
             {
@@ -129,8 +128,10 @@ namespace FinalTest
                 Directory.CreateDirectory(saveFolderDirectory);
             }
 
-            labelAccount.Text = userAccount;
-            labelTime.Text = DateTime.Now.ToString();
+
+            labelAccount.Text = userAccount;                    //将用户名显示到主界面的欢迎界面label中           
+            labelTime.Text = DateTime.Now.ToString();           //将时间显示到主界面中
+
 
             mPackAfterUnpackArr = new byte[PACK_QUEUE_CNT][];   //二维数组，作为接收数据缓冲
             for (int i = 0; i < PACK_QUEUE_CNT; i++)            //将数组初始化为0
@@ -140,11 +141,11 @@ namespace FinalTest
 
             mSendData = new SendData(serialPort);        //将串口传递到界面，为了把命令发送给单片机
 
-            mFormModeSwitch.SwitchModeEvent += new SwitchModeDelegate(switchMode);
+            mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode, mFormModeSwitch); //实例化血压界面
+            mFormResp = new FormResp(mSendData, mRespGainSet, mFormModeSwitch); //实例化呼吸界面
+            mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet, mFormModeSwitch); //实例化血氧界面
 
-            mFormNIBP = new FormNIBP(mSendData, mNIBPMeasMode, mFormModeSwitch);
-            mFormResp = new FormResp(mSendData, mRespGainSet, mFormModeSwitch);
-            mFormSPO2 = new FormSPO2(mSendData, mSPO2SensSet, mFormModeSwitch);
+            mFormModeSwitch.SwitchModeEvent += new SwitchModeDelegate(switchMode); //给模式设置界面添加委托事件触发的方法
 
             mStoreSetting = new StoreSetting(userAccount, "#参数设置");            //定义一个存储数据类
         }
@@ -174,6 +175,7 @@ namespace FinalTest
             mUARTInfo.parity = "NONE";        //校验位
             mUARTInfo.isOpened = false;       //刚打开界面默认串口是关闭的
 
+            //初始化所存储的数据
             mMaxNIBPData = 0;                 //血压数据的范围为0到300
             mMinNIBPData = 300;
 
@@ -194,13 +196,13 @@ namespace FinalTest
             mThreadStartFlag = false;         //演示线程开始标志位
             mDisplayModeFlag = false;         //演示模式标志位
 
-            WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);
-            WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);
+            WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);     //将本次的使用的串口号写入Config.ini文件中
+            WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);   //将本次的使用的波特率写入Config.ini文件中
         }
 
         /***********************************************************************************************
         * 方法名称: ToolStripMenuItemUART_Click
-        * 功能说明: 当点击ToolStripMenuItemUART时调用
+        * 功能说明: 当点击ToolStripMenuItemUART时调用,显示串口设置界面
         * 参数说明：
         * 注    意:
         ***********************************************************************************************/
@@ -265,6 +267,7 @@ namespace FinalTest
 
             if (!serialPort.IsOpen)
             {
+                //打开串口读取
                 setUARTState(true);
 
                 if (!mIsRealMode)
@@ -282,7 +285,6 @@ namespace FinalTest
                     }
                 }
 
-                //打开串口读取
             }
             else
             {
@@ -313,14 +315,12 @@ namespace FinalTest
                     mUARTInfo.isOpened = true;            //串口状态设置为打开
 
                     //显示串口状态
-                    strUARTInfo = mUARTInfo.portNum + "已打开," + mUARTInfo.baudRate + ","
-                      + mUARTInfo.dataBits + "," + mUARTInfo.stopBits + "," + mUARTInfo.parity;
+                    strUARTInfo = mUARTInfo.portNum + "已打开," + mUARTInfo.baudRate + "," + mUARTInfo.dataBits + "," + mUARTInfo.stopBits + "," + mUARTInfo.parity;
                 }
                 catch
                 {
                     strUARTInfo = "串口打开异常";
                     MessageBox.Show("端口错误,请检查串口", "错误");   //跳出错误窗口 
-
                 }
             }
             else           //如果当前串口的状态是打开状态，则关闭串口
@@ -336,8 +336,6 @@ namespace FinalTest
                     mSPO2WaveList.Clear();
 
                     strUARTInfo = "串口已关闭";     //显示串口状态
-
-
                 }
                 catch       //一般情况下关闭串口不会出错，所以不需要加处理程序
                 {
@@ -349,6 +347,7 @@ namespace FinalTest
 
             toolStripStatusLabelUART.Text = strUARTInfo;  //在主界面窗口的状态栏显示串口配置信息
         }
+
         /***********************************************************************************************
         * 方法名称: timerForSec_Tick
         * 功能说明: 定时器任务，30ms调用一次
@@ -361,20 +360,20 @@ namespace FinalTest
             {
                 mLastTick = GetTickCount();
 
-                //显示当前系统时间
+                //更新主界面显示时间
                 labelTime.Text = DateTime.Now.ToString();
             }
             dealRcvPackData();
         }
+
         /***********************************************************************************************
-       * 方法名称: dealRcvPackData
-       * 功能说明: 处理当前的数据帧，不管是收到的还是演示数据
-       * 注    意:
-       ***********************************************************************************************/
+        * 方法名称: dealRcvPackData
+        * 功能说明: 处理当前的数据帧，不管是收到的还是演示数据
+        * 注    意:
+        ***********************************************************************************************/
         private void dealRcvPackData()
         {
             uint start = GetTickCount();
-            //Debug.WriteLine(start, "GetTickCount");
 
             int iHeadIndex = -1;
             int iTailIndex = -1;
@@ -475,11 +474,11 @@ namespace FinalTest
                     cufPres = (ushort)(cufPres | cufPresHByte);
                     cufPres = (ushort)(cufPres << 8);
                     cufPres = (ushort)(cufPres | cufPresLByte);
+
                     if (cufPres >= 300)
                     {
                         cufPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
-
                     mFormNIBP.LabelNIBPCufPreText = cufPres.ToString();   //显示袖带压
                     break;
 
@@ -489,12 +488,13 @@ namespace FinalTest
                     sysPres = (ushort)(sysPres | sysPresHByte);
                     sysPres = (ushort)(sysPres << 8);
                     sysPres = (ushort)(sysPres | sysPresLByte);
+
                     if (sysPres >= 300)
                     {
                         sysPres = 0;     //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
+                    mFormNIBP.LabelNIBPSysText = sysPres.ToString();    //显示收缩压  
 
-                    mFormNIBP.LabelNIBPSysText = sysPres.ToString();
 
                     diaPresHByte = packAfterUnpack[4];
                     diaPresLByte = packAfterUnpack[5];
@@ -505,8 +505,7 @@ namespace FinalTest
                     {
                         diaPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
-
-                    mFormNIBP.LabelNIBPDiaText = diaPres.ToString();
+                    mFormNIBP.LabelNIBPDiaText = diaPres.ToString();    //显示舒张压
 
                     mapPresHByte = packAfterUnpack[6];
                     mapPresLByte = packAfterUnpack[7];
@@ -517,8 +516,7 @@ namespace FinalTest
                     {
                         mapPres = 0;      //最大不超过300，超过300则视为无效值，给其赋0即可
                     }
-
-                    mFormNIBP.LabelNIBPMeanText = mapPres.ToString();
+                    mFormNIBP.LabelNIBPMeanText = mapPres.ToString();   //显示平均压
                     break;
 
                 case 0x05:  //脉率
@@ -531,8 +529,7 @@ namespace FinalTest
                     {
                         pulseRate = 0;    //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
-
-                    mFormNIBP.LabelNIBPPRText = pulseRate.ToString();
+                    mFormNIBP.LabelNIBPPRText = pulseRate.ToString();   //显示脉率
                     break;
             }
         }
@@ -580,7 +577,6 @@ namespace FinalTest
                     {
                         mFormResp.LabelRespRRText = "20";
                     }
-
                     break;
 
                 case 0x03:               //呼吸率
@@ -594,7 +590,7 @@ namespace FinalTest
                         respRate = 0;    //呼吸率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mFormResp.LabelRespRRText = respRate.ToString();
+                    mFormResp.LabelRespRRText = respRate.ToString();        //显示呼吸率
                     break;
             }
         }
@@ -673,7 +669,6 @@ namespace FinalTest
                         mFormSPO2.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
                         mFormSPO2.LabelSPO2PrbOffText = "手指连接";
                     }
-
                     break;
 
                 case 0x03:                  //脉率、血氧饱和度
@@ -687,19 +682,18 @@ namespace FinalTest
                         pulseRate = 0;      //脉率值最大不超过300，超过300则视为无效值，给其赋0即可
                     }
 
-                    mFormSPO2.LabelSPO2PRText = pulseRate.ToString();
+                    mFormSPO2.LabelSPO2PRText = pulseRate.ToString();           //显示脉率
 
                     spo2Value = packAfterUnpack[5];
 
                     if (0 < spo2Value && 100 > spo2Value)
                     {
-                        mFormSPO2.LabelSPO2DataText = spo2Value.ToString();
+                        mFormSPO2.LabelSPO2DataText = spo2Value.ToString();     //显示血氧饱和度
                     }
                     else
                     {
                         mFormSPO2.LabelSPO2DataText = "--";
                     }
-
                     break;
             }
         }
@@ -925,29 +919,53 @@ namespace FinalTest
                     packStr.TrimEnd(' ');
                     mSWUART.WriteLine(packStr);
                 }
-
             }
             return findPack;
         }
 
+
+        /***********************************************************************************************
+        * 方法名称: buttonToNIBP_Click
+        * 功能说明: 点击血压功能按钮时出发 显示血压界面
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void buttonToNIBP_Click(object sender, EventArgs e)
         {
             mFormNIBP.StartPosition = FormStartPosition.CenterParent;
             mFormNIBP.ShowDialog();
         }
 
+        /***********************************************************************************************
+        * 方法名称: buttonToResp_Click
+        * 功能说明: 点击呼吸功能按钮时出发 显示呼吸界面
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void buttonToResp_Click(object sender, EventArgs e)
         {
             mFormResp.StartPosition = FormStartPosition.CenterParent;
             mFormResp.ShowDialog();
         }
 
+        /***********************************************************************************************
+        * 方法名称: buttonToSPO2_Click
+        * 功能说明: 点击血氧功能按钮时出发 显示血压界面
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void buttonToSPO2_Click(object sender, EventArgs e)
         {
             mFormSPO2.StartPosition = FormStartPosition.CenterParent;
             mFormSPO2.ShowDialog();
         }
 
+        /***********************************************************************************************
+        * 方法名称: timeToolStripMenuItemAbout_Click
+        * 功能说明: 点击有关菜单 按钮时出发 显示作者相关信息
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void timeToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
             FormAbout aboutForm = new FormAbout();
@@ -955,11 +973,41 @@ namespace FinalTest
             aboutForm.ShowDialog();
         }
 
+        /***********************************************************************************************
+        * 方法名称: ToolStripMenuItemExit_Click
+        * 功能说明: 点击退出菜单栏 此时存储响应数据 并退出MainForm界面
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
         {
+            try
+            {
+                serialPort.Close();        //关闭串口
+
+                mThreadStartFlag = false;         //清除线程标志
+                mDisplayModeFlag = false;         //清除演示模式
+
+                mRespWaveList.Clear();            //清除mRespWaveList
+                mSPO2WaveList.Clear();            //清除mSPO2WaveList
+            }
+            catch            //一般情况下关闭串口不会出错，所以不需要加处理程序
+            {
+            }
+
+            //将需要保存的信息写入到ini文件
+            WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);
+            WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);
+
             this.Close();
         }
 
+        /***********************************************************************************************
+        * 方法名称: ToolStripMenuItemStoreSetting_Click
+        * 功能说明: 点击数据存储菜单栏时触发 显示数据存储设置界面
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void ToolStripMenuItemStoreSetting_Click(object sender, EventArgs e)
         {
             FormStoreSetting storeSettingForm = new FormStoreSetting();       //实例化数据存储类界面变量 
@@ -1029,8 +1077,9 @@ namespace FinalTest
                     mSWUART = new StreamWriter(mStoreSetting.saveFolder + @"\" + currentTime + "Uart.csv");
                 }
             }
-            else
+            else                     //串口关闭,最大/最小的数据,并清理内存
             {
+                //血压
                 if (mNIBPDirectory != null)
                 {
                     mNIBPDirectory.WriteLine("Max:" + mMaxNIBPData + "," + "Min:" + mMinNIBPData);
@@ -1046,6 +1095,7 @@ namespace FinalTest
                     mNIBPDirectory = null;
                 }
 
+                //呼吸
                 if (mRespDirectory != null)
                 {
                     mRespDirectory.WriteLine("Max:" + mMaxRespWave + "," + "Min:" + mMinRespWave);
@@ -1061,6 +1111,7 @@ namespace FinalTest
                     mRespDirectory = null;
                 }
 
+                //血氧
                 if (mSPO2Directory != null)
                 {
                     mSPO2Directory.WriteLine("Max:" + mMaxSPO2Wave + "," + "Min:" + mMinSPO2Wave);
@@ -1076,6 +1127,7 @@ namespace FinalTest
                     mSPO2Directory = null;
                 }
 
+                //解包后的数据，包括心电、血氧、呼吸、体温、血压
                 if (mSWUART != null)
                 {
                     mSWUART.Close();
@@ -1112,6 +1164,7 @@ namespace FinalTest
             }
             fileReader.Close();
         }
+
         /***********************************************************************************************
         * 方法名称: procLoadDataThread
         * 功能说明: 处理加载数据线程，每一类数据定义各自的演示速度
@@ -1186,6 +1239,11 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: switchMode
+        * 功能说明: 模式设置界面事件触发时调用的方法
+        * 注    意: 
+        ***********************************************************************************************/
         private void switchMode(bool isRealMode, bool isLoadMode, bool isDisplayMode)
         {
             mIsRealMode = isRealMode;

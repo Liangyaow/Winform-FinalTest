@@ -13,11 +13,6 @@
 * 修改内容: 
 * 修改文件: 
 ******************************************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinalTest
 {
@@ -40,7 +35,6 @@ namespace FinalTest
         private string mSaveFolder;
 
         private IniHelper mIniFile;
-
 
         //添加类的属性
         public bool bSaveNIBP
@@ -72,6 +66,12 @@ namespace FinalTest
             set { mSaveFolder = value; }
         }
 
+        /*********************************************************************************************
+        * 方法名称: StoreSetting
+        * 功能说明: 构造方法
+        * 参数说明：输入参数(1)userAccount:用户的账号(2)创建文件时的第一行所写的标识
+        * 注    意: 
+        *********************************************************************************************/
         public StoreSetting(string userAccount, string title)
         {
             string fileName = PRE_STORE_DATA_FILE + userAccount + POS_STORE_DATA_FILE;
@@ -82,6 +82,12 @@ namespace FinalTest
             loadFromFile();
         }
 
+        /*********************************************************************************************
+        * 方法名称: loadFromFile
+        * 功能说明: 将init文件内的内容写入给成员变量
+        * 参数说明：
+        * 注    意: 
+        *********************************************************************************************/
         public void loadFromFile()
         {
             mNIBP = mIniFile.readBool("StoreSetting", "NIBP", false);
@@ -91,6 +97,12 @@ namespace FinalTest
             mSaveFolder = mIniFile.readString("StoreSetting", "SaveFolder", @".\RcvData\" + mUserAccount + @"\");
         }
 
+        /*********************************************************************************************
+        * 方法名称: saveToFile
+        * 功能说明: 将成员变量的值写入给init文件
+        * 参数说明：
+        * 注    意: 
+        *********************************************************************************************/
         public void saveToFile()
         {
             mIniFile.writeBool("StoreSetting", "NIBP", mNIBP);

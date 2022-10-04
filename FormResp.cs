@@ -1,34 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalTest
 {
     public partial class FormResp : Form
     {
-        private SendData mSendData;                  //声明串口,用于发送命令给从机（单片机）
+        private SendData mSendData;                 //声明串口,用于发送命令给从机（单片机）
         private string mRespGain;                  //呼吸增益
-        private FormModeSwitch mFormModeSwitch;
+        private FormModeSwitch mFormModeSwitch;    //模式设置界面
 
+        /***********************************************************************************************
+        * 方法名称: FormResp
+        * 功能说明: 构造放方法
+        * 注    意: 
+        ***********************************************************************************************/
         public FormResp(SendData sendData, string gain, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
+
             //将主界面的的参数传到设置界面
             mSendData = sendData;
             mRespGain = gain;
             mFormModeSwitch = formModeSwitch;
+
+            toolStripLabelRespModeSwitch.Text = "模式：监护";
         }
 
+        /***********************************************************************************************
+        * 方法名称: RespForm_Load 
+        * 功能说明: 呼吸设置界面加载时执行方法
+        * 注    意: 
+        ***********************************************************************************************/
         private void RespForm_Load(object sender, EventArgs e)
         {
             comboBoxRespGainSet.Text = mRespGain;         //窗口加载时显示主界面传来的呼吸增益值
         }
+
 
         //实现MainForm对RespForm的修改
         public string LabelRespRRText
@@ -36,6 +44,7 @@ namespace FinalTest
             get { return labelRespRR.Text; }
             set { labelRespRR.Text = value; }
         }
+
         public string ToolStripLabelRespModeSwitchText
         {
             get { return toolStripLabelRespModeSwitch.Text; }
@@ -80,6 +89,11 @@ namespace FinalTest
             this.Close();
         }
 
+        /***********************************************************************************************
+        * 方法名称: toolStripLabelRespModeSwitch_Click
+        * 功能说明: 模式设置菜单被点击时触发 此时显示模式设置界面
+        * 注    意: 
+        ***********************************************************************************************/
         private void toolStripLabelRespModeSwitch_Click(object sender, EventArgs e)
         {
             mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
@@ -95,6 +109,5 @@ namespace FinalTest
         {
             this.Close();
         }
-
     }
 }

@@ -14,13 +14,6 @@
 * 修改文件: 
 ******************************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalTest
@@ -44,27 +37,6 @@ namespace FinalTest
         {
             get { return tbxUARTFileName.Text; }
             set { tbxUARTFileName.Text = value; }
-        }
-
-        //类属性：选择监护模式
-        public bool isRealMode
-        {
-            get { return rbRealData.Checked; }
-            set { rbRealData.Checked = value; }
-        }
-
-        //类属性：选择回放模式
-        public bool isLoadMode
-        {
-            get { return rbLoadData.Checked; }
-            set { rbLoadData.Checked = value; }
-        }
-
-        //类属性：选择演示模式
-        public bool isDisplayMode
-        {
-            get { return rbDisplayData.Checked; }
-            set { rbDisplayData.Checked = value; }
         }
 
         /***********************************************************************************************
@@ -103,6 +75,11 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: btnOk_Click 
+        * 功能说明: 确认按键被按下时，触发委托时间
+        * 注    意: 
+        ***********************************************************************************************/
         private void btnOk_Click(object sender, EventArgs e)
         {
             SwitchModeEvent(rbRealData.Checked, rbLoadData.Checked, rbDisplayData.Checked);

@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalTest
 {
     public partial class FormNIBP : Form
     {
-        private SendData mSendData;                    //声明串口,用于发送命令给从机（单片机）
+        private SendData mSendData;                   //声明串口,用于发送命令给从机（单片机）
         private string mMeasMode;                    //NIBP测量模式
-        private FormModeSwitch mFormModeSwitch;
-
+        private FormModeSwitch mFormModeSwitch;     //模式设置界面
         PackUnpack mPackUnpack = new PackUnpack();     //实例化打包解包类
+
+        /***********************************************************************************************
+        * 方法名称: FormNIBP
+        * 功能说明: 构造放方法
+        * 注    意: 
+        ***********************************************************************************************/
         public FormNIBP(SendData sendData, string measMode, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
@@ -29,10 +28,16 @@ namespace FinalTest
             toolStripLabelNIBPModeSwitch.Text = "模式：监护";
         }
 
+        /***********************************************************************************************
+        * 方法名称: NIBPForm_Load 
+        * 功能说明:血压设置界面加载时执行方法
+        * 注    意: 
+        ***********************************************************************************************/
         private void NIBPForm_Load(object sender, EventArgs e)
         {
-            comboBoxNIBPMeasMode.Text = mMeasMode;
+            comboBoxNIBPMeasMode.Text = mMeasMode;      //窗口加载时显示主界面传来的测量模式
         }
+
 
         //实现MainForm对NIBPForm的修改
         public string LabelNIBPCufPreText
@@ -58,16 +63,13 @@ namespace FinalTest
             get { return labelNIBPMean.Text; }
             set { labelNIBPMean.Text = value; }
         }
+
         public string LabelNIBPPRText
         {
             get { return labelNIBPPR.Text; }
             set { labelNIBPPR.Text = value; }
         }
-        public string LabelNIBPMeasModeText
-        {
-            get { return labelNIBPMeasMode.Text; }
-            set { labelNIBPMeasMode.Text = value; }
-        }
+
         public string ToolStripLabelNIBPModeSwitchText
         {
             get { return toolStripLabelNIBPModeSwitch.Text; }
@@ -112,7 +114,6 @@ namespace FinalTest
         ***********************************************************************************************/
         private void buttonNIBPStartMeas_Click(object sender, EventArgs e)
         {
-            //Byte[] arrCmd = new Byte[] { 0x14, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //去掉数据头和校验和
             List<byte> dataLst = new List<byte>();
             dataLst.Add(0x80);                                                                //二级ID
 
@@ -209,7 +210,7 @@ namespace FinalTest
 
         /***********************************************************************************************
         * 方法名称: toolStripLabelNIBPModeSwitch_Click 
-        * 功能说明: 
+        * 功能说明: 模式设置菜单被点击时触发 此时显示模式设置界面
         * 注    意: 
         ***********************************************************************************************/
         private void toolStripLabelNIBPModeSwitch_Click(object sender, EventArgs e)
@@ -237,7 +238,5 @@ namespace FinalTest
         {
             this.Close();   //关闭界面
         }
-
-      
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 
 namespace FinalTest
@@ -18,7 +15,6 @@ namespace FinalTest
             byte[] hashedBytes = ((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(clearBytes);
 
             string result = "";
-
             for (int i = 0; i < hashedBytes.Length; i++)
             {
                 result = result + Convert.ToString(hashedBytes[i]);
@@ -27,5 +23,4 @@ namespace FinalTest
             return result;
         }
     }
-
 }

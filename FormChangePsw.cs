@@ -22,18 +22,35 @@ namespace FinalTest
         private IniHelper mIniFile;
 
 
+        /***********************************************************************************************
+        * 方法名称: FormChangePsw
+        * 功能说明:修改密码界面的构造函数
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         public FormChangePsw()
         {
             InitializeComponent();
             mIniFile = new IniHelper(STORE_DATA_FILE, "#用户信息表");          //传递INI文件名至配置文件
-
         }
 
+        /***********************************************************************************************
+        * 方法名称: labelBacktoLogin_Click
+        * 功能说明:按下返回登陆label时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void labelBacktoLogin_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /***********************************************************************************************
+        * 方法名称:checkBoxShowPswForPsw_CheckedChanged
+        * 功能说明:
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void checkBoxShowPswForPsw_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxShowPswForPsw.Checked)
@@ -45,6 +62,13 @@ namespace FinalTest
                 textBoxPassword.PasswordChar = Convert.ToChar('*');
             }
         }
+
+        /***********************************************************************************************
+        * 方法名称: checkBoxForShowNewPassword_CheckedChanged
+        * 功能说明:
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void checkBoxForShowNewPassword_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxForShowNewPassword.Checked)
@@ -56,6 +80,13 @@ namespace FinalTest
                 textBoxNewPassword.PasswordChar = Convert.ToChar('*');
             }
         }
+
+        /***********************************************************************************************
+        * 方法名称: checkBoxForShowConfirmPassword_CheckedChanged
+        * 功能说明:
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
 
         private void checkBoxForShowConfirmPassword_CheckedChanged(object sender, EventArgs e)
         {
@@ -69,6 +100,12 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: textBoxAccount_Leave
+        * 功能说明:输入账号的textbox失去焦点时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void textBoxAccount_Leave(object sender, EventArgs e)
         {
             Match match = Regex.Match(textBoxAccount.Text, @"^[0-9]{6,10}$");
@@ -85,6 +122,12 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: textBoxPassword_Leave
+        * 功能说明:输入原密码的textbox失去焦点时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void textBoxPassword_Leave(object sender, EventArgs e)
         {
             Match match = Regex.Match(textBoxPassword.Text, @"^[0-9A-Za-z]{6,20}$");
@@ -100,6 +143,12 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称:textBoxNewPassword_Leave
+        * 功能说明:输入新密码的textbox失去焦点时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void textBoxNewPassword_Leave(object sender, EventArgs e)
         {
             Match match = Regex.Match(textBoxPassword.Text, @"^[0-9A-Za-z]{6,20}$");
@@ -115,32 +164,44 @@ namespace FinalTest
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: textBoxConfirmPassword_Leave
+        * 功能说明:输入确认密码的textbox失去焦点时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void textBoxConfirmPassword_Leave(object sender, EventArgs e)
         {
-            if (textBoxNewPassword.Text == textBoxConfirmPassword.Text)
+            if (textBoxNewPassword.Text == textBoxConfirmPassword.Text) //确认密码和新密码要相同
             {
-                labelConfirmPswWarn.Visible = false;
-                mConfirmPswFlag = true;
+                labelConfirmPswWarn.Visible = false;                       //隐藏警告语
+                mConfirmPswFlag = true;                                    //确定密码完成标志位 设为true
             }
-            else
+            else                                                        //确认密码和新密码要相同
             {
-                labelConfirmPswWarn.Visible = true;
-                mConfirmPswFlag = false;
+                labelConfirmPswWarn.Visible = true;                     //显示警告语
+                mConfirmPswFlag = false;                                //确定密码完成标志位 设为false
             }
         }
 
+        /***********************************************************************************************
+        * 方法名称: buttonChangePsw_Click
+        * 功能说明:按下 修改密码按钮时触发
+        * 参数说明：
+        * 注    意:
+        ***********************************************************************************************/
         private void buttonChangePsw_Click(object sender, EventArgs e)
         {
             if (mAccountFlag && mPswFlag && mNewPswFlag && mConfirmPswFlag)
             {
+                string userAccount = textBoxAccount.Text;           //用户当前输入的账号
+                string userPassword = textBoxPassword.Text;         //用户当前输入的原密码
+                string userNewPassword = textBoxNewPassword.Text;   //用户当前输入的新密码
+
                 string keyAccount = "";
                 string keyPassword = "";
 
                 List<string> listAcount = new List<string>();
-
-                string userAccount = textBoxAccount.Text;
-                string userPassword = textBoxPassword.Text;
-                string userNewPassword = textBoxNewPassword.Text;
 
                 for (int i = 0; i < 100; i++)
                 {
@@ -152,9 +213,6 @@ namespace FinalTest
                     if ((listAcount[i] == "nothing")
                         && (mIniFile.readString("UserInfo", keyPassword, "nothing") == "nothing"))
                     {
-                        keyAccount = "User" + Convert.ToString(i - 1) + "Account";
-                        keyPassword = "User" + Convert.ToString(i - 1) + "Password";
-
                         break;
                     }
                 }
@@ -164,9 +222,10 @@ namespace FinalTest
                 {
                     keyPassword = keyPassword = "User" + Convert.ToString(keyIndex) + "Password";
 
+                    //将输入的密码经MD5密文加密后跟数据库中存储的密码相比较
                     if (mIniFile.readString("UserInfo", keyPassword, "nothing") == Encode.getEncodedPsw(userPassword))
                     {
-                        mIniFile.writeString("UserInfo", keyPassword, Encode.getEncodedPsw(userNewPassword));
+                        mIniFile.writeString("UserInfo", keyPassword, Encode.getEncodedPsw(userNewPassword));   //对数据库进行修改
                         MessageBox.Show("恭喜你 修改成功", "成功");
                         this.Close();
                     }

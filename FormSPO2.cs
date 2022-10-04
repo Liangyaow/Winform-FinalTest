@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalTest
 {
     public partial class FormSPO2 : Form
     {
-        private SendData mSendData;         //声明串口,用于发送命令给从机（单片机）
-        private string mSPO2Sens;         //血氧灵敏度
-        private FormModeSwitch mFormModeSwitch;
+        private SendData mSendData;                 //声明串口,用于发送命令给从机（单片机）
+        private string mSPO2Sens;                   //血氧灵敏度
+        private FormModeSwitch mFormModeSwitch;     //模式设置界面
 
+        /***********************************************************************************************
+        * 方法名称: FormSPO2
+        * 功能说明: 构造放方法
+        * 注    意: 
+        ***********************************************************************************************/
         public FormSPO2(SendData sendData, string sensor, FormModeSwitch formModeSwitch)
         {
             InitializeComponent();
+
+            //将主界面的的参数传到设置界面
             mSendData = sendData;
             mSPO2Sens = sensor;
             mFormModeSwitch = formModeSwitch;
+
+            toolStripLabelSPO2ModeSwitch.Text = "模式：监护";
         }
 
         /***********************************************************************************************
@@ -33,6 +37,7 @@ namespace FinalTest
         {
             comboBoxSPO2Sens.Text = mSPO2Sens;       //窗口加载时显示主界面传来的血氧灵敏度值
         }
+
 
         //实现MainForm对SPO2Form的修改
         public Color LabelSPO2FingerOffForeColor
@@ -70,11 +75,13 @@ namespace FinalTest
             get { return labelSPO2Data.Text; }
             set { labelSPO2Data.Text = value; }
         }
+
         public string ToolStripLabelSPO2ModeSwitchText
         {
             get { return toolStripLabelSPO2ModeSwitch.Text; }
             set { toolStripLabelSPO2ModeSwitch.Text = value; }
         }
+
         public DataGridView DataGridViewSPO2
         {
             get { return dataGridViewSPO2; }
@@ -111,9 +118,13 @@ namespace FinalTest
                 }
             }
             this.Close();
-
         }
-        
+
+        /***********************************************************************************************
+        * 方法名称: toolStripLabelSPO2ModeSwitch_Click
+        * 功能说明: 模式设置菜单被点击时触发 此时显示模式设置界面
+        * 注    意: 
+        ***********************************************************************************************/
         private void toolStripLabelSPO2ModeSwitch_Click(object sender, EventArgs e)
         {
             mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
@@ -129,7 +140,5 @@ namespace FinalTest
         {
             this.Close();
         }
-
-
     }
 }
