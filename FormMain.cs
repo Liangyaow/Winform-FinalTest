@@ -193,8 +193,20 @@ namespace FinalTest
         ***********************************************************************************************/
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mThreadStartFlag = false;         //演示线程开始标志位
-            mDisplayModeFlag = false;         //演示模式标志位
+            try
+            {
+                serialPort.Close();        //关闭串口
+
+                mThreadStartFlag = false;         //清除线程标志
+                mDisplayModeFlag = false;         //清除演示模式
+
+                mRespWaveList.Clear();            //清除mRespWaveList
+                mSPO2WaveList.Clear();            //清除mSPO2WaveList
+            }
+            catch            //一般情况下关闭串口不会出错，所以不需要加处理程序
+            {
+                MessageBox.Show("串口关闭错误", "错误");
+            }
 
             WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);     //将本次的使用的串口号写入Config.ini文件中
             WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);   //将本次的使用的波特率写入Config.ini文件中
@@ -981,24 +993,6 @@ namespace FinalTest
         ***********************************************************************************************/
         private void ToolStripMenuItemExit_Click(object sender, EventArgs e)
         {
-            try
-            {
-                serialPort.Close();        //关闭串口
-
-                mThreadStartFlag = false;         //清除线程标志
-                mDisplayModeFlag = false;         //清除演示模式
-
-                mRespWaveList.Clear();            //清除mRespWaveList
-                mSPO2WaveList.Clear();            //清除mSPO2WaveList
-            }
-            catch            //一般情况下关闭串口不会出错，所以不需要加处理程序
-            {
-            }
-
-            //将需要保存的信息写入到ini文件
-            WritePrivateProfileString("PortData", "PortNum", mUARTInfo.portNum, mFileName);
-            WritePrivateProfileString("PortData", "BaudRate", mUARTInfo.baudRate, mFileName);
-
             this.Close();
         }
 

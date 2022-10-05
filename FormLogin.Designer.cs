@@ -149,6 +149,8 @@ namespace FinalTest
             // checkBoxRemeber
             // 
             this.checkBoxRemeber.AutoSize = true;
+            this.checkBoxRemeber.Checked = true;
+            this.checkBoxRemeber.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxRemeber.Location = new System.Drawing.Point(602, 93);
             this.checkBoxRemeber.Name = "checkBoxRemeber";
             this.checkBoxRemeber.Size = new System.Drawing.Size(138, 28);
