@@ -130,15 +130,5 @@ namespace FinalTest
             mFormModeSwitch.StartPosition = FormStartPosition.CenterParent;
             mFormModeSwitch.ShowDialog();
         }
-
-        /***********************************************************************************************
-        * 方法名称: buttonSPO2SetCancel_Click 
-        * 功能说明: 取消按钮按下
-        * 注    意: 
-        ***********************************************************************************************/
-        private void buttonSPO2SetCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }

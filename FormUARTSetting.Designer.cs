@@ -29,6 +29,7 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUARTSetting));
             this.buttonUARTSetOpen = new System.Windows.Forms.Button();
             this.comboBoxUARTParity = new System.Windows.Forms.ComboBox();
             this.labelUARTParity = new System.Windows.Forms.Label();
@@ -40,11 +41,13 @@ namespace FinalTest
             this.labelUARTBaudRate = new System.Windows.Forms.Label();
             this.comboBoxUARTPortNum = new System.Windows.Forms.ComboBox();
             this.labelUARTPortNum = new System.Windows.Forms.Label();
+            this.pictureBoxUARTSts = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUARTSts)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonUARTSetOpen
             // 
-            this.buttonUARTSetOpen.Location = new System.Drawing.Point(137, 430);
+            this.buttonUARTSetOpen.Location = new System.Drawing.Point(59, 432);
             this.buttonUARTSetOpen.Margin = new System.Windows.Forms.Padding(8);
             this.buttonUARTSetOpen.Name = "buttonUARTSetOpen";
             this.buttonUARTSetOpen.Size = new System.Drawing.Size(212, 82);
@@ -173,11 +176,22 @@ namespace FinalTest
             this.labelUARTPortNum.TabIndex = 63;
             this.labelUARTPortNum.Text = "串口号：";
             // 
-            // UARTSetting
+            // pictureBoxUARTSts
+            // 
+            this.pictureBoxUARTSts.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxUARTSts.Image")));
+            this.pictureBoxUARTSts.Location = new System.Drawing.Point(298, 432);
+            this.pictureBoxUARTSts.Name = "pictureBoxUARTSts";
+            this.pictureBoxUARTSts.Size = new System.Drawing.Size(150, 82);
+            this.pictureBoxUARTSts.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxUARTSts.TabIndex = 74;
+            this.pictureBoxUARTSts.TabStop = false;
+            // 
+            // FormUARTSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(483, 545);
+            this.Controls.Add(this.pictureBoxUARTSts);
             this.Controls.Add(this.buttonUARTSetOpen);
             this.Controls.Add(this.comboBoxUARTParity);
             this.Controls.Add(this.labelUARTParity);
@@ -189,8 +203,10 @@ namespace FinalTest
             this.Controls.Add(this.labelUARTBaudRate);
             this.Controls.Add(this.comboBoxUARTPortNum);
             this.Controls.Add(this.labelUARTPortNum);
-            this.Name = "UARTSetting";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormUARTSetting";
             this.Text = "串口设置";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUARTSts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +224,6 @@ namespace FinalTest
         private System.Windows.Forms.Label labelUARTBaudRate;
         private System.Windows.Forms.ComboBox comboBoxUARTPortNum;
         private System.Windows.Forms.Label labelUARTPortNum;
+        private System.Windows.Forms.PictureBox pictureBoxUARTSts;
     }
 }

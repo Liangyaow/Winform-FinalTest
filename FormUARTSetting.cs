@@ -15,7 +15,9 @@
 *******************************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
+
 
 namespace FinalTest
 {
@@ -91,10 +93,12 @@ namespace FinalTest
             if (mUARTInfo.isOpened)
             {
                 buttonUARTSetOpen.Text = "关闭串口";
+                pictureBoxUARTSts.Image = Image.FromFile(@"图片\On.png");
             }
             else
             {
                 buttonUARTSetOpen.Text = "打开串口";
+                pictureBoxUARTSts.Image = Image.FromFile(@"图片\OFF.png");
             }
         }
 

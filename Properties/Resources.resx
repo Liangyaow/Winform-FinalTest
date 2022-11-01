@@ -124,4 +124,28 @@
   <data name="GDMU-tuya" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\图片\GDMU-tuya.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BPFunc-tuya" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\BPFunc-tuya.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GDMU1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\GDMU.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GDMU-tuya1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\GDMU-tuya.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\OFF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ON" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\ON.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Resp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\Resp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RespFunc-tuya" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\RespFunc-tuya.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SPO2Func-tuya" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\图片\SPO2Func-tuya.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -30,6 +30,7 @@ namespace FinalTest
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonToNIBP = new System.Windows.Forms.Button();
             this.buttonToResp = new System.Windows.Forms.Button();
             this.buttonToSPO2 = new System.Windows.Forms.Button();
@@ -46,13 +47,19 @@ namespace FinalTest
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelUART = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonToNIBP
             // 
-            this.buttonToNIBP.Location = new System.Drawing.Point(143, 161);
+            this.buttonToNIBP.Location = new System.Drawing.Point(29, 159);
             this.buttonToNIBP.Name = "buttonToNIBP";
             this.buttonToNIBP.Size = new System.Drawing.Size(364, 145);
             this.buttonToNIBP.TabIndex = 0;
@@ -62,7 +69,7 @@ namespace FinalTest
             // 
             // buttonToResp
             // 
-            this.buttonToResp.Location = new System.Drawing.Point(143, 344);
+            this.buttonToResp.Location = new System.Drawing.Point(29, 342);
             this.buttonToResp.Name = "buttonToResp";
             this.buttonToResp.Size = new System.Drawing.Size(364, 145);
             this.buttonToResp.TabIndex = 1;
@@ -72,7 +79,7 @@ namespace FinalTest
             // 
             // buttonToSPO2
             // 
-            this.buttonToSPO2.Location = new System.Drawing.Point(143, 527);
+            this.buttonToSPO2.Location = new System.Drawing.Point(29, 525);
             this.buttonToSPO2.Name = "buttonToSPO2";
             this.buttonToSPO2.Size = new System.Drawing.Size(364, 145);
             this.buttonToSPO2.TabIndex = 2;
@@ -82,7 +89,6 @@ namespace FinalTest
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemUART,
@@ -153,9 +159,9 @@ namespace FinalTest
             this.labelAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelAccount.Location = new System.Drawing.Point(96, 48);
             this.labelAccount.Name = "labelAccount";
-            this.labelAccount.Size = new System.Drawing.Size(46, 24);
+            this.labelAccount.Size = new System.Drawing.Size(106, 24);
             this.labelAccount.TabIndex = 6;
-            this.labelAccount.Text = "111";
+            this.labelAccount.Text = "Username";
             // 
             // labelTime
             // 
@@ -187,12 +193,45 @@ namespace FinalTest
             this.toolStripStatusLabelUART.Size = new System.Drawing.Size(110, 31);
             this.toolStripStatusLabelUART.Text = "串口关闭";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::FinalTest.Properties.Resources.BPFunc_tuya;
+            this.pictureBox1.Location = new System.Drawing.Point(416, 159);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(160, 145);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::FinalTest.Properties.Resources.RespFunc_tuya;
+            this.pictureBox2.Location = new System.Drawing.Point(416, 342);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(160, 145);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::FinalTest.Properties.Resources.SPO2Func_tuya;
+            this.pictureBox3.Location = new System.Drawing.Point(416, 525);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(160, 145);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 11;
+            this.pictureBox3.TabStop = false;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(657, 783);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelTime);
             this.Controls.Add(this.labelAccount);
@@ -202,14 +241,19 @@ namespace FinalTest
             this.Controls.Add(this.buttonToResp);
             this.Controls.Add(this.buttonToNIBP);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormMain";
+            this.Text = "健康监控系统";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +277,8 @@ namespace FinalTest
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelUART;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemStoreSetting;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

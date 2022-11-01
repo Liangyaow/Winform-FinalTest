@@ -29,6 +29,7 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormStoreSetting));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbxSaveFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -145,7 +146,7 @@ namespace FinalTest
             this.buttonStartStore.Text = "确定";
             this.buttonStartStore.UseVisualStyleBackColor = true;
             // 
-            // StoreSettingForm
+            // FormStoreSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -153,7 +154,8 @@ namespace FinalTest
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonStoreDataCancel);
             this.Controls.Add(this.buttonStartStore);
-            this.Name = "StoreSettingForm";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormStoreSetting";
             this.Text = "存储设置";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

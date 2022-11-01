@@ -32,29 +32,27 @@ namespace FinalTest
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormResp));
             this.labelRespRR = new System.Windows.Forms.Label();
             this.labelRespBPM = new System.Windows.Forms.Label();
-            this.labelRespCN = new System.Windows.Forms.Label();
-            this.buttonRespSet = new System.Windows.Forms.Button();
             this.buttonRespSetOK = new System.Windows.Forms.Button();
             this.comboBoxRespGainSet = new System.Windows.Forms.ComboBox();
             this.labelRespGainSet = new System.Windows.Forms.Label();
-            this.buttonRespSetCancel = new System.Windows.Forms.Button();
-            this.dataGridViewResp = new System.Windows.Forms.DataGridView();
-            this.buttonRespSetup = new System.Windows.Forms.Button();
             this.toolStripModeSwitch = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelRespModeSwitch = new System.Windows.Forms.ToolStripLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResp)).BeginInit();
+            this.labelRespCN = new System.Windows.Forms.Label();
+            this.dataGridViewResp = new System.Windows.Forms.DataGridView();
             this.toolStripModeSwitch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResp)).BeginInit();
             this.SuspendLayout();
             // 
             // labelRespRR
             // 
             this.labelRespRR.AutoSize = true;
-            this.labelRespRR.BackColor = System.Drawing.Color.Black;
+            this.labelRespRR.BackColor = System.Drawing.Color.Transparent;
             this.labelRespRR.Font = new System.Drawing.Font("宋体", 30F);
-            this.labelRespRR.ForeColor = System.Drawing.Color.Yellow;
-            this.labelRespRR.Location = new System.Drawing.Point(257, 220);
+            this.labelRespRR.ForeColor = System.Drawing.Color.Black;
+            this.labelRespRR.Location = new System.Drawing.Point(199, 102);
             this.labelRespRR.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelRespRR.Name = "labelRespRR";
             this.labelRespRR.Size = new System.Drawing.Size(114, 80);
@@ -64,44 +62,19 @@ namespace FinalTest
             // labelRespBPM
             // 
             this.labelRespBPM.AutoSize = true;
-            this.labelRespBPM.BackColor = System.Drawing.Color.Black;
+            this.labelRespBPM.BackColor = System.Drawing.Color.Transparent;
             this.labelRespBPM.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelRespBPM.ForeColor = System.Drawing.Color.Yellow;
-            this.labelRespBPM.Location = new System.Drawing.Point(349, 115);
+            this.labelRespBPM.ForeColor = System.Drawing.Color.Black;
+            this.labelRespBPM.Location = new System.Drawing.Point(417, 84);
             this.labelRespBPM.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelRespBPM.Name = "labelRespBPM";
             this.labelRespBPM.Size = new System.Drawing.Size(63, 33);
             this.labelRespBPM.TabIndex = 247;
             this.labelRespBPM.Text = "bpm";
             // 
-            // labelRespCN
-            // 
-            this.labelRespCN.AutoSize = true;
-            this.labelRespCN.BackColor = System.Drawing.Color.Black;
-            this.labelRespCN.Font = new System.Drawing.Font("宋体", 14F);
-            this.labelRespCN.ForeColor = System.Drawing.Color.Yellow;
-            this.labelRespCN.Location = new System.Drawing.Point(229, 115);
-            this.labelRespCN.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelRespCN.Name = "labelRespCN";
-            this.labelRespCN.Size = new System.Drawing.Size(93, 38);
-            this.labelRespCN.TabIndex = 246;
-            this.labelRespCN.Text = "呼吸";
-            // 
-            // buttonRespSet
-            // 
-            this.buttonRespSet.BackColor = System.Drawing.Color.Black;
-            this.buttonRespSet.Font = new System.Drawing.Font("宋体", 20F);
-            this.buttonRespSet.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonRespSet.Location = new System.Drawing.Point(203, 86);
-            this.buttonRespSet.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
-            this.buttonRespSet.Name = "buttonRespSet";
-            this.buttonRespSet.Size = new System.Drawing.Size(230, 302);
-            this.buttonRespSet.TabIndex = 245;
-            this.buttonRespSet.UseVisualStyleBackColor = false;
-            // 
             // buttonRespSetOK
             // 
-            this.buttonRespSetOK.Location = new System.Drawing.Point(588, 243);
+            this.buttonRespSetOK.Location = new System.Drawing.Point(398, 195);
             this.buttonRespSetOK.Margin = new System.Windows.Forms.Padding(6);
             this.buttonRespSetOK.Name = "buttonRespSetOK";
             this.buttonRespSetOK.Size = new System.Drawing.Size(106, 40);
@@ -120,7 +93,7 @@ namespace FinalTest
             "X1",
             "X2",
             "X4"});
-            this.comboBoxRespGainSet.Location = new System.Drawing.Point(746, 169);
+            this.comboBoxRespGainSet.Location = new System.Drawing.Point(171, 226);
             this.comboBoxRespGainSet.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxRespGainSet.Name = "comboBoxRespGainSet";
             this.comboBoxRespGainSet.Size = new System.Drawing.Size(142, 32);
@@ -129,27 +102,47 @@ namespace FinalTest
             // labelRespGainSet
             // 
             this.labelRespGainSet.AutoSize = true;
-            this.labelRespGainSet.Location = new System.Drawing.Point(588, 176);
+            this.labelRespGainSet.Location = new System.Drawing.Point(13, 230);
             this.labelRespGainSet.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelRespGainSet.Name = "labelRespGainSet";
             this.labelRespGainSet.Size = new System.Drawing.Size(106, 24);
             this.labelRespGainSet.TabIndex = 249;
             this.labelRespGainSet.Text = "增益设置";
             // 
-            // buttonRespSetCancel
+            // toolStripModeSwitch
             // 
-            this.buttonRespSetCancel.Location = new System.Drawing.Point(746, 243);
-            this.buttonRespSetCancel.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonRespSetCancel.Name = "buttonRespSetCancel";
-            this.buttonRespSetCancel.Size = new System.Drawing.Size(100, 40);
-            this.buttonRespSetCancel.TabIndex = 252;
-            this.buttonRespSetCancel.Text = "取消";
-            this.buttonRespSetCancel.UseVisualStyleBackColor = true;
-            this.buttonRespSetCancel.Click += new System.EventHandler(this.buttonRespSetCancel_Click);
+            this.toolStripModeSwitch.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStripModeSwitch.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabelRespModeSwitch});
+            this.toolStripModeSwitch.Location = new System.Drawing.Point(0, 0);
+            this.toolStripModeSwitch.Name = "toolStripModeSwitch";
+            this.toolStripModeSwitch.Size = new System.Drawing.Size(2564, 37);
+            this.toolStripModeSwitch.TabIndex = 255;
+            this.toolStripModeSwitch.Text = "模式切换";
+            // 
+            // toolStripLabelRespModeSwitch
+            // 
+            this.toolStripLabelRespModeSwitch.Name = "toolStripLabelRespModeSwitch";
+            this.toolStripLabelRespModeSwitch.Size = new System.Drawing.Size(110, 31);
+            this.toolStripLabelRespModeSwitch.Text = "模式切换";
+            this.toolStripLabelRespModeSwitch.Click += new System.EventHandler(this.toolStripLabelRespModeSwitch_Click);
+            // 
+            // labelRespCN
+            // 
+            this.labelRespCN.AutoSize = true;
+            this.labelRespCN.BackColor = System.Drawing.Color.Transparent;
+            this.labelRespCN.Font = new System.Drawing.Font("宋体", 14F);
+            this.labelRespCN.ForeColor = System.Drawing.Color.Black;
+            this.labelRespCN.Location = new System.Drawing.Point(13, 117);
+            this.labelRespCN.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelRespCN.Name = "labelRespCN";
+            this.labelRespCN.Size = new System.Drawing.Size(169, 38);
+            this.labelRespCN.TabIndex = 246;
+            this.labelRespCN.Text = "呼吸频率";
             // 
             // dataGridViewResp
             // 
-            this.dataGridViewResp.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewResp.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -167,7 +160,7 @@ namespace FinalTest
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewResp.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewResp.Location = new System.Drawing.Point(26, 516);
+            this.dataGridViewResp.Location = new System.Drawing.Point(353, 60);
             this.dataGridViewResp.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridViewResp.Name = "dataGridViewResp";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -183,63 +176,27 @@ namespace FinalTest
             this.dataGridViewResp.Size = new System.Drawing.Size(2160, 270);
             this.dataGridViewResp.TabIndex = 254;
             // 
-            // buttonRespSetup
-            // 
-            this.buttonRespSetup.BackColor = System.Drawing.Color.Black;
-            this.buttonRespSetup.FlatAppearance.BorderSize = 0;
-            this.buttonRespSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRespSetup.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonRespSetup.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonRespSetup.Location = new System.Drawing.Point(26, 479);
-            this.buttonRespSetup.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonRespSetup.Name = "buttonRespSetup";
-            this.buttonRespSetup.Size = new System.Drawing.Size(2160, 40);
-            this.buttonRespSetup.TabIndex = 253;
-            this.buttonRespSetup.Text = "Resp";
-            this.buttonRespSetup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRespSetup.UseVisualStyleBackColor = false;
-            // 
-            // toolStripModeSwitch
-            // 
-            this.toolStripModeSwitch.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.toolStripModeSwitch.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabelRespModeSwitch});
-            this.toolStripModeSwitch.Location = new System.Drawing.Point(0, 0);
-            this.toolStripModeSwitch.Name = "toolStripModeSwitch";
-            this.toolStripModeSwitch.Size = new System.Drawing.Size(2207, 38);
-            this.toolStripModeSwitch.TabIndex = 255;
-            this.toolStripModeSwitch.Text = "模式切换";
-            // 
-            // toolStripLabelRespModeSwitch
-            // 
-            this.toolStripLabelRespModeSwitch.Name = "toolStripLabelRespModeSwitch";
-            this.toolStripLabelRespModeSwitch.Size = new System.Drawing.Size(110, 32);
-            this.toolStripLabelRespModeSwitch.Text = "模式切换";
-            this.toolStripLabelRespModeSwitch.Click += new System.EventHandler(this.toolStripLabelRespModeSwitch_Click);
-            // 
             // FormResp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(2207, 813);
+            this.ClientSize = new System.Drawing.Size(2564, 385);
             this.Controls.Add(this.toolStripModeSwitch);
             this.Controls.Add(this.dataGridViewResp);
-            this.Controls.Add(this.buttonRespSetup);
             this.Controls.Add(this.buttonRespSetOK);
             this.Controls.Add(this.comboBoxRespGainSet);
             this.Controls.Add(this.labelRespGainSet);
-            this.Controls.Add(this.buttonRespSetCancel);
             this.Controls.Add(this.labelRespRR);
             this.Controls.Add(this.labelRespBPM);
             this.Controls.Add(this.labelRespCN);
-            this.Controls.Add(this.buttonRespSet);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormResp";
             this.Text = "呼吸";
             this.Load += new System.EventHandler(this.RespForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResp)).EndInit();
             this.toolStripModeSwitch.ResumeLayout(false);
             this.toolStripModeSwitch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,15 +206,12 @@ namespace FinalTest
 
         private System.Windows.Forms.Label labelRespRR;
         private System.Windows.Forms.Label labelRespBPM;
-        private System.Windows.Forms.Label labelRespCN;
-        private System.Windows.Forms.Button buttonRespSet;
         private System.Windows.Forms.Button buttonRespSetOK;
         private System.Windows.Forms.ComboBox comboBoxRespGainSet;
         private System.Windows.Forms.Label labelRespGainSet;
-        private System.Windows.Forms.Button buttonRespSetCancel;
-        private System.Windows.Forms.DataGridView dataGridViewResp;
-        private System.Windows.Forms.Button buttonRespSetup;
         private System.Windows.Forms.ToolStrip toolStripModeSwitch;
         private System.Windows.Forms.ToolStripLabel toolStripLabelRespModeSwitch;
+        private System.Windows.Forms.Label labelRespCN;
+        private System.Windows.Forms.DataGridView dataGridViewResp;
     }
 }

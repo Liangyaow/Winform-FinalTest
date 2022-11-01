@@ -21,7 +21,7 @@ namespace FinalTest
         public const int PACK_QUEUE_CNT = 2000;    //缓冲的长度
 
         public const int WAVE_X_SIZE = 1080;       //绘制波形区域的长，如果绘图区域长度更改，更改此值       
-        public const int WAVE_Y_SIZE = 135;        //绘制波形区域的宽，如果绘图区域宽度更改，更改此值 
+        public const int WAVE_Y_SIZE = 130;        //绘制波形区域的宽，如果绘图区域宽度更改，更改此值 
 
         //引入动态链接库，保存串口的配置信息
         [DllImport("kernel32")]
@@ -63,13 +63,13 @@ namespace FinalTest
         //呼吸
         private string mRespGainSet = "X1";                          //呼吸增益设置
         private List<ushort> mRespWaveList = new List<ushort>();     //线性链表，内容为Resp的波形数据
-        private Pen mRespWavePen = new Pen(Color.Yellow, 1);         //Resp波形画笔
+        private Pen mRespWavePen = new Pen(Color.Blue, 1);         //Resp波形画笔
         private float mRespXStep = 0.0F;                             //Resp横坐标
 
         //血氧
         private string mSPO2SensSet = "中";                          //血氧灵敏度设置
         private List<ushort> mSPO2WaveList = new List<ushort>();     //线性链表，内容为血氧的波形数据
-        private Pen mSPO2WavePen = new Pen(Color.Cyan, 1);           //SPO2波形画笔
+        private Pen mSPO2WavePen = new Pen(Color.Red, 1);           //SPO2波形画笔
         private float mSPO2XStep = 0.0F;                             //SPO2横坐标
 
 
@@ -296,7 +296,6 @@ namespace FinalTest
                         mProcLoadDataTask = null;
                     }
                 }
-
             }
             else
             {
@@ -660,7 +659,7 @@ namespace FinalTest
                     }
                     else
                     {
-                        mFormSPO2.LabelSPO2FingerOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2FingerOffForeColor = Color.Black;
                         mFormSPO2.LabelSPO2FingerOffText = "手指连接";
                     }
                     if (sensorLead == 0x01)
@@ -670,7 +669,7 @@ namespace FinalTest
                     }
                     else
                     {
-                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.Black;
                         mFormSPO2.LabelSPO2PrbOffText = "探头连接";
                     }
 
@@ -678,7 +677,7 @@ namespace FinalTest
                     {
                         mFormSPO2.LabelSPO2PRText = "75";
                         mFormSPO2.LabelSPO2DataText = "96";
-                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.FromArgb(0, 255, 255);
+                        mFormSPO2.LabelSPO2PrbOffForeColor = Color.Black;
                         mFormSPO2.LabelSPO2PrbOffText = "手指连接";
                     }
                     break;
@@ -725,17 +724,17 @@ namespace FinalTest
             //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
             Graphics graphics = Graphics.FromHwnd(mFormResp.DataGridViewResp.Handle);
 
-            Brush br = new SolidBrush(Color.Black);      //给绘制波形区域刷成黑色 
+            Brush br = new SolidBrush(Color.White);      //给绘制波形区域刷成白色 
 
             //当要画的点数大于画布剩余长度时，就要把画布的剩余长度画完，然后在起始处将剩余的数据画完
             if (iCnt > WAVE_X_SIZE - mRespXStep)
             {
                 //指定的位置(左上角x坐标和y坐标)和大小(width和height)
-                Rectangle rct = new Rectangle((int)mRespXStep, 0, (int)(WAVE_X_SIZE - mRespXStep), WAVE_Y_SIZE);
+                Rectangle rct = new Rectangle((int)mRespXStep, 3, (int)(WAVE_X_SIZE - mRespXStep), WAVE_Y_SIZE);
 
                 //用指定画笔填充指定区域
                 graphics.FillRectangle(br, rct);
-                rct = new Rectangle(0, 0, 10 + (int)(iCnt + mRespXStep - WAVE_X_SIZE), WAVE_Y_SIZE);
+                rct = new Rectangle(0, 3, 10 + (int)(iCnt + mRespXStep - WAVE_X_SIZE), WAVE_Y_SIZE);
                 graphics.FillRectangle(br, rct);
             }
             else
@@ -745,7 +744,7 @@ namespace FinalTest
                 {
                     xEnd = (int)(WAVE_X_SIZE - mRespXStep);
                 }
-                Rectangle rct = new Rectangle((int)mRespXStep, 0, xEnd, WAVE_Y_SIZE);
+                Rectangle rct = new Rectangle((int)mRespXStep, 3, xEnd, WAVE_Y_SIZE);
                 graphics.FillRectangle(br, rct);
             }
 
@@ -784,14 +783,14 @@ namespace FinalTest
             //通过窗口句柄创建一个Graphics对象,用于后面的绘图操作
             Graphics graphics = Graphics.FromHwnd(mFormSPO2.DataGridViewSPO2.Handle);
 
-            Brush br = new SolidBrush(Color.Black);  //给绘制波形区域刷成黑色 
+            Brush br = new SolidBrush(Color.White);  //给绘制波形区域刷成白色 
 
             //当要画的点数大于画布剩余长度时，就要把画布的剩余长度画完，然后在起始处将剩余的数据画完
             if (iCnt > WAVE_X_SIZE - mSPO2XStep)
             {
-                Rectangle rct = new Rectangle((int)mSPO2XStep, 0, (int)(WAVE_X_SIZE - mSPO2XStep), WAVE_Y_SIZE);
+                Rectangle rct = new Rectangle((int)mSPO2XStep, 3, (int)(WAVE_X_SIZE - mSPO2XStep), WAVE_Y_SIZE);
                 graphics.FillRectangle(br, rct);
-                rct = new Rectangle(0, 0, 10 + (int)(iCnt + mSPO2XStep - WAVE_X_SIZE), WAVE_Y_SIZE);
+                rct = new Rectangle(0, 3, 10 + (int)(iCnt + mSPO2XStep - WAVE_X_SIZE), WAVE_Y_SIZE);
                 graphics.FillRectangle(br, rct);
             }
             else
@@ -802,7 +801,7 @@ namespace FinalTest
                     xEnd = (int)(WAVE_X_SIZE - mSPO2XStep);
                 }
 
-                Rectangle rct = new Rectangle((int)mSPO2XStep, 0, xEnd, WAVE_Y_SIZE);
+                Rectangle rct = new Rectangle((int)mSPO2XStep, 3, xEnd, WAVE_Y_SIZE);
                 graphics.FillRectangle(br, rct);
             }
 

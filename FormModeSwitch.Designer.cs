@@ -29,6 +29,7 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormModeSwitch));
             this.rbDisplayData = new System.Windows.Forms.RadioButton();
             this.rbLoadData = new System.Windows.Forms.RadioButton();
             this.rbRealData = new System.Windows.Forms.RadioButton();
@@ -149,8 +150,9 @@ namespace FinalTest
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormModeSwitch";
-            this.Text = "模式切换";
+            this.Text = "模式设置";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

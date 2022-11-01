@@ -29,6 +29,7 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRegister));
             this.buttonRegister = new System.Windows.Forms.Button();
             this.labelBackToLogin = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -144,6 +145,7 @@ namespace FinalTest
             this.Controls.Add(this.textBoxAccount);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormRegister";
             this.Text = "注册";
             this.ResumeLayout(false);

@@ -89,7 +89,6 @@ namespace FinalTest
                 return;
             }
 
-            labelNIBPMeasMode.Text = comboBoxNIBPMeasMode.Text;
 
             List<byte> dataLst = new List<byte>();
             byte data = (byte)(measMode);

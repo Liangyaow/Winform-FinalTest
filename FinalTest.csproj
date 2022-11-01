@@ -208,5 +208,23 @@
   <ItemGroup>
     <None Include="bin\Debug\图片\GDMU-tuya.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\BPFunc-tuya.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\OFF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\ON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\Resp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\RespFunc-tuya.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\图片\SPO2Func-tuya.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

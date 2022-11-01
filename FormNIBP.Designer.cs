@@ -29,16 +29,13 @@ namespace FinalTest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormNIBP));
             this.labelNIBPCufPre = new System.Windows.Forms.Label();
-            this.labelNIBPSlash = new System.Windows.Forms.Label();
             this.labelNIBPSys = new System.Windows.Forms.Label();
             this.labelNIBPDia = new System.Windows.Forms.Label();
             this.labelNIBPBPM = new System.Windows.Forms.Label();
             this.labelNIBPPR = new System.Windows.Forms.Label();
-            this.labelNIBPMeasMode = new System.Windows.Forms.Label();
             this.labelNIBPmmHg = new System.Windows.Forms.Label();
-            this.labelNIBPCN = new System.Windows.Forms.Label();
-            this.buttonNIBPSet = new System.Windows.Forms.Button();
             this.comboBoxNIBPMeasMode = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonNIBPStopMeas = new System.Windows.Forms.Button();
@@ -47,50 +44,41 @@ namespace FinalTest
             this.buttonNIBPCheckLeak = new System.Windows.Forms.Button();
             this.buttonNIBPRst = new System.Windows.Forms.Button();
             this.buttonNIBPFirstPressure = new System.Windows.Forms.Button();
-            this.buttonNIBPSetCancel = new System.Windows.Forms.Button();
             this.buttonNIBPSetOK = new System.Windows.Forms.Button();
             this.labelNIBPMean = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelNIBPModeSwitch = new System.Windows.Forms.ToolStripLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelNIBPCufPre
             // 
             this.labelNIBPCufPre.AutoSize = true;
-            this.labelNIBPCufPre.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPCufPre.Font = new System.Drawing.Font("宋体", 15F);
-            this.labelNIBPCufPre.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPCufPre.Location = new System.Drawing.Point(114, 220);
+            this.labelNIBPCufPre.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPCufPre.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPCufPre.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPCufPre.Location = new System.Drawing.Point(276, 131);
             this.labelNIBPCufPre.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPCufPre.Name = "labelNIBPCufPre";
-            this.labelNIBPCufPre.Size = new System.Drawing.Size(77, 40);
+            this.labelNIBPCufPre.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPCufPre.TabIndex = 243;
             this.labelNIBPCufPre.Text = "---";
-            // 
-            // labelNIBPSlash
-            // 
-            this.labelNIBPSlash.AutoSize = true;
-            this.labelNIBPSlash.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPSlash.Font = new System.Drawing.Font("宋体", 25F);
-            this.labelNIBPSlash.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPSlash.Location = new System.Drawing.Point(332, 270);
-            this.labelNIBPSlash.Margin = new System.Windows.Forms.Padding(0);
-            this.labelNIBPSlash.Name = "labelNIBPSlash";
-            this.labelNIBPSlash.Size = new System.Drawing.Size(63, 67);
-            this.labelNIBPSlash.TabIndex = 241;
-            this.labelNIBPSlash.Text = "/";
             // 
             // labelNIBPSys
             // 
             this.labelNIBPSys.AutoSize = true;
-            this.labelNIBPSys.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPSys.Font = new System.Drawing.Font("宋体", 22F);
-            this.labelNIBPSys.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPSys.Location = new System.Drawing.Point(196, 276);
+            this.labelNIBPSys.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPSys.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPSys.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPSys.Location = new System.Drawing.Point(276, 300);
             this.labelNIBPSys.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPSys.Name = "labelNIBPSys";
-            this.labelNIBPSys.Size = new System.Drawing.Size(115, 59);
+            this.labelNIBPSys.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPSys.TabIndex = 242;
             this.labelNIBPSys.Text = "---";
             this.labelNIBPSys.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -98,13 +86,13 @@ namespace FinalTest
             // labelNIBPDia
             // 
             this.labelNIBPDia.AutoSize = true;
-            this.labelNIBPDia.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPDia.Font = new System.Drawing.Font("宋体", 22F);
-            this.labelNIBPDia.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPDia.Location = new System.Drawing.Point(398, 276);
+            this.labelNIBPDia.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPDia.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPDia.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPDia.Location = new System.Drawing.Point(276, 388);
             this.labelNIBPDia.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPDia.Name = "labelNIBPDia";
-            this.labelNIBPDia.Size = new System.Drawing.Size(115, 59);
+            this.labelNIBPDia.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPDia.TabIndex = 237;
             this.labelNIBPDia.Text = "---";
             this.labelNIBPDia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -112,78 +100,41 @@ namespace FinalTest
             // labelNIBPBPM
             // 
             this.labelNIBPBPM.AutoSize = true;
-            this.labelNIBPBPM.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPBPM.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelNIBPBPM.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPBPM.Location = new System.Drawing.Point(364, 398);
+            this.labelNIBPBPM.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPBPM.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPBPM.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPBPM.Location = new System.Drawing.Point(527, 191);
             this.labelNIBPBPM.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPBPM.Name = "labelNIBPBPM";
-            this.labelNIBPBPM.Size = new System.Drawing.Size(63, 33);
+            this.labelNIBPBPM.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPBPM.TabIndex = 240;
             this.labelNIBPBPM.Text = "bpm";
             // 
             // labelNIBPPR
             // 
             this.labelNIBPPR.AutoSize = true;
-            this.labelNIBPPR.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPPR.Font = new System.Drawing.Font("宋体", 15F);
-            this.labelNIBPPR.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPPR.Location = new System.Drawing.Point(276, 388);
+            this.labelNIBPPR.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPPR.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPPR.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPPR.Location = new System.Drawing.Point(527, 250);
             this.labelNIBPPR.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPPR.Name = "labelNIBPPR";
-            this.labelNIBPPR.Size = new System.Drawing.Size(77, 40);
+            this.labelNIBPPR.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPPR.TabIndex = 239;
             this.labelNIBPPR.Text = "---";
-            // 
-            // labelNIBPMeasMode
-            // 
-            this.labelNIBPMeasMode.AutoSize = true;
-            this.labelNIBPMeasMode.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPMeasMode.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelNIBPMeasMode.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPMeasMode.Location = new System.Drawing.Point(110, 398);
-            this.labelNIBPMeasMode.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelNIBPMeasMode.Name = "labelNIBPMeasMode";
-            this.labelNIBPMeasMode.Size = new System.Drawing.Size(79, 33);
-            this.labelNIBPMeasMode.TabIndex = 238;
-            this.labelNIBPMeasMode.Text = "手动";
             // 
             // labelNIBPmmHg
             // 
             this.labelNIBPmmHg.AutoSize = true;
-            this.labelNIBPmmHg.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPmmHg.Font = new System.Drawing.Font("宋体", 18F);
-            this.labelNIBPmmHg.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPmmHg.Location = new System.Drawing.Point(400, 148);
+            this.labelNIBPmmHg.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPmmHg.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPmmHg.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPmmHg.Location = new System.Drawing.Point(276, 72);
             this.labelNIBPmmHg.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPmmHg.Name = "labelNIBPmmHg";
-            this.labelNIBPmmHg.Size = new System.Drawing.Size(116, 48);
+            this.labelNIBPmmHg.Size = new System.Drawing.Size(87, 35);
             this.labelNIBPmmHg.TabIndex = 236;
             this.labelNIBPmmHg.Text = "mmHg";
-            // 
-            // labelNIBPCN
-            // 
-            this.labelNIBPCN.AutoSize = true;
-            this.labelNIBPCN.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPCN.Font = new System.Drawing.Font("宋体", 14F);
-            this.labelNIBPCN.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPCN.Location = new System.Drawing.Point(110, 150);
-            this.labelNIBPCN.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.labelNIBPCN.Name = "labelNIBPCN";
-            this.labelNIBPCN.Size = new System.Drawing.Size(169, 38);
-            this.labelNIBPCN.TabIndex = 235;
-            this.labelNIBPCN.Text = "无创血压";
-            // 
-            // buttonNIBPSet
-            // 
-            this.buttonNIBPSet.BackColor = System.Drawing.Color.Black;
-            this.buttonNIBPSet.Location = new System.Drawing.Point(84, 137);
-            this.buttonNIBPSet.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonNIBPSet.Name = "buttonNIBPSet";
-            this.buttonNIBPSet.Size = new System.Drawing.Size(462, 307);
-            this.buttonNIBPSet.TabIndex = 234;
-            this.buttonNIBPSet.Text = "button2";
-            this.buttonNIBPSet.UseVisualStyleBackColor = false;
             // 
             // comboBoxNIBPMeasMode
             // 
@@ -206,7 +157,7 @@ namespace FinalTest
             "180分钟",
             "240分钟",
             "480分钟"});
-            this.comboBoxNIBPMeasMode.Location = new System.Drawing.Point(862, 150);
+            this.comboBoxNIBPMeasMode.Location = new System.Drawing.Point(332, 478);
             this.comboBoxNIBPMeasMode.Margin = new System.Windows.Forms.Padding(8);
             this.comboBoxNIBPMeasMode.Name = "comboBoxNIBPMeasMode";
             this.comboBoxNIBPMeasMode.Size = new System.Drawing.Size(162, 32);
@@ -216,7 +167,7 @@ namespace FinalTest
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(672, 156);
+            this.label1.Location = new System.Drawing.Point(142, 484);
             this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 24);
@@ -225,7 +176,7 @@ namespace FinalTest
             // 
             // buttonNIBPStopMeas
             // 
-            this.buttonNIBPStopMeas.Location = new System.Drawing.Point(862, 220);
+            this.buttonNIBPStopMeas.Location = new System.Drawing.Point(332, 546);
             this.buttonNIBPStopMeas.Margin = new System.Windows.Forms.Padding(6);
             this.buttonNIBPStopMeas.Name = "buttonNIBPStopMeas";
             this.buttonNIBPStopMeas.Size = new System.Drawing.Size(180, 66);
@@ -236,7 +187,7 @@ namespace FinalTest
             // 
             // buttonNIBPStartMeas
             // 
-            this.buttonNIBPStartMeas.Location = new System.Drawing.Point(644, 220);
+            this.buttonNIBPStartMeas.Location = new System.Drawing.Point(114, 546);
             this.buttonNIBPStartMeas.Margin = new System.Windows.Forms.Padding(6);
             this.buttonNIBPStartMeas.Name = "buttonNIBPStartMeas";
             this.buttonNIBPStartMeas.Size = new System.Drawing.Size(180, 66);
@@ -247,7 +198,7 @@ namespace FinalTest
             // 
             // buttonNIBPCalibPressure
             // 
-            this.buttonNIBPCalibPressure.Location = new System.Drawing.Point(862, 380);
+            this.buttonNIBPCalibPressure.Location = new System.Drawing.Point(332, 706);
             this.buttonNIBPCalibPressure.Margin = new System.Windows.Forms.Padding(8);
             this.buttonNIBPCalibPressure.Name = "buttonNIBPCalibPressure";
             this.buttonNIBPCalibPressure.Size = new System.Drawing.Size(180, 61);
@@ -258,7 +209,7 @@ namespace FinalTest
             // 
             // buttonNIBPCheckLeak
             // 
-            this.buttonNIBPCheckLeak.Location = new System.Drawing.Point(644, 380);
+            this.buttonNIBPCheckLeak.Location = new System.Drawing.Point(114, 706);
             this.buttonNIBPCheckLeak.Margin = new System.Windows.Forms.Padding(8);
             this.buttonNIBPCheckLeak.Name = "buttonNIBPCheckLeak";
             this.buttonNIBPCheckLeak.Size = new System.Drawing.Size(180, 61);
@@ -269,7 +220,7 @@ namespace FinalTest
             // 
             // buttonNIBPRst
             // 
-            this.buttonNIBPRst.Location = new System.Drawing.Point(862, 300);
+            this.buttonNIBPRst.Location = new System.Drawing.Point(332, 626);
             this.buttonNIBPRst.Margin = new System.Windows.Forms.Padding(8);
             this.buttonNIBPRst.Name = "buttonNIBPRst";
             this.buttonNIBPRst.Size = new System.Drawing.Size(180, 64);
@@ -280,7 +231,7 @@ namespace FinalTest
             // 
             // buttonNIBPFirstPressure
             // 
-            this.buttonNIBPFirstPressure.Location = new System.Drawing.Point(644, 300);
+            this.buttonNIBPFirstPressure.Location = new System.Drawing.Point(114, 626);
             this.buttonNIBPFirstPressure.Margin = new System.Windows.Forms.Padding(8);
             this.buttonNIBPFirstPressure.Name = "buttonNIBPFirstPressure";
             this.buttonNIBPFirstPressure.Size = new System.Drawing.Size(180, 64);
@@ -288,20 +239,9 @@ namespace FinalTest
             this.buttonNIBPFirstPressure.Text = "初次压力";
             this.buttonNIBPFirstPressure.UseVisualStyleBackColor = true;
             // 
-            // buttonNIBPSetCancel
-            // 
-            this.buttonNIBPSetCancel.Location = new System.Drawing.Point(890, 476);
-            this.buttonNIBPSetCancel.Margin = new System.Windows.Forms.Padding(8);
-            this.buttonNIBPSetCancel.Name = "buttonNIBPSetCancel";
-            this.buttonNIBPSetCancel.Size = new System.Drawing.Size(120, 46);
-            this.buttonNIBPSetCancel.TabIndex = 245;
-            this.buttonNIBPSetCancel.Text = "取消";
-            this.buttonNIBPSetCancel.UseVisualStyleBackColor = true;
-            this.buttonNIBPSetCancel.Click += new System.EventHandler(this.buttonNIBPSetCancel_Click);
-            // 
             // buttonNIBPSetOK
             // 
-            this.buttonNIBPSetOK.Location = new System.Drawing.Point(678, 476);
+            this.buttonNIBPSetOK.Location = new System.Drawing.Point(254, 810);
             this.buttonNIBPSetOK.Margin = new System.Windows.Forms.Padding(8);
             this.buttonNIBPSetOK.Name = "buttonNIBPSetOK";
             this.buttonNIBPSetOK.Size = new System.Drawing.Size(124, 46);
@@ -313,13 +253,13 @@ namespace FinalTest
             // labelNIBPMean
             // 
             this.labelNIBPMean.AutoSize = true;
-            this.labelNIBPMean.BackColor = System.Drawing.Color.Black;
-            this.labelNIBPMean.Font = new System.Drawing.Font("宋体", 15F);
-            this.labelNIBPMean.ForeColor = System.Drawing.Color.Magenta;
-            this.labelNIBPMean.Location = new System.Drawing.Point(436, 220);
+            this.labelNIBPMean.BackColor = System.Drawing.Color.Transparent;
+            this.labelNIBPMean.Font = new System.Drawing.Font("宋体", 13F);
+            this.labelNIBPMean.ForeColor = System.Drawing.Color.Black;
+            this.labelNIBPMean.Location = new System.Drawing.Point(276, 220);
             this.labelNIBPMean.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelNIBPMean.Name = "labelNIBPMean";
-            this.labelNIBPMean.Size = new System.Drawing.Size(77, 40);
+            this.labelNIBPMean.Size = new System.Drawing.Size(69, 35);
             this.labelNIBPMean.TabIndex = 254;
             this.labelNIBPMean.Text = "---";
             // 
@@ -330,22 +270,77 @@ namespace FinalTest
             this.toolStripLabelNIBPModeSwitch});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1142, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(613, 37);
             this.toolStrip1.TabIndex = 255;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabelNIBPModeSwitch
             // 
             this.toolStripLabelNIBPModeSwitch.Name = "toolStripLabelNIBPModeSwitch";
-            this.toolStripLabelNIBPModeSwitch.Size = new System.Drawing.Size(110, 32);
+            this.toolStripLabelNIBPModeSwitch.Size = new System.Drawing.Size(110, 31);
             this.toolStripLabelNIBPModeSwitch.Text = "模式切换";
             this.toolStripLabelNIBPModeSwitch.Click += new System.EventHandler(this.toolStripLabelNIBPModeSwitch_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 13F);
+            this.label2.Location = new System.Drawing.Point(73, 131);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 35);
+            this.label2.TabIndex = 256;
+            this.label2.Text = "袖带压";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("宋体", 13F);
+            this.label3.Location = new System.Drawing.Point(73, 220);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 35);
+            this.label3.TabIndex = 257;
+            this.label3.Text = "平均压";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 13F);
+            this.label4.Location = new System.Drawing.Point(73, 300);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(120, 35);
+            this.label4.TabIndex = 258;
+            this.label4.Text = "收缩压";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 13F);
+            this.label5.Location = new System.Drawing.Point(73, 388);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(120, 35);
+            this.label5.TabIndex = 259;
+            this.label5.Text = "舒张压";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 13F);
+            this.label6.Location = new System.Drawing.Point(404, 250);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 35);
+            this.label6.TabIndex = 260;
+            this.label6.Text = "脉率";
             // 
             // FormNIBP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1142, 648);
+            this.ClientSize = new System.Drawing.Size(613, 952);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.labelNIBPMean);
             this.Controls.Add(this.comboBoxNIBPMeasMode);
@@ -356,18 +351,14 @@ namespace FinalTest
             this.Controls.Add(this.buttonNIBPCheckLeak);
             this.Controls.Add(this.buttonNIBPRst);
             this.Controls.Add(this.buttonNIBPFirstPressure);
-            this.Controls.Add(this.buttonNIBPSetCancel);
             this.Controls.Add(this.buttonNIBPSetOK);
             this.Controls.Add(this.labelNIBPCufPre);
-            this.Controls.Add(this.labelNIBPSlash);
             this.Controls.Add(this.labelNIBPSys);
             this.Controls.Add(this.labelNIBPDia);
             this.Controls.Add(this.labelNIBPBPM);
             this.Controls.Add(this.labelNIBPPR);
-            this.Controls.Add(this.labelNIBPMeasMode);
             this.Controls.Add(this.labelNIBPmmHg);
-            this.Controls.Add(this.labelNIBPCN);
-            this.Controls.Add(this.buttonNIBPSet);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormNIBP";
             this.Text = "血压";
             this.Load += new System.EventHandler(this.NIBPForm_Load);
@@ -381,15 +372,11 @@ namespace FinalTest
         #endregion
 
         private System.Windows.Forms.Label labelNIBPCufPre;
-        private System.Windows.Forms.Label labelNIBPSlash;
         private System.Windows.Forms.Label labelNIBPSys;
         private System.Windows.Forms.Label labelNIBPDia;
         private System.Windows.Forms.Label labelNIBPBPM;
         private System.Windows.Forms.Label labelNIBPPR;
-        private System.Windows.Forms.Label labelNIBPMeasMode;
         private System.Windows.Forms.Label labelNIBPmmHg;
-        private System.Windows.Forms.Label labelNIBPCN;
-        private System.Windows.Forms.Button buttonNIBPSet;
         private System.Windows.Forms.ComboBox comboBoxNIBPMeasMode;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonNIBPStopMeas;
@@ -398,10 +385,14 @@ namespace FinalTest
         private System.Windows.Forms.Button buttonNIBPCheckLeak;
         private System.Windows.Forms.Button buttonNIBPRst;
         private System.Windows.Forms.Button buttonNIBPFirstPressure;
-        private System.Windows.Forms.Button buttonNIBPSetCancel;
         private System.Windows.Forms.Button buttonNIBPSetOK;
         private System.Windows.Forms.Label labelNIBPMean;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelNIBPModeSwitch;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

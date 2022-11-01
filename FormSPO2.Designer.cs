@@ -32,6 +32,7 @@ namespace FinalTest
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSPO2));
             this.labelSPO2PrbOff = new System.Windows.Forms.Label();
             this.labelSPO2FingerOff = new System.Windows.Forms.Label();
             this.label1SPO2PRCN = new System.Windows.Forms.Label();
@@ -39,16 +40,15 @@ namespace FinalTest
             this.labelSPO2Percent = new System.Windows.Forms.Label();
             this.labelSPO2Data = new System.Windows.Forms.Label();
             this.labelSPO2CN = new System.Windows.Forms.Label();
-            this.buttonSPO2Set = new System.Windows.Forms.Button();
             this.labelSPO2BPM = new System.Windows.Forms.Label();
-            this.buttonSPO2SetCancel = new System.Windows.Forms.Button();
             this.buttonSPO2SetOK = new System.Windows.Forms.Button();
             this.comboBoxSPO2Sens = new System.Windows.Forms.ComboBox();
             this.labelSPO2Sens = new System.Windows.Forms.Label();
             this.dataGridViewSPO2 = new System.Windows.Forms.DataGridView();
-            this.buttonSPO2Setup = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabelSPO2ModeSwitch = new System.Windows.Forms.ToolStripLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSPO2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -56,10 +56,10 @@ namespace FinalTest
             // labelSPO2PrbOff
             // 
             this.labelSPO2PrbOff.AutoSize = true;
-            this.labelSPO2PrbOff.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2PrbOff.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelSPO2PrbOff.ForeColor = System.Drawing.Color.Red;
-            this.labelSPO2PrbOff.Location = new System.Drawing.Point(342, 315);
+            this.labelSPO2PrbOff.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2PrbOff.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2PrbOff.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2PrbOff.Location = new System.Drawing.Point(234, 301);
             this.labelSPO2PrbOff.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2PrbOff.Name = "labelSPO2PrbOff";
             this.labelSPO2PrbOff.Size = new System.Drawing.Size(143, 33);
@@ -69,10 +69,10 @@ namespace FinalTest
             // labelSPO2FingerOff
             // 
             this.labelSPO2FingerOff.AutoSize = true;
-            this.labelSPO2FingerOff.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2FingerOff.Font = new System.Drawing.Font("宋体", 12F);
-            this.labelSPO2FingerOff.ForeColor = System.Drawing.Color.Red;
-            this.labelSPO2FingerOff.Location = new System.Drawing.Point(112, 315);
+            this.labelSPO2FingerOff.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2FingerOff.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2FingerOff.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2FingerOff.Location = new System.Drawing.Point(234, 228);
             this.labelSPO2FingerOff.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2FingerOff.Name = "labelSPO2FingerOff";
             this.labelSPO2FingerOff.Size = new System.Drawing.Size(143, 33);
@@ -82,26 +82,26 @@ namespace FinalTest
             // label1SPO2PRCN
             // 
             this.label1SPO2PRCN.AutoSize = true;
-            this.label1SPO2PRCN.BackColor = System.Drawing.Color.Black;
-            this.label1SPO2PRCN.Font = new System.Drawing.Font("宋体", 14F);
-            this.label1SPO2PRCN.ForeColor = System.Drawing.Color.Cyan;
-            this.label1SPO2PRCN.Location = new System.Drawing.Point(326, 99);
+            this.label1SPO2PRCN.BackColor = System.Drawing.Color.Transparent;
+            this.label1SPO2PRCN.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1SPO2PRCN.ForeColor = System.Drawing.Color.Black;
+            this.label1SPO2PRCN.Location = new System.Drawing.Point(19, 156);
             this.label1SPO2PRCN.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1SPO2PRCN.Name = "label1SPO2PRCN";
-            this.label1SPO2PRCN.Size = new System.Drawing.Size(93, 38);
+            this.label1SPO2PRCN.Size = new System.Drawing.Size(79, 33);
             this.label1SPO2PRCN.TabIndex = 247;
             this.label1SPO2PRCN.Text = "脉率";
             // 
             // labelSPO2PR
             // 
             this.labelSPO2PR.AutoSize = true;
-            this.labelSPO2PR.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2PR.Font = new System.Drawing.Font("宋体", 30F);
-            this.labelSPO2PR.ForeColor = System.Drawing.Color.Cyan;
-            this.labelSPO2PR.Location = new System.Drawing.Point(318, 180);
+            this.labelSPO2PR.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2PR.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2PR.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2PR.Location = new System.Drawing.Point(119, 156);
             this.labelSPO2PR.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2PR.Name = "labelSPO2PR";
-            this.labelSPO2PR.Size = new System.Drawing.Size(114, 80);
+            this.labelSPO2PR.Size = new System.Drawing.Size(47, 33);
             this.labelSPO2PR.TabIndex = 246;
             this.labelSPO2PR.Text = "--";
             this.labelSPO2PR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -109,80 +109,58 @@ namespace FinalTest
             // labelSPO2Percent
             // 
             this.labelSPO2Percent.AutoSize = true;
-            this.labelSPO2Percent.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2Percent.Font = new System.Drawing.Font("宋体", 25F);
-            this.labelSPO2Percent.ForeColor = System.Drawing.Color.Cyan;
-            this.labelSPO2Percent.Location = new System.Drawing.Point(228, 188);
+            this.labelSPO2Percent.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2Percent.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2Percent.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2Percent.Location = new System.Drawing.Point(205, 83);
             this.labelSPO2Percent.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2Percent.Name = "labelSPO2Percent";
-            this.labelSPO2Percent.Size = new System.Drawing.Size(63, 67);
+            this.labelSPO2Percent.Size = new System.Drawing.Size(31, 33);
             this.labelSPO2Percent.TabIndex = 245;
             this.labelSPO2Percent.Text = "%";
             // 
             // labelSPO2Data
             // 
             this.labelSPO2Data.AutoSize = true;
-            this.labelSPO2Data.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2Data.Font = new System.Drawing.Font("宋体", 30F);
-            this.labelSPO2Data.ForeColor = System.Drawing.Color.Cyan;
-            this.labelSPO2Data.Location = new System.Drawing.Point(126, 180);
+            this.labelSPO2Data.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2Data.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2Data.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2Data.Location = new System.Drawing.Point(119, 83);
             this.labelSPO2Data.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2Data.Name = "labelSPO2Data";
-            this.labelSPO2Data.Size = new System.Drawing.Size(114, 80);
+            this.labelSPO2Data.Size = new System.Drawing.Size(47, 33);
             this.labelSPO2Data.TabIndex = 244;
             this.labelSPO2Data.Text = "--";
             // 
             // labelSPO2CN
             // 
             this.labelSPO2CN.AutoSize = true;
-            this.labelSPO2CN.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2CN.Font = new System.Drawing.Font("宋体", 14F);
-            this.labelSPO2CN.ForeColor = System.Drawing.Color.Cyan;
-            this.labelSPO2CN.Location = new System.Drawing.Point(136, 99);
+            this.labelSPO2CN.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2CN.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2CN.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2CN.Location = new System.Drawing.Point(19, 83);
             this.labelSPO2CN.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2CN.Name = "labelSPO2CN";
-            this.labelSPO2CN.Size = new System.Drawing.Size(93, 38);
+            this.labelSPO2CN.Size = new System.Drawing.Size(79, 33);
             this.labelSPO2CN.TabIndex = 243;
             this.labelSPO2CN.Text = "血氧";
-            // 
-            // buttonSPO2Set
-            // 
-            this.buttonSPO2Set.BackColor = System.Drawing.Color.Black;
-            this.buttonSPO2Set.Location = new System.Drawing.Point(80, 70);
-            this.buttonSPO2Set.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonSPO2Set.Name = "buttonSPO2Set";
-            this.buttonSPO2Set.Size = new System.Drawing.Size(462, 307);
-            this.buttonSPO2Set.TabIndex = 242;
-            this.buttonSPO2Set.Text = "button3";
-            this.buttonSPO2Set.UseVisualStyleBackColor = false;
             // 
             // labelSPO2BPM
             // 
             this.labelSPO2BPM.AutoSize = true;
-            this.labelSPO2BPM.BackColor = System.Drawing.Color.Black;
-            this.labelSPO2BPM.Font = new System.Drawing.Font("宋体", 20F);
-            this.labelSPO2BPM.ForeColor = System.Drawing.Color.Cyan;
-            this.labelSPO2BPM.Location = new System.Drawing.Point(421, 188);
+            this.labelSPO2BPM.BackColor = System.Drawing.Color.Transparent;
+            this.labelSPO2BPM.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelSPO2BPM.ForeColor = System.Drawing.Color.Black;
+            this.labelSPO2BPM.Location = new System.Drawing.Point(189, 156);
             this.labelSPO2BPM.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2BPM.Name = "labelSPO2BPM";
-            this.labelSPO2BPM.Size = new System.Drawing.Size(104, 54);
+            this.labelSPO2BPM.Size = new System.Drawing.Size(63, 33);
             this.labelSPO2BPM.TabIndex = 250;
             this.labelSPO2BPM.Text = "bpm";
             // 
-            // buttonSPO2SetCancel
-            // 
-            this.buttonSPO2SetCancel.Location = new System.Drawing.Point(836, 277);
-            this.buttonSPO2SetCancel.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonSPO2SetCancel.Name = "buttonSPO2SetCancel";
-            this.buttonSPO2SetCancel.Size = new System.Drawing.Size(116, 48);
-            this.buttonSPO2SetCancel.TabIndex = 254;
-            this.buttonSPO2SetCancel.Text = "取消";
-            this.buttonSPO2SetCancel.UseVisualStyleBackColor = true;
-            this.buttonSPO2SetCancel.Click += new System.EventHandler(this.buttonSPO2SetCancel_Click);
-            // 
             // buttonSPO2SetOK
             // 
-            this.buttonSPO2SetOK.Location = new System.Drawing.Point(660, 277);
+            this.buttonSPO2SetOK.Location = new System.Drawing.Point(389, 368);
             this.buttonSPO2SetOK.Margin = new System.Windows.Forms.Padding(6);
             this.buttonSPO2SetOK.Name = "buttonSPO2SetOK";
             this.buttonSPO2SetOK.Size = new System.Drawing.Size(116, 48);
@@ -199,7 +177,7 @@ namespace FinalTest
             "高",
             "中",
             "低"});
-            this.comboBoxSPO2Sens.Location = new System.Drawing.Point(836, 191);
+            this.comboBoxSPO2Sens.Location = new System.Drawing.Point(195, 377);
             this.comboBoxSPO2Sens.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxSPO2Sens.Name = "comboBoxSPO2Sens";
             this.comboBoxSPO2Sens.Size = new System.Drawing.Size(126, 32);
@@ -208,7 +186,7 @@ namespace FinalTest
             // labelSPO2Sens
             // 
             this.labelSPO2Sens.AutoSize = true;
-            this.labelSPO2Sens.Location = new System.Drawing.Point(644, 197);
+            this.labelSPO2Sens.Location = new System.Drawing.Point(13, 380);
             this.labelSPO2Sens.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelSPO2Sens.Name = "labelSPO2Sens";
             this.labelSPO2Sens.Size = new System.Drawing.Size(154, 24);
@@ -217,7 +195,7 @@ namespace FinalTest
             // 
             // dataGridViewSPO2
             // 
-            this.dataGridViewSPO2.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewSPO2.BackgroundColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -235,7 +213,7 @@ namespace FinalTest
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewSPO2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewSPO2.Location = new System.Drawing.Point(24, 477);
+            this.dataGridViewSPO2.Location = new System.Drawing.Point(389, 64);
             this.dataGridViewSPO2.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridViewSPO2.Name = "dataGridViewSPO2";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -251,22 +229,6 @@ namespace FinalTest
             this.dataGridViewSPO2.Size = new System.Drawing.Size(2160, 270);
             this.dataGridViewSPO2.TabIndex = 256;
             // 
-            // buttonSPO2Setup
-            // 
-            this.buttonSPO2Setup.BackColor = System.Drawing.Color.Black;
-            this.buttonSPO2Setup.FlatAppearance.BorderSize = 0;
-            this.buttonSPO2Setup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSPO2Setup.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonSPO2Setup.ForeColor = System.Drawing.Color.Aqua;
-            this.buttonSPO2Setup.Location = new System.Drawing.Point(24, 440);
-            this.buttonSPO2Setup.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonSPO2Setup.Name = "buttonSPO2Setup";
-            this.buttonSPO2Setup.Size = new System.Drawing.Size(2160, 40);
-            this.buttonSPO2Setup.TabIndex = 255;
-            this.buttonSPO2Setup.Text = "SPO2";
-            this.buttonSPO2Setup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSPO2Setup.UseVisualStyleBackColor = false;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
@@ -274,27 +236,53 @@ namespace FinalTest
             this.toolStripLabelSPO2ModeSwitch});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(2246, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(2564, 37);
             this.toolStrip1.TabIndex = 257;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabelSPO2ModeSwitch
             // 
             this.toolStripLabelSPO2ModeSwitch.Name = "toolStripLabelSPO2ModeSwitch";
-            this.toolStripLabelSPO2ModeSwitch.Size = new System.Drawing.Size(110, 32);
+            this.toolStripLabelSPO2ModeSwitch.Size = new System.Drawing.Size(110, 31);
             this.toolStripLabelSPO2ModeSwitch.Text = "模式切换";
             this.toolStripLabelSPO2ModeSwitch.Click += new System.EventHandler(this.toolStripLabelSPO2ModeSwitch_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(19, 301);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(207, 33);
+            this.label1.TabIndex = 258;
+            this.label1.Text = "探头连接情况";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(19, 228);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(207, 33);
+            this.label2.TabIndex = 259;
+            this.label2.Text = "手指连接情况";
             // 
             // FormSPO2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(2246, 799);
+            this.ClientSize = new System.Drawing.Size(2564, 445);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dataGridViewSPO2);
-            this.Controls.Add(this.buttonSPO2Setup);
-            this.Controls.Add(this.buttonSPO2SetCancel);
             this.Controls.Add(this.buttonSPO2SetOK);
             this.Controls.Add(this.comboBoxSPO2Sens);
             this.Controls.Add(this.labelSPO2Sens);
@@ -306,7 +294,7 @@ namespace FinalTest
             this.Controls.Add(this.labelSPO2Percent);
             this.Controls.Add(this.labelSPO2Data);
             this.Controls.Add(this.labelSPO2CN);
-            this.Controls.Add(this.buttonSPO2Set);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormSPO2";
             this.Text = "血氧";
             this.Load += new System.EventHandler(this.SPO2Form_Load);
@@ -327,15 +315,14 @@ namespace FinalTest
         private System.Windows.Forms.Label labelSPO2Percent;
         private System.Windows.Forms.Label labelSPO2Data;
         private System.Windows.Forms.Label labelSPO2CN;
-        private System.Windows.Forms.Button buttonSPO2Set;
         private System.Windows.Forms.Label labelSPO2BPM;
-        private System.Windows.Forms.Button buttonSPO2SetCancel;
         private System.Windows.Forms.Button buttonSPO2SetOK;
         private System.Windows.Forms.ComboBox comboBoxSPO2Sens;
         private System.Windows.Forms.Label labelSPO2Sens;
         private System.Windows.Forms.DataGridView dataGridViewSPO2;
-        private System.Windows.Forms.Button buttonSPO2Setup;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabelSPO2ModeSwitch;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
